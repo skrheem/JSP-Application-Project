@@ -12,7 +12,7 @@
     String ctxPath = request.getContextPath();
 %>
 <u:isLogin>
-   ${authUser.name }님, 안녕하세요.qweqwe
+   ${authUser.name }님, 안녕하세요.
    <a href="logout.do">[로그아웃하기]</a>
    <a href="changePwd.do">[암호변경하기]</a>
    <a href="<%= ctxPath %>/article/list.do">[게시글 목록 보기]</a>
