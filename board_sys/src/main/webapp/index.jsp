@@ -12,7 +12,7 @@
     String ctxPath = request.getContextPath();
 %>
 <u:isLogin>
-	${authUser.name }님, 안녕하세요. 로컬 브랜치에서 커밋함. + 메인 브랜치에서 커밋함 + 마스터 브랜치에서 추가함
+	${authUser.name }님, 안녕하세요. 로컬 브랜치에서 커밋함. + 메인 브랜치에서 커밋함 + 마스터 브랜치에서 추가함 + 로컬에서 한번 더 추가함
    <a href="logout.do">[로그아웃하기]</a>
    <a href="changePwd.do">[암호변경하기]</a>
    <a href="<%= ctxPath %>/article/list.do">[게시글 목록 보기]</a>
