@@ -10,7 +10,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 
-// 인코딩 방식을 UTF-8로 바꿔주는 필터!
+// 인코딩 방식을 UTF-8로 바꿔주는 필터!!!
 public class CharacterEncodingFilter extends HttpFilter implements Filter {
 
 	private String encoding;
