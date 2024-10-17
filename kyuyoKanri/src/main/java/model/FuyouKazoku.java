@@ -1,7 +1,7 @@
 package model;
 
 public class FuyouKazoku {
-
+//
 	private int kazoku_id;
 	private int shain_id;
 	private String kankei;
