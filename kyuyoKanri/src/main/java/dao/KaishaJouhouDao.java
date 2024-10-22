@@ -21,7 +21,7 @@ public class KaishaJouhouDao {
 	public KaishaJouhouDao(Connection connection) {
 		this.connection = connection;
 	}
-
+//
 	// * 특정 회사 ID로 회사 정보를 조회합니다.
 	// * @param kaishaId 조회할 회사의 ID
 	// * @return 회사 정보가 담긴 KaishaJouhou 객체, 없으면 null 반환
