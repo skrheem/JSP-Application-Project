@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class KyuukaKoumoku {
 	
-	private int kyuukaKoumoku_id;
+	private Integer kyuukaKoumoku_id;
 	private String kyuukaShurui;
 	private Date tekiyouKaishi;
 	private Date tekiyouShuuryou;
 	private char shiyouUmu;
 	
-	public KyuukaKoumoku(int kyuukaKoumoku_id, String kyuukaShurui, Date tekiyouKaishi, Date tekiyouShuuryou,
+	public KyuukaKoumoku(Integer kyuukaKoumoku_id, String kyuukaShurui, Date tekiyouKaishi, Date tekiyouShuuryou,
 			char shiyouUmu) {
 		super();
 		this.kyuukaKoumoku_id = kyuukaKoumoku_id;
@@ -20,10 +20,10 @@ public class KyuukaKoumoku {
 		this.shiyouUmu = shiyouUmu;
 	}
 
-	public int getKyuukaKoumoku_id() {
+	public Integer getKyuukaKoumoku_id() {
 		return kyuukaKoumoku_id;
 	}
-	public void setKyuukaKoumoku_id(int kyuukaKoumoku_id) {
+	public void setKyuukaKoumoku_id(Integer kyuukaKoumoku_id) {
 		this.kyuukaKoumoku_id = kyuukaKoumoku_id;
 	}
 

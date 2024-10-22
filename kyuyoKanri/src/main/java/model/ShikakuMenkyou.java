@@ -4,18 +4,18 @@ import oracle.sql.DATE;
 
 public class ShikakuMenkyou {
 
-	private int shikaku_id;
-	private int shain_id;
+	private Integer shikaku_id;
+	private Integer shain_id;
 	private String shikaku_mei;
 	private DATE shutoku_bi;
 	private String hakkou_kikan;
 	private String shoumei_bangou;
 	private String bikou;
-	public int getShikaku_id() {
+	public Integer getShikaku_id() {
 		return shikaku_id;
 	}
 	
-	public ShikakuMenkyou(int shikaku_id, int shain_id, String shikaku_mei, DATE shutoku_bi, String hakkou_kikan,
+	public ShikakuMenkyou(Integer shikaku_id, Integer shain_id, String shikaku_mei, DATE shutoku_bi, String hakkou_kikan,
 			String shoumei_bangou, String bikou) {
 		super();
 		this.shikaku_id = shikaku_id;
@@ -27,13 +27,13 @@ public class ShikakuMenkyou {
 		this.bikou = bikou;
 	}
 
-	public void setShikaku_id(int shikaku_id) {
+	public void setShikaku_id(Integer shikaku_id) {
 		this.shikaku_id = shikaku_id;
 	}
-	public int getShain_id() {
+	public Integer getShain_id() {
 		return shain_id;
 	}
-	public void setShain_id(int shain_id) {
+	public void setShain_id(Integer shain_id) {
 		this.shain_id = shain_id;
 	}
 	public String getShikaku_mei() {

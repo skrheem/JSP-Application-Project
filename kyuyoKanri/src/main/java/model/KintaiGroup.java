@@ -2,19 +2,19 @@ package model;
 
 public class KintaiGroup {
 
-	private int group_id;
+	private Integer group_id;
 	private String group_name;
 	
-	public KintaiGroup(int group_id, String group_name) {
+	public KintaiGroup(Integer group_id, String group_name) {
 		super();
 		this.group_id = group_id;
 		this.group_name = group_name;
 	}
 
-	public int getGroup_id() {
+	public Integer getGroup_id() {
 		return group_id;
 	}
-	public void setGroup_id(int group_id) {
+	public void setGroup_id(Integer group_id) {
 		this.group_id = group_id;
 	}
 
