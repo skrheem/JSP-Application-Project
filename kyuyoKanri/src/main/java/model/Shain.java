@@ -21,10 +21,11 @@ public class Shain {
 	private String kubun;
 	private Date tanjyoubi;
 	private String jyoutai;
+	private String SNS;
 	public Shain(Integer shain_id, String namae_kana, String namae_eigo, Date nyuusha_nengappi, Date taisha_nengappi,
 			Integer busho_id, Integer yakushoku_id, String kokuseki, String jumin_bangou, String juusho,
 			String denwa_uchi, String denwa_keitai, String meeru, String bikou, String kubun, Date tanjyoubi,
-			String jyoutai) {
+			String jyoutai, String SNS) {
 		super();
 		this.shain_id = shain_id;
 		this.namae_kana = namae_kana;
@@ -43,6 +44,7 @@ public class Shain {
 		this.kubun = kubun;
 		this.tanjyoubi = tanjyoubi;
 		this.jyoutai = jyoutai;
+		this.SNS = SNS;
 	}
 	public Integer getShain_id() {
 		return shain_id;
@@ -145,6 +147,12 @@ public class Shain {
 	}
 	public void setJyoutai(String jyoutai) {
 		this.jyoutai = jyoutai;
+	}
+	public String getSNS() {
+		return SNS;
+	}
+	public void setSNS(String SNS) {
+		this.SNS = SNS;
 	}
 
 }
