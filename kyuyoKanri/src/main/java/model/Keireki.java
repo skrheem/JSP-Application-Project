@@ -4,8 +4,8 @@ import oracle.sql.DATE;
 
 public class Keireki {
 
-	private Integer keireki_id;
-	private Integer shain_id;
+	private int keireki_id;
+	private int shain_id;
 	private String kaishaNama;
 	private DATE nyusha_bi;
 	private DATE taisha_bi;
@@ -13,7 +13,7 @@ public class Keireki {
 	private String saigoShokui;
 	private String tantouShigoto;
 	private String taishoRiyuuCode;
-	public Keireki(Integer keireki_id, Integer shain_id, String kaishaNama, DATE nyusha_bi, DATE taisha_bi, String kinmuKikan,
+	public Keireki(int keireki_id, int shain_id, String kaishaNama, DATE nyusha_bi, DATE taisha_bi, String kinmuKikan,
 			String saigoShokui, String tantouShigoto, String taishoRiyuuCode) {
 		super();
 		this.keireki_id = keireki_id;
@@ -26,16 +26,16 @@ public class Keireki {
 		this.tantouShigoto = tantouShigoto;
 		this.taishoRiyuuCode = taishoRiyuuCode;
 	}
-	public Integer getKeireki_id() {
+	public int getKeireki_id() {
 		return keireki_id;
 	}
-	public void setKeireki_id(Integer keireki_id) {
+	public void setKeireki_id(int keireki_id) {
 		this.keireki_id = keireki_id;
 	}
-	public Integer getShain_id() {
+	public int getShain_id() {
 		return shain_id;
 	}
-	public void setShain_id(Integer shain_id) {
+	public void setShain_id(int shain_id) {
 		this.shain_id = shain_id;
 	}
 	public String getKaishaNama() {

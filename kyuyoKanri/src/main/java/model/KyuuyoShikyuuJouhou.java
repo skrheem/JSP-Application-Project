@@ -5,18 +5,18 @@ import java.util.Date;
 public class KyuuyoShikyuuJouhou {
 	
 	private Integer kaisha_id;
-	private Date kyuuyoSanteiKaishi;
+	private Date kyuuyoSentaiKaishi;
 	private Date kyuuyoSanteiShuuryou;
 	private Date kyuuyoShikyuu_bi;
 	private String kinyuuKikan;
 	private String kouza_bangou;
 	private String yokinShaMeigi;
 	
-	public KyuuyoShikyuuJouhou(Integer kaisha_id, Date kyuuyoSanteiKaishi, Date kyuuyoSanteiShuuryou,
+	public KyuuyoShikyuuJouhou(Integer kaisha_id, Date kyuuyoSentaiKaishi, Date kyuuyoSanteiShuuryou,
 			Date kyuuyoShikyuu_bi, String kinyuuKikan, String kouza_bangou, String yokinShaMeigi) {
 		super();
 		this.kaisha_id = kaisha_id;
-		this.kyuuyoSanteiKaishi = kyuuyoSanteiKaishi;
+		this.kyuuyoSentaiKaishi = kyuuyoSentaiKaishi;
 		this.kyuuyoSanteiShuuryou = kyuuyoSanteiShuuryou;
 		this.kyuuyoShikyuu_bi = kyuuyoShikyuu_bi;
 		this.kinyuuKikan = kinyuuKikan;
@@ -32,12 +32,12 @@ public class KyuuyoShikyuuJouhou {
 		this.kaisha_id = kaisha_id;
 	}
 
-	public Date getkyuuyoSanteiKaishi() {
-		return kyuuyoSanteiKaishi;
+	public Date getKyuuyoSentaiKaishi() {
+		return kyuuyoSentaiKaishi;
 	}
 
-	public void setkyuuyoSanteiKaishi(Date kyuuyoSanteiKaishi) {
-		this.kyuuyoSanteiKaishi = kyuuyoSanteiKaishi;
+	public void setKyuuyoSentaiKaishi(Date kyuuyoSentaiKaishi) {
+		this.kyuuyoSentaiKaishi = kyuuyoSentaiKaishi;
 	}
 
 	public Date getKyuuyoSanteiShuuryou() {

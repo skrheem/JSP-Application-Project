@@ -64,4 +64,7 @@ public class KoujoKoumoku {
 	public void setKoujoKoumokuKubun(String koujoKoumokuKubun) {
 		this.koujoKoumokuKubun = koujoKoumokuKubun;
 	}
+	
+	
+	
 }

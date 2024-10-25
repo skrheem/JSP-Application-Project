@@ -2,15 +2,15 @@ package model;
 
 public class KintaiKoumoku {
 
-	private Integer kintai_id;
+	private int kintai_id;
 	private String kintai_mei;
 	private String tani;
-	private Integer kyuukaKoumoku_id;
-	private Integer group_id;
+	private int kyuukaKoumoku_id;
+	private int group_id;
 	private String roudouJikanRenkei;
 	private char shiyouUmu;
 	
-	public KintaiKoumoku(Integer kintai_id, String kintai_mei, String tani, Integer kyuukaKoumoku_id, Integer group_id,
+	public KintaiKoumoku(int kintai_id, String kintai_mei, String tani, int kyuukaKoumoku_id, int group_id,
 			String roudouJikanRenkei, char shiyouUmu) {
 		super();
 		this.kintai_id = kintai_id;
@@ -22,10 +22,10 @@ public class KintaiKoumoku {
 		this.shiyouUmu = shiyouUmu;
 	}
 
-	public Integer getKintai_id() {
+	public int getKintai_id() {
 		return kintai_id;
 	}
-	public void setKintai_id(Integer kintai_id) {
+	public void setKintai_id(int kintai_id) {
 		this.kintai_id = kintai_id;
 	}
 
@@ -43,17 +43,17 @@ public class KintaiKoumoku {
 		this.tani = tani;
 	}
 
-	public Integer getKyuukaKoumoku_id() {
+	public int getKyuukaKoumoku_id() {
 		return kyuukaKoumoku_id;
 	}
-	public void setKyuukaKoumoku_id(Integer kyuukaKoumoku_id) {
+	public void setKyuukaKoumoku_id(int kyuukaKoumoku_id) {
 		this.kyuukaKoumoku_id = kyuukaKoumoku_id;
 	}
 
-	public Integer getGroup_id() {
+	public int getGroup_id() {
 		return group_id;
 	}
-	public void setGroup_id(Integer group_id) {
+	public void setGroup_id(int group_id) {
 		this.group_id = group_id;
 	}
 

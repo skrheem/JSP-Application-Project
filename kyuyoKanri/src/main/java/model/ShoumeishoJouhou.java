@@ -4,12 +4,12 @@ import oracle.sql.DATE;
 
 public class ShoumeishoJouhou {
 	
-	private Integer hakkouBangou;
-	private Integer shain_id;
+	private int hakkouBangou;
+	private int shain_id;
 	private String kubun;
 	private DATE hakkou_bi;
 	private String hakkouYouto;
-	public ShoumeishoJouhou(Integer hakkouBangou, Integer shain_id, String kubun, DATE hakkou_bi, String hakkouYouto) {
+	public ShoumeishoJouhou(int hakkouBangou, int shain_id, String kubun, DATE hakkou_bi, String hakkouYouto) {
 		super();
 		this.hakkouBangou = hakkouBangou;
 		this.shain_id = shain_id;
@@ -17,16 +17,16 @@ public class ShoumeishoJouhou {
 		this.hakkou_bi = hakkou_bi;
 		this.hakkouYouto = hakkouYouto;
 	}
-	public Integer getHakkouBangou() {
+	public int getHakkouBangou() {
 		return hakkouBangou;
 	}
-	public void setHakkouBangou(Integer hakkouBangou) {
+	public void setHakkouBangou(int hakkouBangou) {
 		this.hakkouBangou = hakkouBangou;
 	}
-	public Integer getShain_id() {
+	public int getShain_id() {
 		return shain_id;
 	}
-	public void setShain_id(Integer shain_id) {
+	public void setShain_id(int shain_id) {
 		this.shain_id = shain_id;
 	}
 	public String getKubun() {

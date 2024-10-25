@@ -138,17 +138,5 @@ public class KaishaJouhou {
 	public void setInkan_image_keiro(String inkan_image_keiro) {
 		this.inkan_image_keiro = inkan_image_keiro;
 	}
-	public void setHoujinTourokuBango(String string) {
-		// TODO Auto-generated method stub
-		
-	}
-	public Object getHoujinTourokuBango() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public void setHoujin_Touroku_Bango1(String string) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }

@@ -4,16 +4,16 @@ import java.math.BigDecimal;
 
 public class ShainKihonkyuu {
 
-	private Integer kihonKyuu_id;
-	private Integer shain_id;
+	private int kihonKyuu_id;
+	private int shain_id;
 	private BigDecimal kihonKyuu;
-	private Integer kokuminNenkinTekiyouGaku;
-	private Integer koyouHokenTekiyouGaku;
+	private int kokuminNenkinTekiyouGaku;
+	private int koyouHokenTekiyouGaku;
 	private String kouza_bangou;
 	private String yokinshaMeigi;
 	private String kinyuuKikan;
-	public ShainKihonkyuu(Integer kihonKyuu_id, Integer shain_id, BigDecimal kihonKyuu, Integer kokuminNenkinTekiyouGaku,
-			Integer koyouHokenTekiyouGaku, String kouza_bangou, String yokinshaMeigi, String kinyuuKikan) {
+	public ShainKihonkyuu(int kihonKyuu_id, int shain_id, BigDecimal kihonKyuu, int kokuminNenkinTekiyouGaku,
+			int koyouHokenTekiyouGaku, String kouza_bangou, String yokinshaMeigi, String kinyuuKikan) {
 		super();
 		this.kihonKyuu_id = kihonKyuu_id;
 		this.shain_id = shain_id;
@@ -24,16 +24,16 @@ public class ShainKihonkyuu {
 		this.yokinshaMeigi = yokinshaMeigi;
 		this.kinyuuKikan = kinyuuKikan;
 	}
-	public Integer getKihonKyuu_id() {
+	public int getKihonKyuu_id() {
 		return kihonKyuu_id;
 	}
-	public void setKihonKyuu_id(Integer kihonKyuu_id) {
+	public void setKihonKyuu_id(int kihonKyuu_id) {
 		this.kihonKyuu_id = kihonKyuu_id;
 	}
-	public Integer getShain_id() {
+	public int getShain_id() {
 		return shain_id;
 	}
-	public void setShain_id(Integer shain_id) {
+	public void setShain_id(int shain_id) {
 		this.shain_id = shain_id;
 	}
 	public BigDecimal getKihonKyuu() {
@@ -42,16 +42,16 @@ public class ShainKihonkyuu {
 	public void setKihonKyuu(BigDecimal kihonKyuu) {
 		this.kihonKyuu = kihonKyuu;
 	}
-	public Integer getKokuminNenkIntegerekiyouGaku() {
+	public int getKokuminNenkinTekiyouGaku() {
 		return kokuminNenkinTekiyouGaku;
 	}
-	public void setKokuminNenkIntegerekiyouGaku(Integer kokuminNenkIntegerekiyouGaku) {
-		this.kokuminNenkinTekiyouGaku = kokuminNenkIntegerekiyouGaku;
+	public void setKokuminNenkinTekiyouGaku(int kokuminNenkinTekiyouGaku) {
+		this.kokuminNenkinTekiyouGaku = kokuminNenkinTekiyouGaku;
 	}
-	public Integer getKoyouHokenTekiyouGaku() {
+	public int getKoyouHokenTekiyouGaku() {
 		return koyouHokenTekiyouGaku;
 	}
-	public void setKoyouHokenTekiyouGaku(Integer koyouHokenTekiyouGaku) {
+	public void setKoyouHokenTekiyouGaku(int koyouHokenTekiyouGaku) {
 		this.koyouHokenTekiyouGaku = koyouHokenTekiyouGaku;
 	}
 	public String getKouza_bangou() {

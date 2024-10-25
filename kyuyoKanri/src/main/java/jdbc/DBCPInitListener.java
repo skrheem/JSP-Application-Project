@@ -3,7 +3,6 @@ package jdbc;
 import java.io.IOException;
 import java.io.StringReader;
 import java.sql.DriverManager;
-import java.util.Arrays;
 import java.util.Properties;
 
 import javax.servlet.ServletContextEvent;
@@ -76,9 +75,6 @@ public class DBCPInitListener implements ServletContextListener {
 			String Url = prop.getProperty("Url");
 			String id = prop.getProperty("User");
 			String pw = prop.getProperty("Pass");
-			System.out.println(Url);
-			System.out.println(id);
-			System.out.println(pw);
 
 			// 데이터베이스 연결을 생성
 			ConnectionFactory connFactory = new DriverManagerConnectionFactory(Url, id, pw);
@@ -124,7 +120,7 @@ public class DBCPInitListener implements ServletContextListener {
 
 			// 생성된 커넥션 풀의 이름을 설정
 			driver.registerPool(poolName, connectionPool);
-			System.out.println("Available pools: " + Arrays.toString(driver.getPoolNames()));
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			throw new RuntimeException(e);
@@ -147,4 +143,5 @@ public class DBCPInitListener implements ServletContextListener {
 		// TODO Auto-generated method stub
 		ServletContextListener.super.contextDestroyed(sce);
 	}
+
 }

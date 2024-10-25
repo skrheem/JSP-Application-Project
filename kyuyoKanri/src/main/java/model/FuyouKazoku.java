@@ -2,8 +2,8 @@ package model;
 
 public class FuyouKazoku {
 
-	private Integer kazoku_id;
-	private Integer shain_id;
+	private int kazoku_id;
+	private int shain_id;
 	private String kankei;
 	private String namae;
 	private String kubun;
@@ -14,7 +14,7 @@ public class FuyouKazoku {
 	private char doukyoUmu;
 	private char gakkunZeiUmu;
 	private char hatachiUmu;
-	public FuyouKazoku(Integer kazoku_id, Integer shain_id, String kankei, String namae, String kubun, String jumin_bangou,
+	public FuyouKazoku(int kazoku_id, int shain_id, String kankei, String namae, String kubun, String jumin_bangou,
 			char shougaiUmu, char injinKoseiUmu, char kenkouHokenUmu, char doukyoUmu, char gakkunZeiUmu,
 			char hatachiUmu) {
 		super();
@@ -31,16 +31,16 @@ public class FuyouKazoku {
 		this.gakkunZeiUmu = gakkunZeiUmu;
 		this.hatachiUmu = hatachiUmu;
 	}
-	public Integer getKazoku_id() {
+	public int getKazoku_id() {
 		return kazoku_id;
 	}
-	public void setKazoku_id(Integer kazoku_id) {
+	public void setKazoku_id(int kazoku_id) {
 		this.kazoku_id = kazoku_id;
 	}
-	public Integer getShain_id() {
+	public int getShain_id() {
 		return shain_id;
 	}
-	public void setShain_id(Integer shain_id) {
+	public void setShain_id(int shain_id) {
 		this.shain_id = shain_id;
 	}
 	public String getKankei() {

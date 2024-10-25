@@ -4,78 +4,78 @@ import java.util.Date;
 
 public class KintaiKiroku {
 	
-	private Integer KintaiKiroku_kiroku_id;
-	private Integer shain_id;
-	private Integer KintaiKiroku_id;
-	private Date KintaiKiroku_kaishi;
-	private Date KintaiKiroku_shuuryou;
-	private Integer KintaiKiroku_nissuu;
-	private Integer teate;
+	private int kintai_kiroku_id;
+	private int shain_id;
+	private int kintai_id;
+	private Date kintai_kaishi;
+	private Date kintai_shuuryou;
+	private int kintai_nissuu;
+	private int teate;
 	private String tekiyou;
 	private Date touroku_nengappi;
 	private Date nyuuryoku_bi;
 
-	public KintaiKiroku(Integer KintaiKiroku_kiroku_id, Integer shain_id, Integer KintaiKiroku_id, Date KintaiKiroku_kaishi, Date KintaiKiroku_shuuryou,
-			Integer KintaiKiroku_nissuu, Integer teate, String tekiyou, Date touroku_nengappi, Date nyuuryoku_bi) {
+	public KintaiKiroku(int kintai_kiroku_id, int shain_id, int kintai_id, Date kintai_kaishi, Date kintai_shuuryou,
+			int kintai_nissuu, int teate, String tekiyou, Date touroku_nengappi, Date nyuuryoku_bi) {
 		super();
-		this.KintaiKiroku_kiroku_id = KintaiKiroku_kiroku_id;
+		this.kintai_kiroku_id = kintai_kiroku_id;
 		this.shain_id = shain_id;
-		this.KintaiKiroku_id = KintaiKiroku_id;
-		this.KintaiKiroku_kaishi = KintaiKiroku_kaishi;
-		this.KintaiKiroku_shuuryou = KintaiKiroku_shuuryou;
-		this.KintaiKiroku_nissuu = KintaiKiroku_nissuu;
+		this.kintai_id = kintai_id;
+		this.kintai_kaishi = kintai_kaishi;
+		this.kintai_shuuryou = kintai_shuuryou;
+		this.kintai_nissuu = kintai_nissuu;
 		this.teate = teate;
 		this.tekiyou = tekiyou;
 		this.touroku_nengappi = touroku_nengappi;
 		this.nyuuryoku_bi = nyuuryoku_bi;
 	}
 
-	public Integer getKintaiKiroku_kiroku_id() {
-		return KintaiKiroku_kiroku_id;
+	public int getKintai_kiroku_id() {
+		return kintai_kiroku_id;
 	}
-	public void setKintaiKiroku_kiroku_id(Integer KintaiKiroku_kiroku_id) {
-		this.KintaiKiroku_kiroku_id = KintaiKiroku_kiroku_id;
+	public void setKintai_kiroku_id(int kintai_kiroku_id) {
+		this.kintai_kiroku_id = kintai_kiroku_id;
 	}
 
-	public Integer getShain_id() {
+	public int getShain_id() {
 		return shain_id;
 	}
-	public void setShain_id(Integer shain_id) {
+	public void setShain_id(int shain_id) {
 		this.shain_id = shain_id;
 	}
 
-	public Integer getKintaiKiroku_id() {
-		return KintaiKiroku_id;
+	public int getKintai_id() {
+		return kintai_id;
 	}
-	public void setKintaiKiroku_id(Integer KintaiKiroku_id) {
-		this.KintaiKiroku_id = KintaiKiroku_id;
-	}
-
-	public Date getKintaiKiroku_kaishi() {
-		return KintaiKiroku_kaishi;
-	}
-	public void setKintaiKiroku_kaishi(Date KintaiKiroku_kaishi) {
-		this.KintaiKiroku_kaishi = KintaiKiroku_kaishi;
+	public void setKintai_id(int kintai_id) {
+		this.kintai_id = kintai_id;
 	}
 
-	public Date getKintaiKiroku_shuuryou() {
-		return KintaiKiroku_shuuryou;
+	public Date getKintai_kaishi() {
+		return kintai_kaishi;
 	}
-	public void setKintaiKiroku_shuuryou(Date KintaiKiroku_shuuryou) {
-		this.KintaiKiroku_shuuryou = KintaiKiroku_shuuryou;
-	}
-
-	public Integer getKintaiKiroku_nissuu() {
-		return KintaiKiroku_nissuu;
-	}
-	public void setKintaiKiroku_nissuu(Integer KintaiKiroku_nissuu) {
-		this.KintaiKiroku_nissuu = KintaiKiroku_nissuu;
+	public void setKintai_kaishi(Date kintai_kaishi) {
+		this.kintai_kaishi = kintai_kaishi;
 	}
 
-	public Integer getTeate() {
+	public Date getKintai_shuuryou() {
+		return kintai_shuuryou;
+	}
+	public void setKintai_shuuryou(Date kintai_shuuryou) {
+		this.kintai_shuuryou = kintai_shuuryou;
+	}
+
+	public int getKintai_nissuu() {
+		return kintai_nissuu;
+	}
+	public void setKintai_nissuu(int kintai_nissuu) {
+		this.kintai_nissuu = kintai_nissuu;
+	}
+
+	public int getTeate() {
 		return teate;
 	}
-	public void setTeate(Integer teate) {
+	public void setTeate(int teate) {
 		this.teate = teate;
 	}
 

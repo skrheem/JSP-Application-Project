@@ -16,7 +16,7 @@
     			validationQuery=select 1
     			minIdle=3
     			maxTotal=30
-    			poolName=payzone
+    			poolName=board
   		</param-value>
 	</context-param>
 	
