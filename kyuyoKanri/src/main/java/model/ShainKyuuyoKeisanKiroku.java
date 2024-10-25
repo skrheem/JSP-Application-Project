@@ -8,11 +8,30 @@ public class ShainKyuuyoKeisanKiroku {
 	private Date kyuuyo_gatsu;
 	private String kyuuyo_jisuu;
 	private Date kyuuyo_shikyuubi;
-	private BigDecimal shikyuuSougaku;
-	private BigDecimal koujoSougaku;
-	private BigDecimal jissai_kyuuyo;
+	private Integer shikyuuSougaku;
+	private Integer koujoSougaku;
+	private Integer jissai_kyuuyo;
+	
+	private String kubun;
+	private String namae_kana;
+	private String busho_mei;
+	
+	
+	
+	public ShainKyuuyoKeisanKiroku(Integer shain_id, String kubun, String namae_kana, String busho_mei,
+			Integer shikyuuSougaku, Integer koujoSougaku, Integer jissai_kyuuyo) {
+		super();
+		this.shain_id = shain_id;
+		this.kubun = kubun;
+		this.namae_kana = namae_kana;
+		this.busho_mei = busho_mei;
+		this.shikyuuSougaku = shikyuuSougaku;
+		this.koujoSougaku = koujoSougaku;
+		this.jissai_kyuuyo = jissai_kyuuyo;
+	}
+	
 	public ShainKyuuyoKeisanKiroku(Integer shain_id, Date kyuuyo_gatsu, String kyuuyo_jisuu, Date kyuuyo_shikyuubi,
-			BigDecimal shikyuuSougaku, BigDecimal koujoSougaku, BigDecimal jissai_kyuuyo) {
+			Integer shikyuuSougaku, Integer koujoSougaku, Integer jissai_kyuuyo) {
 		super();
 		this.shain_id = shain_id;
 		this.kyuuyo_gatsu = kyuuyo_gatsu;
@@ -46,22 +65,22 @@ public class ShainKyuuyoKeisanKiroku {
 	public void setKyuuyo_shikyuubi(Date kyuuyo_shikyuubi) {
 		this.kyuuyo_shikyuubi = kyuuyo_shikyuubi;
 	}
-	public BigDecimal getShikyuuSougaku() {
+	public Integer getShikyuuSougaku() {
 		return shikyuuSougaku;
 	}
-	public void setShikyuuSougaku(BigDecimal shikyuuSougaku) {
+	public void setShikyuuSougaku(Integer shikyuuSougaku) {
 		this.shikyuuSougaku = shikyuuSougaku;
 	}
-	public BigDecimal getKoujoSougaku() {
+	public Integer getKoujoSougaku() {
 		return koujoSougaku;
 	}
-	public void setKoujoSougaku(BigDecimal koujoSougaku) {
+	public void setKoujoSougaku(Integer koujoSougaku) {
 		this.koujoSougaku = koujoSougaku;
 	}
-	public BigDecimal getJissai_kyuuyo() {
+	public Integer getJissai_kyuuyo() {
 		return jissai_kyuuyo;
 	}
-	public void setJissai_kyuuyo(BigDecimal jissai_kyuuyo) {
+	public void setJissai_kyuuyo(Integer jissai_kyuuyo) {
 		this.jissai_kyuuyo = jissai_kyuuyo;
 	}
 }
