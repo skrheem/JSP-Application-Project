@@ -7,29 +7,52 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import jdbc.connection.ConnectionProvider;
 import model.KaishaJouhou;
+import model.Shain;
+import util.ObjectFormatter;
 
 // * KaishaJouhouDao는 회사 정보를 관리하는 DAO(Data Access Object)로,
 // * 회사 정보를 데이터베이스에서 조회, 수정 하는 기능을 제공합니다.
 
 public class KaishaJouhouDao {
 
-	private Connection connection;
+	public static void main(String args[]) {
+		try {
+	        Connection conn = ConnectionProvider.getConnection(); // 커넥션 풀에서 연결을 가져옴
+	        //ArrayList<ShainKyuuyoKeisanKiroku> ShainList = getInstance().getKyuuyoKeisanList(conn, "2024-01-01", "2024-12-31", "1"); // 메서드 호출
+	        KaishaJouhouDao k = new KaishaJouhouDao(conn);
+	        List<KaishaJouhou> ShainList = k.getAllKaisha();
+	        try {
+	            System.out.println(ObjectFormatter.formatList(ShainList)); // 결과 출력
+	        } catch (IllegalAccessException e) {
+	            e.printStackTrace(); // 리플렉션 관련 예외 처리
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace(); // 예외 발생 시 출력
+	    }
+	}
+	
+	private Connection connection = ConnectionProvider.getConnection();
 
 	// * 생성자: 데이터베이스 연결 객체를 받아 DAO 인스턴스를 초기화합니다.
 	// * @param connection 데이터베이스와의 연결 객체
-	public KaishaJouhouDao(Connection connection) {
-		this.connection = connection;
+
+	
+	private static KaishaJouhouDao kd = new KaishaJouhouDao();
+	
+	public static KaishaJouhouDao getInstance() {
+		return kd;
 	}
 //
 	// * 특정 회사 ID로 회사 정보를 조회합니다.
 	// * @param kaishaId 조회할 회사의 ID
 	// * @return 회사 정보가 담긴 KaishaJouhou 객체, 없으면 null 반환
-	public KaishaJouhou getKaishaById(int kaishaId) {
+	public KaishaJouhou getKaishaById(Connection conn ,int kaishaId) {
 		KaishaJouhou kaisha = null;
 		String query = "SELECT * FROM KaishaJouhou WHERE kaisha_id = ?";
 
-		try (PreparedStatement ps = connection.prepareStatement(query)) {
+		try (PreparedStatement ps = conn.prepareStatement(query)) {
 			ps.setInt(1, kaishaId);
 			ResultSet rs = ps.executeQuery();
 
