@@ -1,6 +1,6 @@
 package model;
 //崔東周 최동주
-public class Busho {
+public final class Busho {
 
 	private Integer busho_id;
 	private String busho_mei;
@@ -14,15 +14,9 @@ public class Busho {
 	public Integer getBusho_id() {
 		return busho_id;
 	}
-	public void setBusho_id(Integer busho_id) {
-		this.busho_id = busho_id;
-	}
 
 	public String getBusho_mei() {
 		return busho_mei;
-	}
-	public void setBusho_mei(String busho_mei) {
-		this.busho_mei = busho_mei;
 	}
 	
 }

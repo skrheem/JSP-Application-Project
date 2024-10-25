@@ -1,19 +1,19 @@
 package model;
 
-import oracle.sql.DATE;
+import java.util.Date;
 
 public class Keireki {
 
 	private Integer keireki_id;
 	private Integer shain_id;
 	private String kaishaNama;
-	private DATE nyusha_bi;
-	private DATE taisha_bi;
+	private Date nyusha_bi;
+	private Date taisha_bi;
 	private String kinmuKikan;
 	private String saigoShokui;
 	private String tantouShigoto;
 	private String taishoRiyuuCode;
-	public Keireki(Integer keireki_id, Integer shain_id, String kaishaNama, DATE nyusha_bi, DATE taisha_bi, String kinmuKikan,
+	public Keireki(Integer keireki_id, Integer shain_id, String kaishaNama, Date nyusha_bi, Date taisha_bi, String kinmuKikan,
 			String saigoShokui, String tantouShigoto, String taishoRiyuuCode) {
 		super();
 		this.keireki_id = keireki_id;
@@ -44,16 +44,16 @@ public class Keireki {
 	public void setKaishaNama(String kaishaNama) {
 		this.kaishaNama = kaishaNama;
 	}
-	public DATE getNyusha_bi() {
+	public Date getNyusha_bi() {
 		return nyusha_bi;
 	}
-	public void setNyusha_bi(DATE nyusha_bi) {
+	public void setNyusha_bi(Date nyusha_bi) {
 		this.nyusha_bi = nyusha_bi;
 	}
-	public DATE getTaisha_bi() {
+	public Date getTaisha_bi() {
 		return taisha_bi;
 	}
-	public void setTaisha_bi(DATE taisha_bi) {
+	public void setTaisha_bi(Date taisha_bi) {
 		this.taisha_bi = taisha_bi;
 	}
 	public String getKinmuKikan() {

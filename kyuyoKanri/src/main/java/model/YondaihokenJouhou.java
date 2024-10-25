@@ -1,15 +1,15 @@
 package model;
 
-import oracle.sql.DATE;
+import java.util.Date;
 
 public class YondaihokenJouhou {
 
 	private Integer shain_id;
 	private String hokenKubun;
 	private String kigouBangou;
-	private DATE shutoku_bi;
-	private DATE soshitsu_bi;
-	public YondaihokenJouhou(Integer shain_id, String hokenKubun, String kigouBangou, DATE shutoku_bi, DATE soshitsu_bi) {
+	private Date shutoku_bi;
+	private Date soshitsu_bi;
+	public YondaihokenJouhou(Integer shain_id, String hokenKubun, String kigouBangou, Date shutoku_bi, Date soshitsu_bi) {
 		super();
 		this.shain_id = shain_id;
 		this.hokenKubun = hokenKubun;
@@ -35,16 +35,16 @@ public class YondaihokenJouhou {
 	public void setKigouBangou(String kigouBangou) {
 		this.kigouBangou = kigouBangou;
 	}
-	public DATE getShutoku_bi() {
+	public Date getShutoku_bi() {
 		return shutoku_bi;
 	}
-	public void setShutoku_bi(DATE shutoku_bi) {
+	public void setShutoku_bi(Date shutoku_bi) {
 		this.shutoku_bi = shutoku_bi;
 	}
-	public DATE getSoshitsu_bi() {
+	public Date getSoshitsu_bi() {
 		return soshitsu_bi;
 	}
-	public void setSoshitsu_bi(DATE soshitsu_bi) {
+	public void setSoshitsu_bi(Date soshitsu_bi) {
 		this.soshitsu_bi = soshitsu_bi;
 	}
 	

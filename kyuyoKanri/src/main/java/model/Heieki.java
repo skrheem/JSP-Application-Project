@@ -1,6 +1,6 @@
 package model;
 
-import oracle.sql.DATE;
+import java.util.Date;
 
 public class Heieki {
 	
@@ -8,13 +8,13 @@ public class Heieki {
 	private Integer shain_id;
 	private String heiekiKubun;
 	private String gunBetsu;
-	private DATE fukumukiKaishi;
-	private DATE fukumukiShuuryou;
+	private Date fukumukiKaishi;
+	private Date fukumukiShuuryou;
 	private String Kaikyuu;
 	private String heika;
 	private String mirikouRiyuuCode;
-	public Heieki(Integer heieki_id, Integer shain_id, String heiekiKubun, String gunBetsu, DATE fukumukiKaishi,
-			DATE fukumukiShuuryou, String kaikyuu, String heika, String mirikouRiyuuCode) {
+	public Heieki(Integer heieki_id, Integer shain_id, String heiekiKubun, String gunBetsu, Date fukumukiKaishi,
+			Date fukumukiShuuryou, String kaikyuu, String heika, String mirikouRiyuuCode) {
 		super();
 		this.heieki_id = heieki_id;
 		this.shain_id = shain_id;
@@ -50,16 +50,16 @@ public class Heieki {
 	public void setGunBetsu(String gunBetsu) {
 		this.gunBetsu = gunBetsu;
 	}
-	public DATE getFukumukiKaishi() {
+	public Date getFukumukiKaishi() {
 		return fukumukiKaishi;
 	}
-	public void setFukumukiKaishi(DATE fukumukiKaishi) {
+	public void setFukumukiKaishi(Date fukumukiKaishi) {
 		this.fukumukiKaishi = fukumukiKaishi;
 	}
-	public DATE getFukumukiShuuryou() {
+	public Date getFukumukiShuuryou() {
 		return fukumukiShuuryou;
 	}
-	public void setFukumukiShuuryou(DATE fukumukiShuuryou) {
+	public void setFukumukiShuuryou(Date fukumukiShuuryou) {
 		this.fukumukiShuuryou = fukumukiShuuryou;
 	}
 	public String getKaikyuu() {

@@ -1,13 +1,13 @@
 package model;
 
-import oracle.sql.DATE;
+import java.util.Date;
 
 public class ShikakuMenkyou {
 
 	private Integer shikaku_id;
 	private Integer shain_id;
 	private String shikaku_mei;
-	private DATE shutoku_bi;
+	private Date shutoku_bi;
 	private String hakkou_kikan;
 	private String shoumei_bangou;
 	private String bikou;
@@ -15,7 +15,7 @@ public class ShikakuMenkyou {
 		return shikaku_id;
 	}
 	
-	public ShikakuMenkyou(Integer shikaku_id, Integer shain_id, String shikaku_mei, DATE shutoku_bi, String hakkou_kikan,
+	public ShikakuMenkyou(Integer shikaku_id, Integer shain_id, String shikaku_mei, Date shutoku_bi, String hakkou_kikan,
 			String shoumei_bangou, String bikou) {
 		super();
 		this.shikaku_id = shikaku_id;
@@ -42,10 +42,10 @@ public class ShikakuMenkyou {
 	public void setShikaku_mei(String shikaku_mei) {
 		this.shikaku_mei = shikaku_mei;
 	}
-	public DATE getShutoku_bi() {
+	public Date getShutoku_bi() {
 		return shutoku_bi;
 	}
-	public void setShutoku_bi(DATE shutoku_bi) {
+	public void setShutoku_bi(Date shutoku_bi) {
 		this.shutoku_bi = shutoku_bi;
 	}
 	public String getHakkou_kikan() {

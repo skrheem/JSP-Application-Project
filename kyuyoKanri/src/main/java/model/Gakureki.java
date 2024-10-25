@@ -1,18 +1,18 @@
 package model;
 
-import oracle.sql.DATE;
+import java.util.Date;
 
 public class Gakureki {
 
 	private Integer gakureki_id;
 	private Integer shain_id;
 	private String gakurekiKubun;
-	private DATE nyugakuNengatsu;
-	private DATE sotsugyoNengatsu;
+	private Date nyugakuNengatsu;
+	private Date sotsugyoNengatsu;
 	private String gakkoName;
 	private String senmon;
 	private String shuuryouJyoutai;
-	public Gakureki(Integer gakureki_id, Integer shain_id, String gakurekiKubun, DATE nyugakuNengatsu, DATE sotsugyoNengatsu,
+	public Gakureki(Integer gakureki_id, Integer shain_id, String gakurekiKubun, Date nyugakuNengatsu, Date sotsugyoNengatsu,
 			String gakkoName, String senmon, String shuuryouJyoutai) {
 		super();
 		this.gakureki_id = gakureki_id;
@@ -42,16 +42,16 @@ public class Gakureki {
 	public void setGakurekiKubun(String gakurekiKubun) {
 		this.gakurekiKubun = gakurekiKubun;
 	}
-	public DATE getNyugakuNengatsu() {
+	public Date getNyugakuNengatsu() {
 		return nyugakuNengatsu;
 	}
-	public void setNyugakuNengatsu(DATE nyugakuNengatsu) {
+	public void setNyugakuNengatsu(Date nyugakuNengatsu) {
 		this.nyugakuNengatsu = nyugakuNengatsu;
 	}
-	public DATE getSotsugyoNengatsu() {
+	public Date getSotsugyoNengatsu() {
 		return sotsugyoNengatsu;
 	}
-	public void setSotsugyoNengatsu(DATE sotsugyoNengatsu) {
+	public void setSotsugyoNengatsu(Date sotsugyoNengatsu) {
 		this.sotsugyoNengatsu = sotsugyoNengatsu;
 	}
 	public String getGakkoName() {

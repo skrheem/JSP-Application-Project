@@ -8,16 +8,12 @@ public class FurikomiYoushiki {
 		this.youshiki_id = youshiki_id;
 		this.youshiki_mei = youshiki_mei;
 	}
+	
 	public Integer getYoushiki_id() {
 		return youshiki_id;
 	}
-	public void setYoushiki_id(Integer youshiki_id) {
-		this.youshiki_id = youshiki_id;
-	}
+	
 	public String getYoushiki_mei() {
 		return youshiki_mei;
-	}
-	public void setYoushiki_mei(String youshiki_mei) {
-		this.youshiki_mei = youshiki_mei;
 	}
 }
