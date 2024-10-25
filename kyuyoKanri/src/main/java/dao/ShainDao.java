@@ -16,8 +16,6 @@ public class ShainDao {
 
 	public static void main(String[] args) {
 	    try(Connection conn = ConnectionProvider.getConnection()) {
-	    
-	        System.out.println("!!!!" + conn);
 	        
 	        ArrayList<Shain> ShainList = getInstance().getShainSentakuList(conn);
 	        
