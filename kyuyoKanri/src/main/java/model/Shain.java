@@ -9,8 +9,8 @@ public class Shain {
 	private String namae_eigo;
 	private Date nyuusha_nengappi;
 	private Date taisha_nengappi;
-	private Integer busho_id;
-	private Integer yakushoku_id;
+	private String busho_mei;
+	private String yakushoku_mei;
 	private String kokuseki;
 	private String jumin_bangou;
 	private String juusho;
@@ -22,8 +22,17 @@ public class Shain {
 	private Date tanjyoubi;
 	private String jyoutai;
 	private String SNS;
+	public Shain(String kubun, Integer shain_id, String namae_kana, String busho_mei, String yakushoku_mei, String jyoutai) {
+		super();
+		this.shain_id = shain_id;
+		this.namae_kana = namae_kana;
+		this.busho_mei = busho_mei;
+		this.yakushoku_mei = yakushoku_mei;
+		this.kubun = kubun;
+		this.jyoutai = jyoutai;
+	}
 	public Shain(Integer shain_id, String namae_kana, String namae_eigo, Date nyuusha_nengappi, Date taisha_nengappi,
-			Integer busho_id, Integer yakushoku_id, String kokuseki, String jumin_bangou, String juusho,
+			String busho_mei, String yakushoku_mei, String kokuseki, String jumin_bangou, String juusho,
 			String denwa_uchi, String denwa_keitai, String meeru, String bikou, String kubun, Date tanjyoubi,
 			String jyoutai, String SNS) {
 		super();
@@ -32,8 +41,8 @@ public class Shain {
 		this.namae_eigo = namae_eigo;
 		this.nyuusha_nengappi = nyuusha_nengappi;
 		this.taisha_nengappi = taisha_nengappi;
-		this.busho_id = busho_id;
-		this.yakushoku_id = yakushoku_id;
+		this.busho_mei = busho_mei;
+		this.yakushoku_mei = yakushoku_mei;
 		this.kokuseki = kokuseki;
 		this.jumin_bangou = jumin_bangou;
 		this.juusho = juusho;
@@ -46,6 +55,8 @@ public class Shain {
 		this.jyoutai = jyoutai;
 		this.SNS = SNS;
 	}
+	
+
 	public Integer getShain_id() {
 		return shain_id;
 	}
@@ -76,17 +87,17 @@ public class Shain {
 	public void setTaisha_nengappi(Date taisha_nengappi) {
 		this.taisha_nengappi = taisha_nengappi;
 	}
-	public Integer getBusho_id() {
-		return busho_id;
+	public String getBusho_mei() {
+		return busho_mei;
 	}
-	public void setBusho_id(Integer busho_id) {
-		this.busho_id = busho_id;
+	public void setBusho_mei(String busho_mei) {
+		this.busho_mei = busho_mei;
 	}
-	public Integer getYakushoku_id() {
-		return yakushoku_id;
+	public String getYakushoku_id() {
+		return yakushoku_mei;
 	}
-	public void setYakushoku_id(Integer yakushoku_id) {
-		this.yakushoku_id = yakushoku_id;
+	public void setYakushoku_id(String yakushoku_mei) {
+		this.yakushoku_mei = yakushoku_mei;
 	}
 	public String getKokuseki() {
 		return kokuseki;
@@ -154,5 +165,4 @@ public class Shain {
 	public void setSNS(String SNS) {
 		this.SNS = SNS;
 	}
-
 }
