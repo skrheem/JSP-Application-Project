@@ -156,9 +156,7 @@ public class Shain {
 	public void setSNS(String SNS) {
 		this.SNS = SNS;
 	}
-	
-	
-    public Shain(Integer shain_id, String namae_kana, String namae_eigo, Date nyuusha_nengappi, Date taisha_nengappi, 
+	public Shain(Integer shain_id, String namae_kana, String namae_eigo, Date nyuusha_nengappi, Date taisha_nengappi, 
             String busho_mei, String yakushoku_mei, String kokuseki, String jumin_bangou, String juusho, String denwa_uchi, 
             String denwa_keitai, String meeru, String SNS, String kubun, String jyoutai, String kouza_bangou) {
    this.shain_id = shain_id;
