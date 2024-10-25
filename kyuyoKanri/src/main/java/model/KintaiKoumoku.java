@@ -22,6 +22,10 @@ public class KintaiKoumoku {
 		this.shiyouUmu = shiyouUmu;
 	}
 
+	public KintaiKoumoku() {
+		
+	}
+
 	public Integer getKintai_id() {
 		return kintai_id;
 	}

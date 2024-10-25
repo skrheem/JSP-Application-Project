@@ -17,6 +17,9 @@ public class KoujoKoumoku {
 		this.keisanHouhou = keisanHouhou;
 		this.shiyouUmu = shiyouUmu;
 	}
+	public KoujoKoumoku() {
+
+	}
 	public Integer getKoujoKoumoku_id() {
 		return koujoKoumoku_id;
 	}

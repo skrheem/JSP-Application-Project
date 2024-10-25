@@ -11,6 +11,10 @@ public class KintaiGroup {
 		this.group_name = group_name;
 	}
 
+	public KintaiGroup() {
+		
+	}
+
 	public Integer getGroup_id() {
 		return group_id;
 	}

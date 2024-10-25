@@ -1,115 +1,50 @@
 package dao;
-// 김찬호 金燦鎬
+
+//김찬호 金燦鎬
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import jdbc.JdbcUtil;
+import jdbc.connection.ConnectionProvider;
 import model.KaishaJouhou;
-
-// * KaishaJouhouDao는 회사 정보를 관리하는 DAO(Data Access Object)로,
-// * 회사 정보를 데이터베이스에서 조회, 수정 하는 기능을 제공합니다.
 
 public class KaishaJouhouDao {
 
-	private Connection connection;
-
-	// * 생성자: 데이터베이스 연결 객체를 받아 DAO 인스턴스를 초기화합니다.
-	// * @param connection 데이터베이스와의 연결 객체
-	public KaishaJouhouDao(Connection connection) {
-		this.connection = connection;
-	}
-//
-	// * 특정 회사 ID로 회사 정보를 조회합니다.
-	// * @param kaishaId 조회할 회사의 ID
-	// * @return 회사 정보가 담긴 KaishaJouhou 객체, 없으면 null 반환
-	public KaishaJouhou getKaishaById(int kaishaId) {
-		KaishaJouhou kaisha = null;
-		String query = "SELECT * FROM KaishaJouhou WHERE kaisha_id = ?";
-
-		try (PreparedStatement ps = connection.prepareStatement(query)) {
-			ps.setInt(1, kaishaId);
-			ResultSet rs = ps.executeQuery();
-
-			if (rs.next()) {
-				kaisha = new KaishaJouhou(kaishaId, query, query, null, query, query, query, query, query, query, query,
-						query, query, query, query, query);
-				// ResultSet에서 데이터를 가져와 KaishaJouhou 객체에 설정
-				kaisha.setKaisha_id(rs.getInt("kaisha_id"));
-				kaisha.setKaisha_mei(rs.getString("kaisha_mei"));
-				kaisha.setJigyousha_touroku_bango(rs.getString("jigyousha_touroku_bango"));
-				kaisha.setSetsuribi(rs.getDate("setsuribi"));
-				kaisha.setJigyousho_jyuusho(rs.getString("jigyousho_jyuusho"));
-				kaisha.setYuubin_bango(rs.getString("yuubin_bango"));
-				kaisha.setDaihyousha_yakushoku(rs.getString("daihyousha_yakushoku"));
-				kaisha.setDaihyousha_mei(rs.getString("daihyousha_mei"));
-				kaisha.setHoujinTourokuBango(rs.getString("houjin_touroku_bango"));
-				kaisha.setHomepage(rs.getString("homepage"));
-				kaisha.setDenwa_kaisha(rs.getString("denwa_kaisha"));
-				kaisha.setFakkusu_bango(rs.getString("fakkusu_bango"));
-				kaisha.setGyoutai(rs.getString("gyoutai"));
-				kaisha.setShumoku(rs.getString("shumoku"));
-				kaisha.setKaisha_image_keiro(rs.getString("kaisha_image_keiro"));
-				kaisha.setInkan_image_keiro(rs.getString("inkan_image_keiro"));
-			}
+	public static void main(String args[]) {
+		KaishaJouhouDao kj = KaishaJouhouDao.getInstance();
+		try {
+			Connection conn = ConnectionProvider.getConnection();
+			KaishaJouhou k = new KaishaJouhou("예스픔", "120-86-50680", "2000-01-03", "서울특별시 성동구 성수동1가 14-18 코오롱디지털3차 901호", "1588-2390", "대표이사" , "이응열", "110111-275401", "www.yesform.com", "010-2222-3333", "02-2117-2552", "사업서비스업", "온라인정보제공", null, null);
+//			kj.insertKaisha(conn, k);
+			kj.updateKaisha(conn, k, 1);
+			System.out.println(kj.getKaishaById(conn, 1));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		return kaisha;
 	}
 
-	// * 모든 회사 정보를 데이터베이스에서 조회하여 리스트로 반환합니다.
-	// * @return 모든 회사 정보가 담긴 KaishaJouhou 객체 리스트
-	public List<KaishaJouhou> getAllKaisha() {
-		List<KaishaJouhou> kaishaList = new ArrayList<>();
-		String query = "SELECT * FROM KaishaJouhou";
+	private static KaishaJouhouDao instance = new KaishaJouhouDao();
 
-		try (PreparedStatement ps = connection.prepareStatement(query)) {
-			ResultSet rs = ps.executeQuery();
-
-			// 결과 집합(ResultSet)에서 모든 회사 정보를 반복 처리하여 리스트에 추가
-			while (rs.next()) {
-				KaishaJouhou kaisha = new KaishaJouhou(null, query, query, null, query, query, query, query, query,
-						query, query, query, query, query, query, query);
-				kaisha.setKaisha_id(rs.getInt("kaisha_id"));
-				kaisha.setKaisha_mei(rs.getString("kaisha_mei"));
-				kaisha.setJigyousha_touroku_bango(rs.getString("jigyousha_touroku_bango"));
-				kaisha.setSetsuribi(rs.getDate("setsuribi"));
-				kaisha.setJigyousho_jyuusho(rs.getString("jigyousho_jyuusho"));
-				kaisha.setYuubin_bango(rs.getString("yuubin_bango"));
-				kaisha.setDaihyousha_yakushoku(rs.getString("daihyousha_yakushoku"));
-				kaisha.setDaihyousha_mei(rs.getString("daihyousha_mei"));
-				kaisha.setHoujinTourokuBango(rs.getString("houjin_touroku_bango"));
-				kaisha.setHomepage(rs.getString("homepage"));
-				kaisha.setDenwa_kaisha(rs.getString("denwa_kaisha"));
-				kaisha.setFakkusu_bango(rs.getString("fakkusu_bango"));
-				kaisha.setGyoutai(rs.getString("gyoutai"));
-				kaisha.setShumoku(rs.getString("shumoku"));
-				kaisha.setKaisha_image_keiro(rs.getString("kaisha_image_keiro"));
-				kaisha.setInkan_image_keiro(rs.getString("inkan_image_keiro"));
-
-				kaishaList.add(kaisha);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return kaishaList;
+	public static KaishaJouhouDao getInstance() {
+		return instance;
 	}
 
+	// 회사 정보를 데이터베이스에 입력하는 메서드
+	public void insertKaisha(Connection conn, KaishaJouhou kaisha) {
+		String query = "INSERT INTO KaishaJouhou (kaisha_id, kaisha_mei, jigyousha_touroku_bango, setsuribi, jigyousho_jyuusho, "
+				+ "yuubin_bango, daihyousha_yakushoku, daihyousha_mei, houjin_touroku_bango, homepage, denwa_kaisha, "
+				+ "fakkusu_bango, gyoutai, shumoku, kaisha_image_keiro, inkan_image_keiro) "
+				+ "VALUES (KaishaJouhou_sequence.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-	// * 주어진 회사 정보를 데이터베이스에서 업데이트합니다.
-	// * @param kaisha 업데이트할 회사 정보가 담긴 KaishaJouhou 객체
-	public void updateKaisha(KaishaJouhou kaisha) {
-		String query = "UPDATE KaishaJouhou SET kaisha_mei = ?, jigyousha_touroku_bango = ?, setsuribi = ?, "
-				+ "jigyousho_jyuusho = ?, yuubin_bango = ?, daihyousha_yakushoku = ?, daihyousha_mei = ?, "
-				+ "houjin_touroku_bango = ?, homepage = ?, denwa_kaisha = ?, fakkusu_bango = ?, gyoutai = ?, "
-				+ "shumoku = ?, kaisha_image_keiro = ?, inkan_image_keiro = ? WHERE kaisha_id = ?";
+		PreparedStatement ps = null;
 
-		try (PreparedStatement ps = connection.prepareStatement(query)) {
+		try {
+			ps = conn.prepareStatement(query);
 			ps.setString(1, kaisha.getKaisha_mei());
 			ps.setString(2, kaisha.getJigyousha_touroku_bango());
 
@@ -123,7 +58,7 @@ public class KaishaJouhouDao {
 			ps.setString(5, kaisha.getYuubin_bango());
 			ps.setString(6, kaisha.getDaihyousha_yakushoku());
 			ps.setString(7, kaisha.getDaihyousha_mei());
-			ps.setString(8, (String) kaisha.getHoujinTourokuBango());
+			ps.setString(8, kaisha.getHoujin_touroku_bango());
 			ps.setString(9, kaisha.getHomepage());
 			ps.setString(10, kaisha.getDenwa_kaisha());
 			ps.setString(11, kaisha.getFakkusu_bango());
@@ -131,11 +66,96 @@ public class KaishaJouhouDao {
 			ps.setString(13, kaisha.getShumoku());
 			ps.setString(14, kaisha.getKaisha_image_keiro());
 			ps.setString(15, kaisha.getInkan_image_keiro());
-			ps.setInt(16, kaisha.getKaisha_id());
 
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(ps);
+		}
+	}
+
+	// 특정 회사 ID로 회사 정보를 조회하는 메서드
+	public KaishaJouhou getKaishaById(Connection conn, Integer kaishaId) {
+		KaishaJouhou kaisha = new KaishaJouhou();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = "SELECT * FROM KaishaJouhou WHERE Kaisha_id = ?";
+
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, kaishaId);
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				
+				kaisha.setKaisha_id(rs.getInt("kaisha_id"));
+				kaisha.setKaisha_mei(rs.getString("kaisha_mei"));
+				kaisha.setJigyousha_touroku_bango(rs.getString("jigyousha_touroku_bango"));
+				kaisha.setSetsuribi(rs.getDate("setsuribi"));
+				kaisha.setJigyousho_jyuusho(rs.getString("jigyousho_jyuusho"));
+				kaisha.setYuubin_bango(rs.getString("yuubin_bango"));
+				kaisha.setDaihyousha_yakushoku(rs.getString("daihyousha_yakushoku"));
+				kaisha.setDaihyousha_mei(rs.getString("daihyousha_mei"));
+				kaisha.setHoujin_touroku_bango(rs.getString("houjin_touroku_bango"));
+				kaisha.setHomepage(rs.getString("homepage"));
+				kaisha.setDenwa_kaisha(rs.getString("denwa_kaisha"));
+				kaisha.setFakkusu_bango(rs.getString("fakkusu_bango"));
+				kaisha.setGyoutai(rs.getString("gyoutai"));
+				kaisha.setShumoku(rs.getString("shumoku"));
+				kaisha.setKaisha_image_keiro(rs.getString("kaisha_image_keiro"));
+				kaisha.setInkan_image_keiro(rs.getString("inkan_image_keiro"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(ps);
+		}
+		return kaisha;
+		
+	}
+
+	// 주어진 회사 정보를 데이터베이스에서 업데이트하는 메서드
+	public void updateKaisha(Connection conn, KaishaJouhou kaisha, Integer KaishaId) {
+		String query = "UPDATE KaishaJouhou SET kaisha_mei = ?, jigyousha_touroku_bango = ?, setsuribi = ?, "
+				+ "jigyousho_jyuusho = ?, yuubin_bango = ?, daihyousha_yakushoku = ?, daihyousha_mei = ?, "
+				+ "houjin_touroku_bango = ?, homepage = ?, denwa_kaisha = ?, fakkusu_bango = ?, gyoutai = ?, "
+				+ "shumoku = ?, kaisha_image_keiro = ?, inkan_image_keiro = ? WHERE kaisha_id = ?";
+
+		PreparedStatement ps = null;
+
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setString(1, kaisha.getKaisha_mei());
+			ps.setString(2, kaisha.getJigyousha_touroku_bango());
+
+			if (kaisha.getSetsuribi() != null) {
+				ps.setDate(3, new java.sql.Date(kaisha.getSetsuribi().getTime()));
+			} else {
+				ps.setNull(3, java.sql.Types.DATE);
+			}
+
+			ps.setString(4, kaisha.getJigyousho_jyuusho());
+			ps.setString(5, kaisha.getYuubin_bango());
+			ps.setString(6, kaisha.getDaihyousha_yakushoku());
+			ps.setString(7, kaisha.getDaihyousha_mei());
+			ps.setString(8, kaisha.getHoujin_touroku_bango());
+			ps.setString(9, kaisha.getHomepage());
+			ps.setString(10, kaisha.getDenwa_kaisha());
+			ps.setString(11, kaisha.getFakkusu_bango());
+			ps.setString(12, kaisha.getGyoutai());
+			ps.setString(13, kaisha.getShumoku());
+			ps.setString(14, kaisha.getKaisha_image_keiro());
+			ps.setString(15, kaisha.getInkan_image_keiro());
+			ps.setInt(16, KaishaId);
+
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(ps);
 		}
 	}
 }

@@ -24,6 +24,10 @@ public class KyuuyoShikyuuJouhou {
 		this.yokinShaMeigi = yokinShaMeigi;
 	}
 
+	public KyuuyoShikyuuJouhou() {
+
+	}
+
 	public Integer getKaisha_id() {
 		return kaisha_id;
 	}

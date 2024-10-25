@@ -10,8 +10,7 @@ public class KyuukaKoumoku {
 	private Date tekiyouShuuryou;
 	private char shiyouUmu;
 	
-	public KyuukaKoumoku(Integer kyuukaKoumoku_id, String kyuukaShurui, Date tekiyouKaishi, Date tekiyouShuuryou,
-			char shiyouUmu) {
+	public KyuukaKoumoku() {
 		super();
 		this.kyuukaKoumoku_id = kyuukaKoumoku_id;
 		this.kyuukaShurui = kyuukaShurui;

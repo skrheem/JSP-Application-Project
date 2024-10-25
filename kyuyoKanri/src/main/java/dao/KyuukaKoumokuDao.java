@@ -1,96 +1,148 @@
 package dao;
 
+//김찬호 金燦鎬
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
-import oracle.sql.DATE;
 
+import jdbc.JdbcUtil;
 import model.KyuukaKoumoku;
 
 public class KyuukaKoumokuDao {
 
 	private Connection connection;
 
-	// * 생성자: 데이터베이스 연결 객체를 받아 DAO 인스턴스를 초기화합니다.
-	// * @param connection 데이터베이스와의 연결 객체
-	public KyuukaKoumokuDao(Connection connection) {
-		this.connection = connection;
-	}
-
-	public KyuukaKoumoku getKyuukaKoumokuByid(String kyuukaShurui, Date tekiyouKaishi, Date tekiyouShuuryou, char shiyouUmu) {
-		KyuukaKoumoku kyuukaKoumoku = null;
-
+	public void insertKyuukaKoumoku(Connection conn, String kyuukaShurui, Date tekiyouKaishi, Date tekiyouShuuryou,
+			char shiyouUmu) {
 		String query = "INSERT INTO KyuukaKoumoku (kyuukaKoumoku_id, kyuukaShurui, tekiyouKaishi, tekiyouShuuryou, shiyouUmu) "
 				+ "VALUES (KyuukaKoumoku_sequence.nextVal, ?, ?, ?, ?)";
 
-		try (PreparedStatement ps = connection.prepareStatement(query)) {
+		PreparedStatement ps = null;
+
+		try {
+			ps = connection.prepareStatement(query);
 			ps.setString(1, kyuukaShurui);
+
 			if (tekiyouKaishi != null) {
-			    java.sql.Date sqlTekiyouKaishi = new java.sql.Date(tekiyouKaishi.getTime());
-			    ps.setDate(2, sqlTekiyouKaishi);
+				ps.setDate(2, new java.sql.Date(tekiyouKaishi.getTime()));
 			} else {
-			    ps.setNull(2, java.sql.Types.DATE);
+				ps.setNull(2, java.sql.Types.DATE);
 			}
-			if (tekiyouKaishi != null) {
-			    java.sql.Date sqlTekiyouShuuryou = new java.sql.Date(tekiyouShuuryou.getTime());
-			    ps.setDate(3, sqlTekiyouShuuryou);
+
+			if (tekiyouShuuryou != null) {
+				ps.setDate(3, new java.sql.Date(tekiyouShuuryou.getTime()));
 			} else {
-			    ps.setNull(3, java.sql.Types.DATE);
+				ps.setNull(3, java.sql.Types.DATE);
 			}
-			String shiyou = shiyouUmu + "";
-			ps.setString(4, shiyou);
-			
-			ResultSet rs = ps.executeQuery();
+
+			ps.setString(4, String.valueOf(shiyouUmu));
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(ps);
+		}
+	}
+
+	// 특정 ID로 KyuukaKoumoku 데이터를 조회하는 메서드
+	public KyuukaKoumoku getKyuukaKoumokuById(Integer kyuukaKoumokuId) {
+		KyuukaKoumoku kyuukaKoumoku = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		String query = "SELECT * FROM KyuukaKoumoku WHERE kyuukaKoumoku_id = ?";
+
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setObject(1, kyuukaKoumokuId);
+			rs = ps.executeQuery();
 
 			if (rs.next()) {
-
-				kyuukaKoumoku = new kyuukaKoumoku(KyuukaKoumoku_id, query, null, null, query);
 				kyuukaKoumoku.setKyuukaKoumoku_id(rs.getInt("kyuukaKoumoku_id"));
 				kyuukaKoumoku.setKyuukaShurui(rs.getString("kyuukaShurui"));
 				kyuukaKoumoku.setTekiyouKaishi(rs.getDate("tekiyouKaishi"));
 				kyuukaKoumoku.setTekiyouShuuryou(rs.getDate("tekiyouShuuryou"));
-				kyuukaKoumoku.setShiyouUmu(rs.getChar("shiyouUmu"));
-
+				kyuukaKoumoku.setShiyouUmu(rs.getString("shiyouUmu").charAt(0));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(ps);
 		}
 
 		return kyuukaKoumoku;
 	}
-	
+
+	// KyuukaKoumoku 데이터를 업데이트하는 메서드
 	public void updateKyuukaKoumoku(KyuukaKoumoku kyuukaKoumoku) {
-        String query = "UPDATE Tantousha SET namae_kana = ?, denwa_tantousha = ?, denwa_keitai = ?, meeru = ?, "
-                + "kaisha_id = ?, busho_id = ?, yakushoku_id = ? WHERE tantousha_id = ?";
+		String query = "UPDATE KyuukaKoumoku SET kyuukaShurui = ?, tekiyouKaishi = ?, tekiyouShuuryou = ?, shiyouUmu = ? "
+				+ "WHERE kyuukaKoumoku_id = ?";
 
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setString(1, kyuukaKoumoku.getNamae_kana());
-            ps.setString(2, tantousha.getDenwa_tantousha());
-            ps.setString(3, tantousha.getDenwa_keitai());
-            ps.setString(4, tantousha.getMeeru());
-            ps.setInt(5, tantousha.getKaisha_id());
+		PreparedStatement ps = null;
 
-            // busho_id와 yakushoku_id의 null 처리
-            if (tantousha.getBusho_id() != null) {
-                ps.setInt(6, tantousha.getBusho_id());
-            } else {
-                ps.setNull(6, java.sql.Types.INTEGER);
-            }
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setString(1, kyuukaKoumoku.getKyuukaShurui());
 
-            if (tantousha.getYakushoku_id() != null) {
-                ps.setInt(7, tantousha.getYakushoku_id());
-            } else {
-                ps.setNull(7, java.sql.Types.INTEGER);
-            }
+			if (kyuukaKoumoku.getTekiyouKaishi() != null) {
+				ps.setDate(2, new java.sql.Date(kyuukaKoumoku.getTekiyouKaishi().getTime()));
+			} else {
+				ps.setNull(2, java.sql.Types.DATE);
+			}
 
-            ps.setInt(8, tantousha.getTantousha_id());
+			if (kyuukaKoumoku.getTekiyouShuuryou() != null) {
+				ps.setDate(3, new java.sql.Date(kyuukaKoumoku.getTekiyouShuuryou().getTime()));
+			} else {
+				ps.setNull(3, java.sql.Types.DATE);
+			}
 
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+			ps.setString(4, String.valueOf(kyuukaKoumoku.getShiyouUmu()));
 
+			ps.setObject(5, kyuukaKoumoku.getKyuukaKoumoku_id());
+
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(ps);
+		}
+	}
+
+	// 사용자가 만든 모든 KyuukaKoumoku 데이터를 조회하여 리스트로 반환하는 메서드
+	public ArrayList<KyuukaKoumoku> getKyuukaKoumokuListByUser(int userId) {
+		ArrayList<KyuukaKoumoku> kyuukaList = new ArrayList<>();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		String query = "SELECT * FROM KyuukaKoumoku WHERE user_id = ?";
+
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setInt(1, userId);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				KyuukaKoumoku kyuukaKoumoku = new KyuukaKoumoku();
+				kyuukaKoumoku.setKyuukaKoumoku_id(rs.getInt("kyuukaKoumoku_id"));
+				kyuukaKoumoku.setKyuukaShurui(rs.getString("kyuukaShurui"));
+				kyuukaKoumoku.setTekiyouKaishi(rs.getDate("tekiyouKaishi"));
+				kyuukaKoumoku.setTekiyouShuuryou(rs.getDate("tekiyouShuuryou"));
+				kyuukaKoumoku.setShiyouUmu(rs.getString("shiyouUmu").charAt(0));
+
+				kyuukaList.add(kyuukaKoumoku);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(ps);
+		}
+
+		return kyuukaList;
+	}
 }
