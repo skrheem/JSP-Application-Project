@@ -22,6 +22,20 @@ public class Tantousha {
 		this.busho_id = busho_id;
 		this.yakushoku_id = yakushoku_id;
 	}
+	public Tantousha() {
+
+	}
+	
+	public Tantousha(String namae_kana, String denwa_tantousha, String denwa_keitai, String meeru, Integer kaisha_id, String busho, String yakushoku) {
+		super();
+		this.namae_kana = namae_kana;
+        this.denwa_tantousha = denwa_tantousha;
+        this.denwa_keitai = denwa_keitai;
+        this.meeru = meeru;
+        this.kaisha_id = kaisha_id;
+        this.busho_id = busho_id;
+        this.yakushoku_id = yakushoku_id;
+    }
 	public Integer getTantousha_id() {
 		return tantousha_id;
 	}

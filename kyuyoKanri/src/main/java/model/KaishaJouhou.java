@@ -1,5 +1,7 @@
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class KaishaJouhou {
@@ -20,7 +22,10 @@ public class KaishaJouhou {
 	private String shumoku;
 	private String kaisha_image_keiro;
 	private String inkan_image_keiro;
-	public KaishaJouhou(Integer kaisha_id, String kaisha_mei, String jigyousha_touroku_bango, Date setsuribi,
+	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	
+	public KaishaJouhou(Integer kaisha_id, String kaisha_mei, String jigyousha_touroku_bango, String setsuribi,
 			String jigyousho_jyuusho, String yuubin_bango, String daihyousha_yakushoku, String daihyousha_mei,
 			String houjin_touroku_bango, String homepage, String denwa_kaisha, String fakkusu_bango, String gyoutai,
 			String shumoku, String kaisha_image_keiro, String inkan_image_keiro) {
@@ -28,7 +33,12 @@ public class KaishaJouhou {
 		this.kaisha_id = kaisha_id;
 		this.kaisha_mei = kaisha_mei;
 		this.jigyousha_touroku_bango = jigyousha_touroku_bango;
-		this.setsuribi = setsuribi;
+		try {
+			this.setsuribi = dateFormat.parse(setsuribi);
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		this.jigyousho_jyuusho = jigyousho_jyuusho;
 		this.yuubin_bango = yuubin_bango;
 		this.daihyousha_yakushoku = daihyousha_yakushoku;
@@ -42,101 +52,176 @@ public class KaishaJouhou {
 		this.kaisha_image_keiro = kaisha_image_keiro;
 		this.inkan_image_keiro = inkan_image_keiro;
 	}
-	public Integer getKaisha_id() {
-		return kaisha_id;
-	}
-	public void setKaisha_id(Integer kaisha_id) {
-		this.kaisha_id = kaisha_id;
-	}
-	public String getKaisha_mei() {
-		return kaisha_mei;
-	}
-	public void setKaisha_mei(String kaisha_mei) {
+
+	public KaishaJouhou(String kaisha_mei, String jigyousha_touroku_bango, String setsuribi,
+			String jigyousho_jyuusho, String yuubin_bango, String daihyousha_yakushoku, String daihyousha_mei,
+			String houjin_touroku_bango, String homepage, String denwa_kaisha, String fakkusu_bango, String gyoutai,
+			String shumoku, String kaisha_image_keiro, String inkan_image_keiro) {
+		super();
 		this.kaisha_mei = kaisha_mei;
-	}
-	public String getJigyousha_touroku_bango() {
-		return jigyousha_touroku_bango;
-	}
-	public void setJigyousha_touroku_bango(String jigyousha_touroku_bango) {
 		this.jigyousha_touroku_bango = jigyousha_touroku_bango;
-	}
-	public Date getSetsuribi() {
-		return setsuribi;
-	}
-	public void setSetsuribi(Date setsuribi) {
-		this.setsuribi = setsuribi;
-	}
-	public String getJigyousho_jyuusho() {
-		return jigyousho_jyuusho;
-	}
-	public void setJigyousho_jyuusho(String jigyousho_jyuusho) {
+		try {
+			this.setsuribi = dateFormat.parse(setsuribi);
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		this.jigyousho_jyuusho = jigyousho_jyuusho;
-	}
-	public String getYuubin_bango() {
-		return yuubin_bango;
-	}
-	public void setYuubin_bango(String yuubin_bango) {
 		this.yuubin_bango = yuubin_bango;
-	}
-	public String getDaihyousha_yakushoku() {
-		return daihyousha_yakushoku;
-	}
-	public void setDaihyousha_yakushoku(String daihyousha_yakushoku) {
 		this.daihyousha_yakushoku = daihyousha_yakushoku;
-	}
-	public String getDaihyousha_mei() {
-		return daihyousha_mei;
-	}
-	public void setDaihyousha_mei(String daihyousha_mei) {
 		this.daihyousha_mei = daihyousha_mei;
-	}
-	public String getHoujin_touroku_bango() {
-		return houjin_touroku_bango;
-	}
-	public void setHoujin_touroku_bango(String houjin_touroku_bango) {
 		this.houjin_touroku_bango = houjin_touroku_bango;
-	}
-	public String getHomepage() {
-		return homepage;
-	}
-	public void setHomepage(String homepage) {
 		this.homepage = homepage;
-	}
-	public String getDenwa_kaisha() {
-		return denwa_kaisha;
-	}
-	public void setDenwa_kaisha(String denwa_kaisha) {
 		this.denwa_kaisha = denwa_kaisha;
-	}
-	public String getFakkusu_bango() {
-		return fakkusu_bango;
-	}
-	public void setFakkusu_bango(String fakkusu_bango) {
 		this.fakkusu_bango = fakkusu_bango;
-	}
-	public String getGyoutai() {
-		return gyoutai;
-	}
-	public void setGyoutai(String gyoutai) {
 		this.gyoutai = gyoutai;
-	}
-	public String getShumoku() {
-		return shumoku;
-	}
-	public void setShumoku(String shumoku) {
 		this.shumoku = shumoku;
-	}
-	public String getKaisha_image_keiro() {
-		return kaisha_image_keiro;
-	}
-	public void setKaisha_image_keiro(String kaisha_image_keiro) {
 		this.kaisha_image_keiro = kaisha_image_keiro;
-	}
-	public String getInkan_image_keiro() {
-		return inkan_image_keiro;
-	}
-	public void setInkan_image_keiro(String inkan_image_keiro) {
 		this.inkan_image_keiro = inkan_image_keiro;
 	}
 	
+	public KaishaJouhou() {
+
+	}
+
+	public Integer getKaisha_id() {
+		return kaisha_id;
+	}
+
+	public void setKaisha_id(Integer kaisha_id) {
+		this.kaisha_id = kaisha_id;
+	}
+
+	public String getKaisha_mei() {
+		return kaisha_mei;
+	}
+
+	public void setKaisha_mei(String kaisha_mei) {
+		this.kaisha_mei = kaisha_mei;
+	}
+
+	public String getJigyousha_touroku_bango() {
+		return jigyousha_touroku_bango;
+	}
+
+	public void setJigyousha_touroku_bango(String jigyousha_touroku_bango) {
+		this.jigyousha_touroku_bango = jigyousha_touroku_bango;
+	}
+
+	public Date getSetsuribi() {
+		return setsuribi;
+	}
+
+	public void setSetsuribi(Date setsuribi) {
+		this.setsuribi = setsuribi;
+	}
+
+	public String getJigyousho_jyuusho() {
+		return jigyousho_jyuusho;
+	}
+
+	public void setJigyousho_jyuusho(String jigyousho_jyuusho) {
+		this.jigyousho_jyuusho = jigyousho_jyuusho;
+	}
+
+	public String getYuubin_bango() {
+		return yuubin_bango;
+	}
+
+	public void setYuubin_bango(String yuubin_bango) {
+		this.yuubin_bango = yuubin_bango;
+	}
+
+	public String getDaihyousha_yakushoku() {
+		return daihyousha_yakushoku;
+	}
+
+	public void setDaihyousha_yakushoku(String daihyousha_yakushoku) {
+		this.daihyousha_yakushoku = daihyousha_yakushoku;
+	}
+
+	public String getDaihyousha_mei() {
+		return daihyousha_mei;
+	}
+
+	public void setDaihyousha_mei(String daihyousha_mei) {
+		this.daihyousha_mei = daihyousha_mei;
+	}
+
+	public String getHoujin_touroku_bango() {
+		return houjin_touroku_bango;
+	}
+
+	public void setHoujin_touroku_bango(String houjin_touroku_bango) {
+		this.houjin_touroku_bango = houjin_touroku_bango;
+	}
+
+	public String getHomepage() {
+		return homepage;
+	}
+
+	public void setHomepage(String homepage) {
+		this.homepage = homepage;
+	}
+
+	public String getDenwa_kaisha() {
+		return denwa_kaisha;
+	}
+
+	public void setDenwa_kaisha(String denwa_kaisha) {
+		this.denwa_kaisha = denwa_kaisha;
+	}
+
+	public String getFakkusu_bango() {
+		return fakkusu_bango;
+	}
+
+	public void setFakkusu_bango(String fakkusu_bango) {
+		this.fakkusu_bango = fakkusu_bango;
+	}
+
+	public String getGyoutai() {
+		return gyoutai;
+	}
+
+	public void setGyoutai(String gyoutai) {
+		this.gyoutai = gyoutai;
+	}
+
+	public String getShumoku() {
+		return shumoku;
+	}
+
+	public void setShumoku(String shumoku) {
+		this.shumoku = shumoku;
+	}
+
+	public String getKaisha_image_keiro() {
+		return kaisha_image_keiro;
+	}
+
+	public void setKaisha_image_keiro(String kaisha_image_keiro) {
+		this.kaisha_image_keiro = kaisha_image_keiro;
+	}
+
+	public String getInkan_image_keiro() {
+		return inkan_image_keiro;
+	}
+
+	public void setInkan_image_keiro(String inkan_image_keiro) {
+		this.inkan_image_keiro = inkan_image_keiro;
+	}
+
+	@Override
+	public String toString() {
+		return "KaishaJouhou [kaisha_id=" + kaisha_id + ", kaisha_mei=" + kaisha_mei + ", jigyousha_touroku_bango="
+				+ jigyousha_touroku_bango + ", setsuribi=" + setsuribi + ", jigyousho_jyuusho=" + jigyousho_jyuusho
+				+ ", yuubin_bango=" + yuubin_bango + ", daihyousha_yakushoku=" + daihyousha_yakushoku
+				+ ", daihyousha_mei=" + daihyousha_mei + ", houjin_touroku_bango=" + houjin_touroku_bango
+				+ ", homepage=" + homepage + ", denwa_kaisha=" + denwa_kaisha + ", fakkusu_bango=" + fakkusu_bango
+				+ ", gyoutai=" + gyoutai + ", shumoku=" + shumoku + ", kaisha_image_keiro=" + kaisha_image_keiro
+				+ ", inkan_image_keiro=" + inkan_image_keiro + "]";
+	}
+	
+
 }

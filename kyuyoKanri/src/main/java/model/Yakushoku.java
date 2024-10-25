@@ -2,19 +2,19 @@ package model;
 
 public class Yakushoku {
 	
-	private int yakushoku_id;
+	private Integer yakushoku_id;
 	private String yakushoku_mei;
 
-	public Yakushoku(int yakushoku_id, String yakushoku_mei) {
+	public Yakushoku(Integer yakushoku_id, String yakushoku_mei) {
 		super();
 		this.yakushoku_id = yakushoku_id;
 		this.yakushoku_mei = yakushoku_mei;
 	}
 
-	public int getYakushoku_id() {
+	public Integer getYakushoku_id() {
 		return yakushoku_id;
 	}
-	public void setYakushoku_id(int yakushoku_id) {
+	public void setYakushoku_id(Integer yakushoku_id) {
 		this.yakushoku_id = yakushoku_id;
 	}
 

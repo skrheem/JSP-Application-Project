@@ -30,6 +30,9 @@ public class KyuuyoKoumoku {
 		this.ikkatsuShiharaiGaku = ikkatsuShiharaiGaku;
 		this.shiyouUmu = shiyouUmu;
 	}
+	public KyuuyoKoumoku() {
+
+	}
 	public Integer getKyuuyoKoumoku_id() {
 		return kyuuyoKoumoku_id;
 	}
