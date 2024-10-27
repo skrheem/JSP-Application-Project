@@ -1,0 +1,216 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    padding: 10px;
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.header p {
+    color: #666;
+}
+
+.filter-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.filters label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.filters select, .filters input {
+    margin-right: 10px;
+}
+
+.btn {
+    background-color: #ff5c5c;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.table-section {
+    margin-top: 20px;
+}
+
+.payroll-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.payroll-table th, .payroll-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+.summary-section {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.summary div {
+    font-size: 1rem;
+    color: #333;
+}
+
+.main-horizontal-content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.employee-list {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.income-deduction-content {
+    display: flex;
+    flex: 2;
+    justify-content: space-between;
+}
+
+.income-section, .deduction-section {
+    flex: 1;
+    margin: 0 10px;
+}
+
+.income-deduction-content {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-right: 20px;
+}
+
+.income-section, .deduction-section {
+    flex: 1;
+    margin: 0 5px;
+}
+
+.income-section, .deduction-section {
+    flex: 1;
+    margin: 0 2px; /* Further reducing the margin between the sections */
+}
+
+.income-deduction-content {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-right: 20px;
+    width: 400px; /* Setting a fixed width for consistent layout */
+    gap: 10px; /* Adding slight gap for distinction */
+}
+
+.income-section, .deduction-section {
+    flex: 1;
+}
+
+.income-section label, .deduction-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.income-section input, .deduction-section input {
+    width: 100%;
+    padding: 4px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.total {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.income-section input[type="number"], .deduction-section input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.income-section input[type="number"]::-webkit-outer-spin-button, 
+.income-section input[type="number"]::-webkit-inner-spin-button, 
+.deduction-section input[type="number"]::-webkit-outer-spin-button, 
+.deduction-section input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Calculated toggle button styles */
+.calc-toggle {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.calc-toggle span {
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.calc-toggle input[type="checkbox"] {
+    appearance: none;
+    width: 40px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 10px;
+    position: relative;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.calc-toggle input[type="checkbox"]:checked {
+    background-color: #4CAF50;
+}
+
+.calc-toggle input[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.calc-toggle input[type="checkbox"]:checked::before {
+    transform: translateX(20px);
+}
+
+.payroll-table tbody tr:hover {
+    background-color: #E0F7FA; /* 연한 하늘색 */
+}
+
+.keisan-label {
+    display: none;
+    border: 1px solid #ccc;
+    padding: 4px;
+    margin-top: 5px;
+    background-color: #f9f9f9;
+}

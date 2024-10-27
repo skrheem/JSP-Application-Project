@@ -70,6 +70,7 @@ public class ControllerUsingURI extends HttpServlet {
 		while (keyIter.hasNext()) {
 			// Iterator로 Set을 순회하며 그 값을 읽어 String 형으로 변환하여 command 변수에 저장
 			String command = (String) keyIter.next();
+			System.out.println("!!!!!!" + command);
 			// command 변수에 담긴 key에 해당하는 값을 읽어들여 handlerClassName 변수에 저장
 			String handlerClassName = prop.getProperty(command);
 			try {
@@ -145,6 +146,7 @@ public class ControllerUsingURI extends HttpServlet {
 		if(viewPage!=null) {
 			// RequesetDispatcher 클래스는 HTTP 요청을 다른 서블릿이나 jsp로 포워딩시키는 메서드를 제공하는 클래스이다.
 			// request.getRequestDispatcher(viewPage) : viewPage로 request를 포워딩시키는 RequestDispatcher 인스턴스를 생성
+			System.out.println(viewPage);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			
 			// viewPage에 요청과 응답을 포워딩시킨다.

@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
 
-//임세규 林世圭
+//임세규 林世圭 급여입력・관리 페이지 / 給与入力・管理ページ
 public class KyuuyoShikyuuJouhouDao {
 	public static void main(String args[]) {
 		try {

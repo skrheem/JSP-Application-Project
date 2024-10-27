@@ -43,7 +43,7 @@ public class ShainDao {
 	// 급여입력/관리 페이지의 "신규추가" 버튼을 눌렀을 때 출력할 사원 리스트
 	// 給与入力・管理ページの”新規追加“ボタンを押した時ポップアップ画面に出力する社員のリスト
 	public ArrayList<Shain> getShainSentakuList(Connection conn) {
-		ArrayList shainList = new ArrayList<Shain>();	
+		ArrayList<Shain> shainList = new ArrayList<>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String query = "SELECT s.kubun, s.shain_id, s.namae_kana, b.busho_mei, y.yakushoku_mei, s.jyoutai "
