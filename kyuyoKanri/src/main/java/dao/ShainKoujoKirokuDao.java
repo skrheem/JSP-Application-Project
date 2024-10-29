@@ -22,7 +22,7 @@ private static ShainKoujoKirokuDao skjDao = new ShainKoujoKirokuDao();
 		String query = "select sk.*, kj.koujokoumoku_mei, kj.keisanHouhou "
 					+ "from shainkoujokiroku sk "
 					+ "JOIN koujokoumoku kj ON sk.koujokoumoku_id = kj.koujokoumoku_id "
-					+ "where shain_id = ? ORDER BY kj.koujokoumoku_id";
+					+ "where shain_id = ? AND shiyouumu = 'Y' ORDER BY kj.koujokoumoku_id";
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, shain_id);

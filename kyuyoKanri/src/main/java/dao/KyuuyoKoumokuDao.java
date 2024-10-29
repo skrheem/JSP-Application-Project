@@ -20,7 +20,7 @@ public class KyuuyoKoumokuDao {
 		ArrayList<KyuuyoKoumoku> kList = new ArrayList<>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String query = "select * from kyuuyokoumoku ORDER BY kyuuyokoumoku_id";
+		String query = "select * from kyuuyokoumoku koujokoumoku where shiyouumu = 'Y'  ORDER BY kyuuyokoumoku_id";
 		
 		try {
 			ps = conn.prepareStatement(query);

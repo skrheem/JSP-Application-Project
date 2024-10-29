@@ -15,6 +15,15 @@ public class ShainTekiyouKoujoKoumoku {
 	private BigDecimal kihonKyuu;
 
 	private double koujoGaku;
+	
+	private char kihonKoumoku;
+
+	
+	
+	public ShainTekiyouKoujoKoumoku() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	// 임세규 林世圭 급여입력・관리 페이지 / 給与入力・管理ページ
 	// 사원별로 적용되는 공제항목의 이름, 공제율, 계산방법을 담는다.
@@ -34,11 +43,13 @@ public class ShainTekiyouKoujoKoumoku {
 	}
 
 	// 급여입력관리에서 사원에게 적용되는 공제항목의 이름과 공제율, 기본급을 가져와서 값을 계산할거임
-	public ShainTekiyouKoujoKoumoku(Integer koujokoumoku_id, double koujoRitsu, String koujoKoumoku_mei, BigDecimal kihonkyuu) {
+	public ShainTekiyouKoujoKoumoku(Integer koujokoumoku_id, double koujoRitsu, String koujoKoumoku_mei, BigDecimal kihonkyuu, char kihonKoumoku, String keisanHouhou) {
 		this.koujoKoumoku_id = koujokoumoku_id;
 		this.koujoKoumoku_ritsu = koujoRitsu;
 		this.koujoKoumoku_mei = koujoKoumoku_mei;
 		this.kihonKyuu = kihonkyuu;
+		this.kihonKoumoku = kihonKoumoku;
+		this.keisanHouhou = keisanHouhou;
 	}
 	public ShainTekiyouKoujoKoumoku(Integer koujokoumoku_id, double koujoGaku ) {
 		this.koujoKoumoku_id = koujokoumoku_id;
@@ -75,8 +86,16 @@ public class ShainTekiyouKoujoKoumoku {
 	public double getKoujoGaku() {
 		return koujoGaku;
 	}
+	
+	public void setKoujoGaku(double koujoGaku) {
+		this.koujoGaku = koujoGaku;
+	}
 
 	public double keisan() {
 		return (BigDecimal.valueOf(this.koujoKoumoku_ritsu).multiply(this.kihonKyuu)).doubleValue();
+	}
+	
+	public char getKihonKoumoku() {
+		return this.kihonKoumoku;
 	}
 }

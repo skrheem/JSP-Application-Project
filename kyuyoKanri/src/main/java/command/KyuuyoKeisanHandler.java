@@ -38,13 +38,14 @@ public class KyuuyoKeisanHandler implements CommandHandler {
 		
 	    ArrayList<ShainKyuuyoKeisanKiroku> skList = ks.getShainList(); // 사원 리스트 가져오는 서비스 호출
 	    ArrayList<KyuuyoKoumoku> kyuuyoList = gs.getKyuuyoKoumokuJouhou();
+	    ArrayList<KoujoKoumoku> kihonKoujoList = gs.getKihonKoujoKoumokuJouhou();
 	    ArrayList<KoujoKoumoku> koujoList = gs.getKoujoKoumokuJouhou();
-	    System.out.println(ObjectFormatter.formatList(skList));
-	    System.out.println(ObjectFormatter.formatList(kyuuyoList));
-	    System.out.println(ObjectFormatter.formatList(koujoList));
+	    
 	    req.setAttribute("skList", skList);
 	    req.setAttribute("kyuuyoList", kyuuyoList);
+	    req.setAttribute("kihonKoujoList", kihonKoujoList);
 	    req.setAttribute("koujoList", koujoList);
+	    System.out.println(ObjectFormatter.formatList(koujoList));
 	    return FORM_VIEW;
 	}
 	
