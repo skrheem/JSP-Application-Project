@@ -28,18 +28,34 @@ public class kyuuyoKanriShainListService {
     // 포맷팅
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     String formattedFirstDay = firstDayOfMonth.format(formatter);
-    String formattedLastDay = lastDayOfMonth.format(formatter);
 	
-	public ArrayList<ShainKyuuyoKeisanKiroku> getShainList() {
+   
+	public ArrayList<ShainKyuuyoKeisanKiroku> getShainList(String koukinzei) {
 		ShainKyuuyoKeisanKirokuDao sd = ShainKyuuyoKeisanKirokuDao.getInstance();
 		ArrayList<ShainKyuuyoKeisanKiroku> sList = new ArrayList<>();
 		try {
 			Connection conn = ConnectionProvider.getConnection();
-			sList = sd.getKyuuyoKeisanList(conn, formattedFirstDay, formattedLastDay, "1");
+			sList = sd.getKyuuyoKeisanList(conn, formattedFirstDay, "1", koukinzei);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		return sList;
+	}
+	
+	// 귀속연월 차수 지정해서 사원 리스트 가져오기
+	public ArrayList<ShainKyuuyoKeisanKiroku> getPostShainList(String year, String month, String jisuu, String koukinzei) {
+		String kyuuyoGatsu = year + "-" + month + "-01";
+		ShainKyuuyoKeisanKirokuDao sd = ShainKyuuyoKeisanKirokuDao.getInstance();
+		ArrayList<ShainKyuuyoKeisanKiroku> postShainList = new ArrayList<>();
+		
+		try {
+			Connection conn = ConnectionProvider.getConnection();
+			postShainList = sd.getKyuuyoKeisanList(conn, kyuuyoGatsu, jisuu, koukinzei);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return postShainList;
 	}
 }

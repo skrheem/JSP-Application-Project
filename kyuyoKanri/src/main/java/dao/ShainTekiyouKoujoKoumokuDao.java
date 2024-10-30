@@ -69,7 +69,7 @@ public class ShainTekiyouKoujoKoumokuDao {
 				+ "from Shain s "
 				+ "JOIN shainkihonkyuu sk ON s.shain_id = sk.shain_id "
 				+ "JOIN shaintekiyoukoujokoumoku skj ON s.shain_id = skj.shain_id "
-				+ "JOIN koujokoumoku kj ON skj.koujokoumoku_id = kj.koujokoumoku_id " + "WHERE s.shain_id = ? "
+				+ "JOIN koujokoumoku kj ON skj.koujokoumoku_id = kj.koujokoumoku_id " + "WHERE s.shain_id = ?  AND kihonkoumoku IS NOT NULL "
 				+ "ORDER BY koujokoumoku_id";
 		try {
 			ps = conn.prepareStatement(query);

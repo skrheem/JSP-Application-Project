@@ -58,69 +58,82 @@ public class getKyuuyoKirokuHandler implements CommandHandler {
 
 	// 급여입력/관리 페이지에 GET 요청으로 접속 시 급여항목과 공제항목의 정보를 가져온다.
 	private String processForm(HttpServletRequest req, HttpServletResponse res) throws Exception {
-
+		
+		// 국민연금
 		ShainTekiyouKoujoKoumoku kokumin = new ShainTekiyouKoujoKoumoku();
+		// 건강보험
 		ShainTekiyouKoujoKoumoku kenkou = new ShainTekiyouKoujoKoumoku();
+		// 장기요양보험
 		ShainTekiyouKoujoKoumoku chouki = new ShainTekiyouKoujoKoumoku();
+		// 고용보험
 		ShainTekiyouKoujoKoumoku koyou = new ShainTekiyouKoujoKoumoku();
+		// 소득세
 		ShainTekiyouKoujoKoumoku shotoku = new ShainTekiyouKoujoKoumoku();
+		// 지방소득세
 		ShainTekiyouKoujoKoumoku chihou = new ShainTekiyouKoujoKoumoku();
+		// 계산된 소득세
 		int shotokuZei = 0;
+		// 계산된 지방소득세
 		int chihouZei = 0;
+		// 공제총액
+		int koujoSougaku = 0;
+		// 급여총액
+		int kyuuyoSougaku = 0;
+		// 실지급액
+		int jissaiSougaku = 0;
+		// 쿼리스트링으로 받는 사원id
 		Integer shain_id = Integer.parseInt(req.getParameter("shain_id"));
-		System.out.println(shain_id);
-		int kihonkyuu = gs.getShainKihonkyuu(shain_id);
-
-		ArrayList<ShainTekiyouKoujoKoumoku> sktList = gs.getShainTekiyouKoujoKoumokuList(shain_id);
-
+		// 사원에게 적용되는 공제항목들 리스트
+		ArrayList<ShainTekiyouKoujoKoumoku> tekiyouList = gs.getShainTekiyouKoujoKoumokuList(shain_id);
+		// 사원의 급여항목기록 리스트
 		ArrayList<ShainKyuuyoKiroku> skkList = gsk.getShainKyuuyoKiroku(shain_id);
-
+		// 사원의 공제항목기록 리스트
 		ArrayList<ShainKoujoKiroku> skjList = gsk.getShainKoujoKiroku(shain_id);
-
+		// 각 공제항목들을 계산한 값을 저장하는 리스트
 		ArrayList<ShainTekiyouKoujoKoumoku> keisanList = new ArrayList<>();
 
-		for (ShainTekiyouKoujoKoumoku s : sktList) {
+		// 사원에게 적용되는 공제항목의 공제금액을 계산하여 리스트에 저장
+		for (ShainTekiyouKoujoKoumoku s : tekiyouList) {
+			// 국민연금 계산
 			if ((s.getKoujoKoumoku_mei()).equals("国民年金")) {
 				s.setKoujoGaku(s.keisan());
-				System.out.println(ObjectFormatter.formatObject(s));
+				keisanList.add(new ShainTekiyouKoujoKoumoku(s.getKoujoKoumoku_id(), (int) s.getKoujoGaku()));
 				kokumin = s;
-			} else if ((s.getKoujoKoumoku_mei()).equals("健康保険")) {
+			} 
+			// 건강보험 계산
+			else if ((s.getKoujoKoumoku_mei()).equals("健康保険")) {
 				s.setKoujoGaku(s.keisan());
-				System.out.println(ObjectFormatter.formatObject(s));
+				keisanList.add(new ShainTekiyouKoujoKoumoku(s.getKoujoKoumoku_id(), (int) s.getKoujoGaku()));
 				kenkou = s;
-			} else if ((s.getKoujoKoumoku_mei()).equals("長期介護保険")) {
+			} 
+			// 장기요양보험 계산(건강보험 * 0.1295)
+			else if ((s.getKoujoKoumoku_mei()).equals("長期介護保険")) {
 				s.setKoujoGaku((s.getKihonKyuu().multiply(new BigDecimal("0.03545"))).multiply(new BigDecimal("0.1295"))
 						.intValue());
-				System.out.println(ObjectFormatter.formatObject(s));
+				keisanList.add(new ShainTekiyouKoujoKoumoku(s.getKoujoKoumoku_id(), (int) s.getKoujoGaku()));
 				chouki = s;
-			} else if ((s.getKoujoKoumoku_mei()).equals("雇用保険")) {
+			} 
+			// 고용보험 계산
+			else if ((s.getKoujoKoumoku_mei()).equals("雇用保険")) {
 				s.setKoujoGaku(s.keisan());
-				System.out.println(ObjectFormatter.formatObject(s));
+				keisanList.add(new ShainTekiyouKoujoKoumoku(s.getKoujoKoumoku_id(), (int) s.getKoujoGaku()));
 				koyou = s;
-			} else if ((s.getKoujoKoumoku_mei()).equals("所得税")) {
-				shotokuZei = gs.keisanShotokuZei(shain_id);
-				System.out.println(shotokuZei);
+			} 
+			// 소득세 계산(세액표 테이블에서 가져옴)
+			else if ((s.getKoujoKoumoku_mei()).equals("所得税")) {
+				keisanList.add(new ShainTekiyouKoujoKoumoku(s.getKoujoKoumoku_id(), gs.keisanShotokuZei(shain_id)));
 				shotoku = s;
-			} else if ((s.getKoujoKoumoku_mei()).equals("地方税")) {
-				chihouZei = (int) (gs.keisanShotokuZei(shain_id) * 0.1);
-				System.out.println(chihouZei);
-				chihou = s;
+				shotokuZei = gs.keisanShotokuZei(shain_id);
 			}
-
-			if (s.getKoujoKoumoku_mei().equals("長期介護保険")) {
-				BigDecimal returnValue = (s.getKihonKyuu().multiply(new BigDecimal("0.03545")))
-						.multiply(new BigDecimal("0.1295"));
-				keisanList.add(new ShainTekiyouKoujoKoumoku(s.getKoujoKoumoku_id(), returnValue.doubleValue()));
-			} else if(s.getKoujoKoumoku_mei().equals("所得税")) {
-				keisanList.add(new ShainTekiyouKoujoKoumoku(s.getKoujoKoumoku_id(), shotokuZei));
-			} else if(s.getKoujoKoumoku_mei().equals("地方税")) {
-				keisanList.add(new ShainTekiyouKoujoKoumoku(s.getKoujoKoumoku_id(), chihouZei));
-			} else
-				keisanList.add(new ShainTekiyouKoujoKoumoku(s.getKoujoKoumoku_id(), s.keisan()));
+			// 지방소득세 계산(소득세 * 0.1)
+			else if ((s.getKoujoKoumoku_mei()).equals("地方所得税")) {
+				keisanList.add(new ShainTekiyouKoujoKoumoku(s.getKoujoKoumoku_id(), (int) (gs.keisanShotokuZei(shain_id) * 0.1)));
+				chihou = s;
+				chihouZei = (int) (gs.keisanShotokuZei(shain_id) * 0.1);
+			}
 		}
 
-		int koujoSougaku = 0;
-		int kyuuyoSougaku = 0;
+		
 		
 		for (ShainKoujoKiroku sj : skjList)
 			koujoSougaku += sj.getKoujo_kingaku().intValue();
@@ -129,6 +142,8 @@ public class getKyuuyoKirokuHandler implements CommandHandler {
 		
 		for (ShainKyuuyoKiroku sk : skkList) 
 			kyuuyoSougaku += sk.getKyuuyo_kingaku().intValue();
+		
+		jissaiSougaku = kyuuyoSougaku - koujoSougaku;
 		
 		req.setAttribute("shainKyuuyoKirokuList", skkList);
 		req.setAttribute("kokumin", kokumin);
@@ -139,12 +154,11 @@ public class getKyuuyoKirokuHandler implements CommandHandler {
 		req.setAttribute("shotokuZei", shotokuZei);
 		req.setAttribute("chihou", chihou);
 		req.setAttribute("chihouZei", chihouZei);
-		
 		req.setAttribute("shainKoujoKirokuList", skjList);
 		req.setAttribute("koujoKingakuJson", buildJsonFromList(keisanList));
-		req.setAttribute("kihonkyuu", kihonkyuu);
 		req.setAttribute("kyuuyoSougaku", kyuuyoSougaku);
 		req.setAttribute("koujoSougaku", koujoSougaku);
+		req.setAttribute("jissaiSougaku", jissaiSougaku);
 		return "kanri.do";
 	}
 

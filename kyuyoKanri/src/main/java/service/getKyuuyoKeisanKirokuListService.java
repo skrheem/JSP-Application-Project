@@ -45,10 +45,9 @@ public class getKyuuyoKeisanKirokuListService {
 		return skjList;
 	}
 	
-	public ArrayList<ShainKyuuyoKeisanKiroku> getKiroku(String kyuuyo_gatsu_kaishi,
-			String kyuuyo_gatsu_shuuryou, String kyuuyo_jisuu) {
+	public ArrayList<ShainKyuuyoKeisanKiroku> getKiroku(String kyuuyo_gatsu, String kyuuyo_jisuu) {
 		try(Connection conn = ConnectionProvider.getConnection()) {
-			ArrayList<ShainKyuuyoKeisanKiroku> skList = sk.getKyuuyoKeisanList(conn, kyuuyo_gatsu_kaishi, kyuuyo_gatsu_shuuryou, kyuuyo_jisuu);
+			ArrayList<ShainKyuuyoKeisanKiroku> skList = sk.getKyuuyoKeisanList(conn, kyuuyo_gatsu, kyuuyo_jisuu);
 			
 			return skList;
 		} catch (SQLException e) {

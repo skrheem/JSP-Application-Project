@@ -11,12 +11,17 @@ public class ShainKyuuyoKeisanKiroku {
 	private BigDecimal shikyuuSougaku;
 	private BigDecimal koujoSougaku;
 	private BigDecimal jissai_kyuuyo;
-	
+
 	private String kubun;
 	private String namae_kana;
 	private Integer busho_id;
 	private String busho_mei;
-	
+
+	private String KYUUYOSANTEIKAISHI;
+	private String KYUUYOSANTEISHUURYOU;
+	private String KYUUYO_SHIKYUUBI;
+	private String koukinzei_kubun;
+
 	public ShainKyuuyoKeisanKiroku(Integer shain_id, Date kyuuyo_gatsu, String kyuuyo_jisuu, Date kyuuyo_shikyuubi,
 			BigDecimal shikyuuSougaku, BigDecimal koujoSougaku, BigDecimal jissai_kyuuyo) {
 		super();
@@ -27,6 +32,7 @@ public class ShainKyuuyoKeisanKiroku {
 		this.shikyuuSougaku = shikyuuSougaku;
 		this.koujoSougaku = koujoSougaku;
 		this.jissai_kyuuyo = jissai_kyuuyo;
+
 	}
 
 	public Integer getShain_id() {
@@ -56,7 +62,7 @@ public class ShainKyuuyoKeisanKiroku {
 	public BigDecimal getJissai_kyuuyo() {
 		return jissai_kyuuyo;
 	}
-	
+
 	public String getKubun() {
 		return kubun;
 	}
@@ -72,9 +78,26 @@ public class ShainKyuuyoKeisanKiroku {
 	public String getBusho_mei() {
 		return busho_mei;
 	}
-	
+
+	public String getKYUUYOSANTEIKAISHI() {
+		return KYUUYOSANTEIKAISHI;
+	}
+
+	public String getKYUUYOSANTEISHUURYOU() {
+		return KYUUYOSANTEISHUURYOU;
+	}
+
+	public String getKYUUYO_SHIKYUUBI() {
+		return KYUUYO_SHIKYUUBI;
+	}
+
+	public String getKoukinzei_kubun() {
+		return koukinzei_kubun;
+	}
+
 	public ShainKyuuyoKeisanKiroku(Integer shain_id, String kubun, String namae_kana, String busho_mei,
-			int shikyuuSougaku, int koujoSougaku, int jissai_kyuuyo) {
+			int shikyuuSougaku, int koujoSougaku, int jissai_kyuuyo, String KYUUYOSANTEIKAISHI,
+			String KYUUYOSANTEISHUURYOU, String KYUUYO_SHIKYUUBI, String koukinzei_kubun) {
 		super();
 		this.shain_id = shain_id;
 		this.kubun = kubun; // 추가된 필드 (String 타입으로 처리)
@@ -83,5 +106,9 @@ public class ShainKyuuyoKeisanKiroku {
 		this.shikyuuSougaku = BigDecimal.valueOf(shikyuuSougaku); // int 값을 BigDecimal로 변환
 		this.koujoSougaku = BigDecimal.valueOf(koujoSougaku); // int 값을 BigDecimal로 변환
 		this.jissai_kyuuyo = BigDecimal.valueOf(jissai_kyuuyo); // int 값을 BigDecimal로 변환
+		this.KYUUYOSANTEIKAISHI = KYUUYOSANTEIKAISHI;
+		this.KYUUYOSANTEISHUURYOU = KYUUYOSANTEISHUURYOU;
+		this.KYUUYO_SHIKYUUBI = KYUUYO_SHIKYUUBI;
+		this.koukinzei_kubun = koukinzei_kubun;
 	}
 }
