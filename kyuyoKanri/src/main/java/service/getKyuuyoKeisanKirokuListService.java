@@ -45,13 +45,13 @@ public class getKyuuyoKeisanKirokuListService {
 		return skjList;
 	}
 	
-	public ArrayList<ShainKyuuyoKeisanKiroku> getKiroku(String kyuuyo_gatsu, String kyuuyo_jisuu) {
-		try(Connection conn = ConnectionProvider.getConnection()) {
-			ArrayList<ShainKyuuyoKeisanKiroku> skList = sk.getKyuuyoKeisanList(conn, kyuuyo_gatsu, kyuuyo_jisuu);
-			
-			return skList;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
+//	public ArrayList<ShainKyuuyoKeisanKiroku> getKiroku(String kyuuyo_gatsu, String kyuuyo_jisuu, int koukinzeiType) {
+//		try(Connection conn = ConnectionProvider.getConnection()) {
+//			ArrayList<ShainKyuuyoKeisanKiroku> skList = sk.getKyuuyoKeisanList(conn, kyuuyo_gatsu, kyuuyo_jisuu, koukinzeiType);
+//			
+//			return skList;
+//		} catch (SQLException e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
 }

@@ -15,7 +15,7 @@ public class getShainTsuikaListService {
 	
 	private ShainDao sd = ShainDao.getInstance();
 	
-	public ArrayList<Shain> TsuikaShainList() {
+	public ArrayList<Shain> tsuikaShainList() {
 		ArrayList<Shain> sList = new ArrayList<>();
 		try(Connection conn = ConnectionProvider.getConnection()) {
 			sList = sd.getShainSentakuList(conn);

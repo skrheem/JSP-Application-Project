@@ -29,13 +29,29 @@ public class modifySanteiShikyuuBiHandler implements CommandHandler {
 	}
 	
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		
 		String santei_kaishi = req.getParameter("santei_kaishi");
-		String santei_shuuryou = req.getParameter("santei_shuuryou");
-		String shikyuu_bi = req.getParameter("shikyuu_bi");
-		String exSantei_kaishi = splitDate(req.getParameter("EXsantei_kaishi"));
-		String exSantei_shuuryou = splitDate(req.getParameter("EXsantei_shuuryou"));
-		String exShikyuu_bi = splitDate(req.getParameter("EXshikyuu_bi"));
-		String koukinzei_kubun = req.getParameter("koukinzei");
+	    String santei_shuuryou = req.getParameter("santei_shuuryou");
+	    String shikyuu_bi = req.getParameter("shikyuu_bi");
+	    String exSantei_kaishi = req.getParameter("standard-period-start");
+	    String exSantei_shuuryou = req.getParameter("standard-period-end");
+	    String exShikyuu_bi = req.getParameter("pay-date");
+	    String koukinzei_kubun = req.getParameter("koukinzei");
+
+	    System.out.println("santei_kaishi: " + santei_kaishi);
+	    System.out.println("santei_shuuryou: " + santei_shuuryou);
+	    System.out.println("shikyuu_bi: " + shikyuu_bi);
+	    System.out.println("EXsantei_kaishi: " + exSantei_kaishi);
+	    System.out.println("EXsantei_shuuryou: " + exSantei_shuuryou);
+	    System.out.println("EXshikyuu_bi: " + exShikyuu_bi);
+	    System.out.println("koukinzei_kubun: " + koukinzei_kubun);
+//		String santei_kaishi = req.getParameter("santei_kaishi");
+//		String santei_shuuryou = req.getParameter("santei_shuuryou");
+//		String shikyuu_bi = req.getParameter("shikyuu_bi");
+//		String exSantei_kaishi = splitDate(req.getParameter("EXsantei_kaishi"));
+//		String exSantei_shuuryou = splitDate(req.getParameter("EXsantei_shuuryou"));
+//		String exShikyuu_bi = splitDate(req.getParameter("EXshikyuu_bi"));
+//		String koukinzei_kubun = req.getParameter("koukinzei");
 
 
 		
@@ -51,9 +67,9 @@ public class modifySanteiShikyuuBiHandler implements CommandHandler {
 		System.out.println("갑근세구분 : " + koukinzei_kubun);
 		int rValue = us.updateSanteiShikyuuBi(santei_kaishi, santei_shuuryou, shikyuu_bi, exSantei_kaishi, exSantei_shuuryou, exShikyuu_bi, koukinzei_kubun);
 		
-		System.out.println("쿼리로 영향 받은 레코드 수 : " + rValue);
+		//System.out.println("쿼리로 영향 받은 레코드 수 : " + rValue);
 		
-		return FORM_VIEW;
+		return "";
 	}
 	
 	public String splitDate(String dateTime) {

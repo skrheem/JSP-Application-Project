@@ -104,39 +104,162 @@ function submitForm() {
 }
 // 달력 출력 함수
 $(function() {
-	$.datepicker.setDefaults($.datepicker.regional["ja"]);
+    $.datepicker.setDefaults($.datepicker.regional["ja"]);
+    
+    // 각 input 필드에 대해 날짜 변경 시 이전 값을 EX 필드에 저장
+    $("#standard-period-start, #standard-period-end, #pay-date").datepicker({
+        dateFormat: "yy-mm-dd",
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        showOtherMonths: true,
+        selectOtherMonths: true,
 
-	$("#standard-period-start, #standard-period-end, #pay-date").datepicker({
-		dateFormat: "yy-mm-dd", // Set date format to "YYYY-MM-DD"
-		changeMonth: true,      // Enable month dropdown
-		changeYear: true,       // Enable year dropdown
-		showButtonPanel: true,  // Show buttons like "Today" and "Close"
-		showOtherMonths: true,  // Show dates from other months
-		selectOtherMonths: true // Allow selection of dates from other months
-	});
-});
-
-
-/*
-
-// 산정개시종료일, 급여지급일 수정하는 폼 제출 메서드
-$(document).ready(function() {
-    $("#modifyForm").on("submit", function(event) {
-        event.preventDefault(); // 폼 기본 제출 방지
-
-        $.ajax({
-            type: "POST",
-            url: "/modifySanteiShikyuuBi.do",
-            data: $(this).serialize(), // 폼 데이터 직렬화하여 전송
-            success: function(response) {
-                // 서버 응답의 message를 alert로 표시
-                alert(response.message);
-            },
-            error: function() {
-                alert("서버 오류가 발생했습니다.");
-            }
-        });
+        // 달력이 닫힐 때(날짜가 선택되었을 때) 이전 값을 EX 필드에 저장
+        beforeShow: function() {
+            let exId = "EX" + this.id; // 현재 요소의 ID를 사용하여 대응되는 EX input ID 생성
+            $("#" + exId).val($(this).val()); // EX 필드에 현재 값을 저장
+        }
     });
 });
 
-*/
+
+//사원 목록 클릭 시 그 사원의 급여기록, 공제기록을 AJAX 요청
+function getKoumokuInfo(shainId) {
+	document.getElementById('calcButton').setAttribute('data-value', shainId);
+	// 선택된 연도, 월, 차수를 가져옵니다
+	const year = document.getElementById("kyuuyoNendo").value;
+	const month = document.getElementById("kyuuyoGatsu").value;
+	const jisuu = document.getElementById("kyuuyoJisuu").value;
+	const url = "getKoumokuInfo.do?kyuuyoNendo=" + encodeURIComponent(year) +
+		"&kyuuyoGatsu=" + encodeURIComponent(month) +
+		"&kyuuyoJisuu=" + encodeURIComponent(jisuu) +
+		"&shain_id=" + encodeURIComponent(shainId);
+	// AJAX GET 요청으로 서버에 데이터 전송
+	$.ajax({
+		url: url,
+		type: 'GET',
+		dataType: 'json',
+		success: function(response) {
+			renderKoujoData(response); // JSON 데이터를 해당 HTML 요소에 렌더링
+		},
+		error: function(xhr, status, error) {
+			console.error("요청 실패:", status, error, xhr.responseText);
+		}
+	});
+}
+
+function renderKoujoData(jsonArray) {
+	jsonArray.forEach(item => {
+		const elementId = item.koujoKoumoku_id;
+		console.log(elementId);
+		const inputElement = document.getElementById("kihonkoujo-" + elementId);
+		console.log(inputElement);
+		if (inputElement) {
+			inputElement.value = item.koujoGaku;
+		}
+	});
+}
+
+function openPopup() {
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("popup").style.display = "block";
+}
+
+function closePopup() {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("popup").style.display = "none";
+}
+
+function getShainList() {
+    const url = "shainTsuikaList.do"; // 요청할 URL
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            const tbody = document.getElementById("shainTable").getElementsByTagName("tbody")[0];
+            tbody.innerHTML = ""; // 테이블 초기화
+
+            response.forEach(shain => {
+                const row = document.createElement("tr");
+
+                // 체크박스 셀 추가
+                const checkboxCell = document.createElement("td");
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.classList.add("shain-checkbox"); // 클래스 추가 (필요한 경우)
+                checkbox.value = shain.shain_id; // 사원의 ID를 체크박스의 value로 설정
+                checkboxCell.appendChild(checkbox);
+                row.appendChild(checkboxCell);
+
+                // 다른 셀들 추가
+                ["kubun", "shain_id", "name", "busho_mei", "yakushoku_mei", "jyoutai"].forEach(key => {
+                    const cell = document.createElement("td");
+                    cell.textContent = shain[key];
+                    row.appendChild(cell);
+                });
+
+                tbody.appendChild(row); // 행을 테이블 본문에 추가
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error("데이터 로드 실패:", status, error);
+        }
+    });
+}
+
+let isAllChecked = false; // 전체 선택 여부를 추적하는 변수
+
+function toggleSelectAll() {
+    const checkboxes = document.querySelectorAll("#shainTable tbody .shain-checkbox");
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = !isAllChecked; // 현재 상태에 따라 선택 또는 해제
+    });
+    isAllChecked = !isAllChecked; // 전체 선택 여부를 반전시킴
+}
+
+function selectShain() {
+    // 선택된 체크박스들 가져오기
+    const selectedCheckboxes = document.querySelectorAll("#shainTable tbody .shain-checkbox:checked");
+
+    // 선택된 체크박스의 값을 배열로 수집 (사원 ID)
+    const selectedIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.value);
+    console.log(selectedIds);
+
+    // 선택된 사원이 없을 경우 요청을 보내지 않음
+    if (selectedIds.length === 0) {
+        alert("선택된 사원이 없습니다.");
+        return;
+    }
+
+    // kyuuyoNendo와 kyuuyoGatsu 값을 가져옴
+    const kyuuyoNendo = document.getElementById("kyuuyoNendo").value;
+    const kyuuyoGatsu = document.getElementById("kyuuyoGatsu").value;
+	const kyuuyoJisuu = document.getElementById("kyuuyoJisuu").value;
+	const koukinzei = document.getElementById("incomeDiv").getAttribute("data-value");
+    // 서버에 전송할 데이터 구성
+    const dataToSend = {
+        shainIds: selectedIds,
+        kyuuyoNendo: kyuuyoNendo,
+        kyuuyoGatsu: kyuuyoGatsu,
+        kyuuyoJisuu: kyuuyoJisuu
+    };
+
+    // AJAX 요청을 통해 서버로 데이터 전송
+    $.ajax({
+        url: 'shainTsuika.do', // 서버의 엔드포인트 URL
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(dataToSend), // JSON 형식으로 변환하여 전송
+        success: function(response) {
+            console.log("서버 응답:", response);
+            // 서버에서 처리 후 응답을 받은 내용을 바탕으로 추가 작업 수행 가능
+            closePopup();
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX 요청 실패:", status, error);
+            alert("서버와의 통신에 문제가 발생했습니다.");
+        }
+    });
+}

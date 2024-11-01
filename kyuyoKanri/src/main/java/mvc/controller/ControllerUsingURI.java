@@ -70,7 +70,6 @@ public class ControllerUsingURI extends HttpServlet {
 		while (keyIter.hasNext()) {
 			// Iterator로 Set을 순회하며 그 값을 읽어 String 형으로 변환하여 command 변수에 저장
 			String command = (String) keyIter.next();
-			System.out.println("!!!!!!" + command);
 			// command 변수에 담긴 key에 해당하는 값을 읽어들여 handlerClassName 변수에 저장
 			String handlerClassName = prop.getProperty(command);
 			try {

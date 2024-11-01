@@ -16,7 +16,7 @@ public class ShainTekiyouKoujoKoumoku {
 
 	private double koujoGaku;
 	
-	private char kihonKoumoku;
+	private String kihonKoumoku;
 
 	
 	
@@ -43,7 +43,7 @@ public class ShainTekiyouKoujoKoumoku {
 	}
 
 	// 급여입력관리에서 사원에게 적용되는 공제항목의 이름과 공제율, 기본급을 가져와서 값을 계산할거임
-	public ShainTekiyouKoujoKoumoku(Integer koujokoumoku_id, double koujoRitsu, String koujoKoumoku_mei, BigDecimal kihonkyuu, char kihonKoumoku, String keisanHouhou) {
+	public ShainTekiyouKoujoKoumoku(Integer koujokoumoku_id, double koujoRitsu, String koujoKoumoku_mei, BigDecimal kihonkyuu, String kihonKoumoku, String keisanHouhou) {
 		this.koujoKoumoku_id = koujokoumoku_id;
 		this.koujoKoumoku_ritsu = koujoRitsu;
 		this.koujoKoumoku_mei = koujoKoumoku_mei;
@@ -91,11 +91,15 @@ public class ShainTekiyouKoujoKoumoku {
 		this.koujoGaku = koujoGaku;
 	}
 
+	public void setKihonKoumoku(String kihonKoumoku) {
+		this.kihonKoumoku = kihonKoumoku;
+	}
+
 	public double keisan() {
 		return (BigDecimal.valueOf(this.koujoKoumoku_ritsu).multiply(this.kihonKyuu)).doubleValue();
 	}
 	
-	public char getKihonKoumoku() {
+	public String getKihonKoumoku() {
 		return this.kihonKoumoku;
 	}
 }

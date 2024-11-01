@@ -77,7 +77,7 @@ public class ShainTekiyouKoujoKoumokuDao {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				stkList.add(new ShainTekiyouKoujoKoumoku(rs.getInt(1), rs.getDouble(2), rs.getString(3),
-						rs.getBigDecimal(4), rs.getString(5).charAt(0), rs.getString(6)));
+						rs.getBigDecimal(4), rs.getString(5), rs.getString(6)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

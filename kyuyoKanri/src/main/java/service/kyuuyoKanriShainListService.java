@@ -30,12 +30,15 @@ public class kyuuyoKanriShainListService {
     String formattedFirstDay = firstDayOfMonth.format(formatter);
 	
    
-	public ArrayList<ShainKyuuyoKeisanKiroku> getShainList(String koukinzei) {
+	public ArrayList<ShainKyuuyoKeisanKiroku> getShainList(String kyuuyoNendo, String kyuuyoGatsu, String kyuuyoJisuu, int koukinzeiType) {
 		ShainKyuuyoKeisanKirokuDao sd = ShainKyuuyoKeisanKirokuDao.getInstance();
 		ArrayList<ShainKyuuyoKeisanKiroku> sList = new ArrayList<>();
+		if(kyuuyoGatsu.length() == 1)
+			kyuuyoGatsu = "0" + kyuuyoGatsu;
+		String kG = kyuuyoNendo + kyuuyoGatsu + "-01";
 		try {
 			Connection conn = ConnectionProvider.getConnection();
-			sList = sd.getKyuuyoKeisanList(conn, formattedFirstDay, "1", koukinzei);
+			sList = sd.getKyuuyoKeisanList(conn, kG, kyuuyoJisuu, koukinzeiType);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -44,14 +47,14 @@ public class kyuuyoKanriShainListService {
 	}
 	
 	// 귀속연월 차수 지정해서 사원 리스트 가져오기
-	public ArrayList<ShainKyuuyoKeisanKiroku> getPostShainList(String year, String month, String jisuu, String koukinzei) {
+	public ArrayList<ShainKyuuyoKeisanKiroku> getPostShainList(String year, String month, String jisuu, int  koukinzeiType) {
 		String kyuuyoGatsu = year + "-" + month + "-01";
 		ShainKyuuyoKeisanKirokuDao sd = ShainKyuuyoKeisanKirokuDao.getInstance();
 		ArrayList<ShainKyuuyoKeisanKiroku> postShainList = new ArrayList<>();
 		
 		try {
 			Connection conn = ConnectionProvider.getConnection();
-			postShainList = sd.getKyuuyoKeisanList(conn, kyuuyoGatsu, jisuu, koukinzei);
+			postShainList = sd.getKyuuyoKeisanList(conn, kyuuyoGatsu, jisuu, koukinzeiType);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

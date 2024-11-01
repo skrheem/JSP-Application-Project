@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
 import model.Shain;
-import model.ShainKyuuyoKeisanKiroku;
 import util.ObjectFormatter;
 
 public class ShainDao {
@@ -46,11 +45,17 @@ public class ShainDao {
 		ArrayList<Shain> shainList = new ArrayList<>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String query = "SELECT s.kubun, s.shain_id, s.namae_kana, b.busho_mei, y.yakushoku_mei, s.jyoutai "
+		String query = "SELECT s.kubun, "
+				+ "       s.shain_id, "
+				+ "       s.namae_kana, "
+				+ "       b.busho_mei, "
+				+ "       y.yakushoku_mei, "
+				+ "       s.jyoutai "
 				+ "FROM Shain s "
 				+ "JOIN Busho b ON s.busho_id = b.busho_id "
 				+ "JOIN Yakushoku y ON s.yakushoku_id = y.yakushoku_id "
-				+ "WHERE s.kubun != \'日雇い\'";
+				+ "JOIN koukinzei k ON s.shain_id = k.shain_id "
+				+ "WHERE k.koukinzei_kubun = '勤労所得者'";
 		try {
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();

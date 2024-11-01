@@ -75,5 +75,102 @@ public class Shain {
 		this.yakushoku_mei = yakushoku_mei; // yakushoku_mei도 마찬가지로 yakushoku_id와는 직접적으로 연결되지 않음
 		this.jyoutai = jyoutai;
 	}
+
+	public Integer getShain_id() {
+		return shain_id;
+	}
+
+	public String getNamae_kana() {
+		return namae_kana;
+	}
+
+	public String getNamae_eigo() {
+		return namae_eigo;
+	}
+
+	public Date getNyuusha_nengappi() {
+		return nyuusha_nengappi;
+	}
+
+	public Date getTaisha_nengappi() {
+		return taisha_nengappi;
+	}
+
+	public Integer getBusho_id() {
+		return busho_id;
+	}
+
+	public Integer getYakushoku_id() {
+		return yakushoku_id;
+	}
+
+	public String getKokuseki() {
+		return kokuseki;
+	}
+
+	public String getJumin_bangou() {
+		return jumin_bangou;
+	}
+
+	public String getJuusho() {
+		return juusho;
+	}
+
+	public String getDenwa_uchi() {
+		return denwa_uchi;
+	}
+
+	public String getDenwa_keitai() {
+		return denwa_keitai;
+	}
+
+	public String getMeeru() {
+		return meeru;
+	}
+
+	public String getBikou() {
+		return bikou;
+	}
+
+	public String getKubun() {
+		return kubun;
+	}
+
+	public Date getTanjyoubi() {
+		return tanjyoubi;
+	}
+
+	public String getJyoutai() {
+		return jyoutai;
+	}
+
+	public String getSNS() {
+		return SNS;
+	}
+
+	public String getBusho_mei() {
+		return busho_mei;
+	}
+
+	public String getYakushoku_mei() {
+		return yakushoku_mei;
+	}
+
+	public Integer getKoujokoumoku_id() {
+		return koujokoumoku_id;
+	}
+
+	public String getKoujoKoumoku_mei() {
+		return koujoKoumoku_mei;
+	}
+
+	public double getKoujoRitsu() {
+		return koujoRitsu;
+	}
+
+	public int getKihonkyuu() {
+		return kihonkyuu;
+	}
+	
 	
 }
