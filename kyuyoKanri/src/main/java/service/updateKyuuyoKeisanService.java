@@ -10,6 +10,7 @@ public class updateKyuuyoKeisanService {
 	
 	public int updateSanteiShikyuuBi(String santei_kaishi, String santei_shuuryou, String shikyuu_bi, String exSantei_kaishi, String exSantei_shuuryou, String exShikyuu_bi, String koukinzei_kubun) {
 		ShainKyuuyoKeisanKirokuDao skDao = ShainKyuuyoKeisanKirokuDao.getInstance();
+		System.out.println("====================================================");
 		System.out.println("업데이트 서비스 접속");
 		System.out.println("업데이트 할 값 : ");
 		System.out.println(santei_kaishi);

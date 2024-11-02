@@ -14,12 +14,11 @@ import mvc.command.CommandHandler;
 import service.kyuuyoKanriShainListService;
 
 public class getKyuuyoKeisanKirokuHandler implements CommandHandler {
-
+	
 	private kyuuyoKanriShainListService ks = new kyuuyoKanriShainListService();
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		System.out.println("getKyuuyoKeisanKirokuHandler 접근");
 		String kyuuyoNendo = req.getParameter("kyuuyoNendo");
 		String kyuuyoGatsu = req.getParameter("kyuuyoGatsu");
 		String kyuuyoJisuu = req.getParameter("kyuuyoJisuu");
@@ -46,10 +45,10 @@ public class getKyuuyoKeisanKirokuHandler implements CommandHandler {
 
 			jsonArray.put(jsonObject);
 		}
-	    res.setContentType("application/json; charset=UTF-8");
-	    PrintWriter out = res.getWriter();
-	    out.print(jsonArray.toString());
-	    out.flush();
+		res.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		out.print(jsonArray.toString());
+		out.flush();
 
 		return null;
 	}

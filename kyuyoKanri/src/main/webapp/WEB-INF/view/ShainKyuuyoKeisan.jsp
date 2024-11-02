@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page import="org.json.JSONArray"%>
@@ -12,12 +11,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>급여입력/관리</title>
 
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui/1.12.1/i18n/datepicker-ko.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui/1.12.1/i18n/datepicker-ko.min.js"></script>
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/ShainKyuuyoKeisan.css">
@@ -162,7 +159,7 @@ function calc(button) {
     getKoumokuInfo(dataValue);
 }
 
-document.getElementById('submitButton').addEventListener('click', function() {
+/*document.getElementById('submitButton').addEventListener('click', function() {
 	const data = {
 		santei_kaishi: document.getElementById('standard-period-start').value,
 		santei_shuuryou: document.getElementById('standard-period-end').value,
@@ -187,26 +184,39 @@ document.getElementById('submitButton').addEventListener('click', function() {
 	.catch(error => {
 		console.error('오류 발생:', error);
 	});
-});
+});*/
 function modify() {
     // 각 필드의 값 가져오기
     const santeiKaishi = document.getElementById('standard-period-start').value;
     const santeiShuuryou = document.getElementById('standard-period-end').value;
-    const shikyuuBi = document.getElementById('pay-date').value;
-
+    const shikyuu_bi = document.getElementById('pay-date').value;
+    
+    const EXsantei_kaishi = document.getElementById('EXstandard-period-start').value;
+    const EXsantei_shuuryou = document.getElementById('EXstandard-period-end').value;
+    const EXshikyuu_bi = document.getElementById('EXpay-date').value;
+    const koukinzei = document.getElementById('incomeDiv').getAttribute("data-value");
+    
+    console.log(santeiKaishi);
+    console.log(santeiShuuryou);
+    console.log(shikyuu_bi);
+    console.log(EXsantei_kaishi);
+    console.log(EXsantei_shuuryou);
+    console.log(EXshikyuu_bi);
+    console.log(koukinzei);
     // AJAX 요청 보내기
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "modifySanteiShikyuuBi.do", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     // 데이터 문자열로 보내기
-    const data = "santei_kaishi=" + encodeURIComponent(santeiKaishi) + "&santei_shuuryou=" + encodeURIComponent(santeiShuuryou) + "&shikyuu_bi=" + encodeURIComponent(shikyuuBi);
+    const data = "santei_kaishi=" + santeiKaishi + "&santei_shuuryou=" + santeiShuuryou + "&shikyuu_bi=" + shikyuu_bi + "&EXsantei_kaishi=" + EXsantei_kaishi + "&EXsantei_shuuryou=" + EXsantei_shuuryou + "&EXshikyuu_bi=" + EXshikyuu_bi + "&koukinzei=" + koukinzei;
     xhr.send(data);
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             // 요청 성공 시 처리
             alert("수정이 완료되었습니다.");
+            getShainList();
         } else if (xhr.readyState === XMLHttpRequest.DONE) {
             // 요청 실패 시 처리
             alert("수정에 실패했습니다.");
@@ -224,71 +234,49 @@ function modify() {
 		<!-- Adding filter section below the description -->
 		<section class="filter-section">
 			<div class="filters">
-				<label for="year">귀속연월</label> <select name="kyuuyoNendo"
-					id="kyuuyoNendo" onchange="getShainList()">
+				<label for="year">귀속연월</label> <select name="kyuuyoNendo" id="kyuuyoNendo"
+					onchange="getShainList()">
 					<option value="" disabled selected>연도 선택</option>
 					<c:forEach var="year" begin="2005" end="2025">
 
-						<option value="${year}"
-							<c:if test="${year == param.kyuuyoNendo}">selected</c:if>>${year}년</option>
+						<option value="${year}" <c:if test="${year == param.kyuuyoNendo}">selected</c:if>>${year}년</option>
 					</c:forEach>
-				</select> <select name="kyuuyoGatsu" id="kyuuyoGatsu"
-					onchange="getShainList()">
+				</select> <select name="kyuuyoGatsu" id="kyuuyoGatsu" onchange="getShainList()">
 					<option value="" disabled selected>월 선택</option>
 					<c:forEach var="month" begin="1" end="12">
 						<c:set var="monthStr" value="${month lt 10 ? '0' + month : month}" />
-						<option value="${monthStr}"
-							<c:if test="${monthStr == param.kyuuyoGatsu}">selected</c:if>>${monthStr}월</option>
+						<option value="${monthStr}" <c:if test="${monthStr == param.kyuuyoGatsu}">selected</c:if>>${monthStr}월</option>
 					</c:forEach>
-				</select> <label for="kyuuyoJisuu">급여차수</label> <select name="kyuuyoJisuu"
-					id="kyuuyoJisuu" onchange="getShainList()">
+				</select> <label for="kyuuyoJisuu">급여차수</label> <select name="kyuuyoJisuu" id="kyuuyoJisuu"
+					onchange="getShainList()">
 					<option value="" disabled selected>차수 선택</option>
 					<c:forEach var="cycle" begin="1" end="10">
 						<c:set var="cycleStr" value="${cycle lt 10 ? '0' + cycle : cycle}" />
-						<option value="${cycleStr}"
-							<c:if test="${cycleStr == param.kyuuyoJisuu}">selected</c:if>>급여-${cycleStr}차</option>
+						<option value="${cycleStr}" <c:if test="${cycleStr == param.kyuuyoJisuu}">selected</c:if>>급여-${cycleStr}차</option>
 					</c:forEach>
 				</select>
-
-				<!-- 				<form id="modifyForm" action="modifySanteiShikyuuBi.do"
-					method="post">
-					<label for="standard-period">정산기간</label> 
-					<input type="text" id="standard-period-start" name="santei_kaishi" placeholder="2024-09-01" autocomplete="off"> <span>~</span>
-					<input type="text" id="standard-period-end" name="santei_shuuryou" placeholder="2024-09-30" autocomplete="off"> 
-					<label for="pay-date">급여지급일</label> 
-					<input type="text" id="pay-date" name="shikyuu_bi" placeholder="2024-10-05" autocomplete="off">
-					
-					<button type="submit" class="btn edit">수정</button>
-				</form> -->
-
-				<!-- 원본 입력 필드 -->
 				<div id="modifyFormContainer">
-	<label for="standard-period">정산기간</label> 
-	<input type="text" id="standard-period-start" name="santei_kaishi" placeholder="2024-09-01" autocomplete="off">
-	<span>~</span>
-	<input type="text" id="standard-period-end" name="santei_shuuryou" placeholder="2024-09-30" autocomplete="off">
+					<label for="standard-period">정산기간</label> <input type="text" id="standard-period-start"
+						name="santei_kaishi" placeholder="2024-09-01" autocomplete="off"> <span>~</span> <input
+						type="text" id="standard-period-end" name="santei_shuuryou" placeholder="2024-09-30"
+						autocomplete="off"> <label for="pay-date">급여지급일</label> <input type="text"
+						id="pay-date" name="shikyuu_bi" placeholder="2024-10-05" autocomplete="off"> <input
+						type="text" id="EXstandard-period-start" name="standard-period-start" autocomplete="off"
+						style="display: block"> <input type="text" id="EXstandard-period-end"
+						name="standard-period-end" autocomplete="off" style="display: block"> <input
+						type="text" id="EXpay-date" name="pay-date" autocomplete="off" style="display: block">
+					<button type="button" id="submitButton" class="btn edit" onclick="modify()">수정</button>
+				</div>
 
-	<label for="pay-date">급여지급일</label> 
-	<input type="text" id="pay-date" name="shikyuu_bi" placeholder="2024-10-05" autocomplete="off">
-
-	<input type="text" id="EXstandard-period-start" name="standard-period-start" autocomplete="off" style="display: block"> 
-	<input type="text" id="EXstandard-period-end" name="standard-period-end" autocomplete="off" style="display: block"> 
-	<input type="text" id="EXpay-date" name="pay-date" autocomplete="off" style="display: block"> 
-
-	<button type="button" id="submitButton" class="btn edit" onclick="modify()">수정</button>
-</div>
-				
 				<label for="calc-method">계산방법</label>
 				<div class="calc-toggle">
-					<span>off</span> 
-					<input type="checkbox" id="calc-method">
+					<span>off</span> <input type="checkbox" id="calc-method">
 				</div>
 			</div>
 		</section>
 
 		<section class="main-horizontal-content">
-			<div class="table-section employee-list"
-				style="display: flex; flex-direction: column;">
+			<div class="table-section employee-list" style="display: flex; flex-direction: column;">
 				<div style="padding-bottom: 10px">
 					<button onclick="handleMButtonClick()">지난급여 불러오기</button>
 					<button onclick="openPopup();getShainList()">신규추가</button>
@@ -307,17 +295,14 @@ function modify() {
 					<tbody>
 
 						<c:forEach var="shain" items="${skList}">
-							<tr onclick="getKoumokuInfo(${shain.getShain_id()})"
-								style="cursor: pointer;" class="hideable">
+							<tr onclick="getKoumokuInfo(${shain.getShain_id()})" style="cursor: pointer;"
+								class="hideable">
 								<td>${shain.getKubun()}</td>
 								<td>${shain.getNamae_kana()}</td>
 								<td>${shain.getBusho_mei()}</td>
-								<td><fmt:formatNumber value="${shain.getShikyuuSougaku()}"
-										pattern="#,##0" /></td>
-								<td><fmt:formatNumber value="${shain.getKoujoSougaku()}"
-										pattern="#,##0" /></td>
-								<td><fmt:formatNumber value="${shain.getJissai_kyuuyo()}"
-										pattern="#,##0" /></td>
+								<td><fmt:formatNumber value="${shain.getShikyuuSougaku()}" pattern="#,##0" /></td>
+								<td><fmt:formatNumber value="${shain.getKoujoSougaku()}" pattern="#,##0" /></td>
+								<td><fmt:formatNumber value="${shain.getJissai_kyuuyo()}" pattern="#,##0" /></td>
 							</tr>
 						</c:forEach>
 
@@ -341,10 +326,8 @@ function modify() {
 			</div>
 			<div class="calcBox">
 				<div class="toggle-buttons" id="incomeDiv" data-value="0">
-					<button id="generalIncome" class="toggle-button active"
-						onclick="kinroList()">일반소득</button>
-					<button id="businessIncome" class="toggle-button inactive"
-						onclick="businessList()">사업소득/기타소득</button>
+					<button id="generalIncome" class="toggle-button active" onclick="kinroList()">일반소득</button>
+					<button id="businessIncome" class="toggle-button inactive" onclick="businessList()">사업소득/기타소득</button>
 				</div>
 				<div class="income-deduction-content">
 					<div class="income-section">
@@ -370,16 +353,14 @@ function modify() {
 									<label>${kyuuyoKoumoku.getKyuuyoKoumoku_mei() }</label>
 									<input type="text" oninput="formatInput(this)" value="0"
 										id="kyuuyo-${kyuuyoKoumoku.getKyuuyoKoumoku_id()}">
-									<div class="keisan-label">
-										${kyuuyoKoumoku.getKeisanHouhou()}</div>
+									<div class="keisan-label">${kyuuyoKoumoku.getKeisanHouhou()}</div>
 									<br>
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
 						<div class="total">
 							지급총액:
-							<fmt:formatNumber
-								value="${empty kyuuyoSougaku ? 0 : kyuuyoSougaku}" type="number"
+							<fmt:formatNumber value="${empty kyuuyoSougaku ? 0 : kyuuyoSougaku}" type="number"
 								pattern="#,##0" />
 						</div>
 					</div>
@@ -387,8 +368,7 @@ function modify() {
 						<div class="section-header">
 							<h3>공제항목</h3>
 							<button onclick="handleMButtonClick()" class="m-btn">M</button>
-							<button onclick="calc(this)" class="auto-calc-btn"
-								id="calcButton" data-value="0">자동계산</button>
+							<button onclick="calc(this)" class="auto-calc-btn" id="calcButton" data-value="0">자동계산</button>
 						</div>
 
 						<%-- <c:choose>
@@ -456,31 +436,26 @@ function modify() {
 							<label>${koujoKoumoku.getKoujoKoumoku_mei()}</label>
 							<input type="text" oninput="formatInput(this)" value="0"
 								id="kihonkoujo-${koujoKoumoku.getKoujoKoumoku_id()}">
-							<div class="keisan-label">
-								${koujoKoumoku.getKeisanHouhou()}</div>
+							<div class="keisan-label">${koujoKoumoku.getKeisanHouhou()}</div>
 							<br>
 						</c:forEach>
 						<c:forEach var="koujoKoumoku" items="${koujoList}">
 							<label>${koujoKoumoku.getKoujoKoumoku_mei()}</label>
 							<input type="text" oninput="formatInput(this)" value="0"
 								id="koujo-${koujoKoumoku.getKoujoKoumoku_id()}">
-							<div class="keisan-label">
-								${koujoKoumoku.getKeisanHouhou()}</div>
+							<div class="keisan-label">${koujoKoumoku.getKeisanHouhou()}</div>
 							<br>
 						</c:forEach>
 						<div class="total">
 							공제총액:
-							<fmt:formatNumber
-								value="${empty koujoSougaku ? 0 : koujoSougaku}" type="number"
+							<fmt:formatNumber value="${empty koujoSougaku ? 0 : koujoSougaku}" type="number"
 								pattern="#,##0" />
 						</div>
 					</div>
 				</div>
 				<div class="net-pay-summary">
-					<span class="net-pay-font">실지급액:</span> <span class="net-pay-value">
-						<fmt:formatNumber
-							value="${empty jissaiSougaku ? 0 : jissaiSougaku}" type="number"
-							pattern="#,##0원" />
+					<span class="net-pay-font">실지급액:</span> <span class="net-pay-value"> <fmt:formatNumber
+							value="${empty jissaiSougaku ? 0 : jissaiSougaku}" type="number" pattern="#,##0원" />
 					</span>
 				</div>
 				<div class="calc-button-box">
