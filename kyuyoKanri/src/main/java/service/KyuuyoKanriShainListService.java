@@ -14,7 +14,7 @@ import model.ShainKyuuyoKeisanKiroku;
 // 임세규 林世圭 급여입력・관리 페이지 / 給与入力・管理ページ
 // "자동계산" 버튼을 눌렀을 때 공제금액을 자동으로 계산하는 클래스
 // ”自動計算“ボタンを押した際に控除額を計算する。
-public class kyuuyoKanriShainListService {
+public class KyuuyoKanriShainListService {
 	// 현재 날짜
     LocalDate today = LocalDate.now();
     
@@ -38,7 +38,7 @@ public class kyuuyoKanriShainListService {
 		String kG = kyuuyoNendo + kyuuyoGatsu + "-01";
 		try {
 			Connection conn = ConnectionProvider.getConnection();
-			sList = sd.getKyuuyoKeisanList(conn, kG, kyuuyoJisuu, koukinzeiType);
+			sList = sd.getKyuuyoKeisanListByDateAndType(conn, kG, kyuuyoJisuu, koukinzeiType);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -54,7 +54,7 @@ public class kyuuyoKanriShainListService {
 		
 		try {
 			Connection conn = ConnectionProvider.getConnection();
-			postShainList = sd.getKyuuyoKeisanList(conn, kyuuyoGatsu, jisuu, koukinzeiType);
+			postShainList = sd.getKyuuyoKeisanListByDateAndType(conn, kyuuyoGatsu, jisuu, koukinzeiType);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

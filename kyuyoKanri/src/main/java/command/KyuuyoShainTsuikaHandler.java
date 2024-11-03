@@ -1,25 +1,18 @@
 package command;
 
 import java.io.BufferedReader;
-import java.sql.Connection;
-import java.sql.SQLException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import dao.ShainKyuuyoKeisanKirokuDao;
-import jdbc.connection.ConnectionProvider;
 import mvc.command.CommandHandler;
+import service.KyuuyoShainTsuikaService;
 
-public class ShainTsuikaHandler implements CommandHandler {
+public class KyuuyoShainTsuikaHandler implements CommandHandler {
 
     @Override
     public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-    	
-    	ShainKyuuyoKeisanKirokuDao skDao = ShainKyuuyoKeisanKirokuDao.getInstance();
+    	KyuuyoShainTsuikaService ks = new KyuuyoShainTsuikaService();
         // 요청에서 JSON 데이터를 읽음
         StringBuilder jsonData = new StringBuilder();
         BufferedReader reader = req.getReader();
@@ -36,24 +29,17 @@ public class ShainTsuikaHandler implements CommandHandler {
         String kyuuyoNendo = data.getString("kyuuyoNendo");
         String kyuuyoGatsu = data.getString("kyuuyoGatsu");
         String kyuuyoJisuu = data.getString("kyuuyoJisuu");
-        System.out.println("Kyuuyo Nendo: " + kyuuyoNendo);
-        System.out.println("Kyuuyo Gatsu: " + kyuuyoGatsu);
-        System.out.println("kyuuyoJisuu: " + kyuuyoJisuu);
+        String santeiKaishi = data.getString("santeiKaishi");
+        String santeiShuuryou = data.getString("santeiShuuryou");
+        String shikyuu_bi = data.getString("shikyuu_bi");
 
         String kyuuyoBi = kyuuyoNendo + "-" + kyuuyoGatsu  + "-" + "01";
         System.out.println(kyuuyoBi);
         
-        try {
-        	Connection conn = ConnectionProvider.getConnection();
-        	JSONArray selectedIds = data.getJSONArray("shainIds");
-            for (int i = 0; i < selectedIds.length(); i++) {
-                skDao.insertShainKeisanKiroku(conn, kyuuyoBi, kyuuyoJisuu, Integer.parseInt(selectedIds.getString(i)));
-            }
-        }catch (SQLException e) {
-			e.printStackTrace();
-		}
-        // shainIds 배열을 추출하여 각 사원 ID를 출력
-        
+        JSONArray selectedIds = data.getJSONArray("shainIds");
+        for (int i = 0; i < selectedIds.length(); i++) {
+        	ks.shainKeisanKirokuTsuika(kyuuyoBi, kyuuyoJisuu, shikyuu_bi, Integer.parseInt(selectedIds.getString(i)), santeiKaishi, santeiShuuryou);
+        }
         
         // AJAX 요청에 대한 응답 설정
         res.setContentType("application/json; charset=UTF-8");

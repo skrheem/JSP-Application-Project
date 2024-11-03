@@ -9,17 +9,6 @@ import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
 
 public class ZeigakuHyouDao {
-	public static void main(String a[]) {
-		ZeigakuHyouDao zDao = ZeigakuHyouDao.getInstance();
-		FuyouKazokuDao fDao = FuyouKazokuDao.getInstance();
-		try {
-			Connection conn = ConnectionProvider.getConnection();
-			System.out.println(zDao.keisanZeigaku(conn, 5, 3000000, fDao.countHatachiKazoku(conn, 5)));
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-	}
 	
 	private static ZeigakuHyouDao zDao = new ZeigakuHyouDao();
 

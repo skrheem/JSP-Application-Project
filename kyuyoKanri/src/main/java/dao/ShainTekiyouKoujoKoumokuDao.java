@@ -14,20 +14,6 @@ import model.ShainTekiyouKoujoKoumoku;
 import util.ObjectFormatter;
 
 public class ShainTekiyouKoujoKoumokuDao {
-	
-	public static void main(String a[]) {
-		ShainTekiyouKoujoKoumokuDao d = ShainTekiyouKoujoKoumokuDao.getInstance();
-		try {
-			Connection conn = ConnectionProvider.getConnection();
-			try {
-				System.out.println(ObjectFormatter.formatList(d.getShainTekiyouKoujoKingaku(conn, 5)));
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
 
 	private static ShainTekiyouKoujoKoumokuDao tekiyouKoujoKoumokuDao = new ShainTekiyouKoujoKoumokuDao();
 
@@ -60,7 +46,7 @@ public class ShainTekiyouKoujoKoumokuDao {
 		}
 		return stjList;
 	}
-
+	// 사원에게 적용되는 기본항목인 공제항목의 공제율과 그 사원의 기본급을 가져오는 메서드
 	public ArrayList<ShainTekiyouKoujoKoumoku> getShainTekiyouKoujoKingaku(Connection conn, Integer shain_id) {
 		ArrayList<ShainTekiyouKoujoKoumoku> stkList = new ArrayList<>();
 		PreparedStatement ps = null;

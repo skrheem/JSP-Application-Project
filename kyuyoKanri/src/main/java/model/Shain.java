@@ -30,7 +30,8 @@ public class Shain {
 	private String koujoKoumoku_mei;
 	private double koujoRitsu;
 	private int kihonkyuu;
-
+	private String koukinzei;
+	
 	public Shain(Integer shain_id, String namae_kana, String namae_eigo, Date nyuusha_nengappi, Date taisha_nengappi,
 			Integer busho_id, Integer yakushoku_id, String kokuseki, String jumin_bangou, String juusho,
 			String denwa_uchi, String denwa_keitai, String meeru, String bikou, String kubun, Date tanjyoubi,
@@ -56,7 +57,7 @@ public class Shain {
 		this.SNS = SNS;
 	}
 
-	// ShainDao.java에서 추가
+
 	public Shain(String kubun2, Integer shain_id2, String namae_kana2, Integer busho_id2, Integer yakushoku_id2) {
 		// TODO Auto-generated constructor stub
 		this.kubun = kubun2;
@@ -66,15 +67,19 @@ public class Shain {
 		this.yakushoku_id = yakushoku_id2;
 	}
 
-	public Shain(String kubun, Integer shain_id, String namae_kana, String busho_mei, String yakushoku_mei,
-			String jyoutai) {
-		this.kubun = kubun;
+	
+	public Shain(int shain_id, String kubun, String namae_kana, String busho_mei, String yakushoku_mei,
+			String jyoutai, int kihonkyuu, String koukinzei) {
 		this.shain_id = shain_id;
+		this.kubun = kubun;
 		this.namae_kana = namae_kana;
 		this.busho_mei = busho_mei;
-		this.yakushoku_mei = yakushoku_mei; // yakushoku_mei도 마찬가지로 yakushoku_id와는 직접적으로 연결되지 않음
+		this.yakushoku_mei = yakushoku_mei;
 		this.jyoutai = jyoutai;
+		this.kihonkyuu = kihonkyuu;
+		this.koukinzei = koukinzei;
 	}
+
 
 	public Integer getShain_id() {
 		return shain_id;
@@ -170,6 +175,10 @@ public class Shain {
 
 	public int getKihonkyuu() {
 		return kihonkyuu;
+	}
+
+	public String getKoukinzei() {
+		return koukinzei;
 	}
 	
 	

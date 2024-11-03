@@ -4,12 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mvc.command.CommandHandler;
-import service.updateKyuuyoKeisanService;
+import service.UpdateKyuuyoKeisanService;
 
-public class modifySanteiShikyuuBiHandler implements CommandHandler {
+public class ModifySanteiShikyuuBiHandler implements CommandHandler {
 	private static final String FORM_VIEW = "/WEB-INF/view/ShainKyuuyoKeisan.jsp";
 
-	private updateKyuuyoKeisanService us = new updateKyuuyoKeisanService();
+	private UpdateKyuuyoKeisanService us = new UpdateKyuuyoKeisanService();
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -38,20 +38,8 @@ public class modifySanteiShikyuuBiHandler implements CommandHandler {
 		String exShikyuu_bi = req.getParameter("EXshikyuu_bi");
 		String koukinzei_kubun = req.getParameter("koukinzei");
 
-		System.out.println("====================================================");
-		System.out.println("업데이트 핸들러 접속");
-		System.out.println("업데이트 할 값 : ");
-		System.out.println("산정개시일 : " + santei_kaishi);
-		System.out.println("산정종료일 : " + santei_shuuryou);
-		System.out.println("급여지급일 : " + shikyuu_bi);
-		System.out.println("업데이트 대상 : ");
-		System.out.println("산정개시일 : " + exSantei_kaishi);
-		System.out.println("산정종료일 : " + exSantei_shuuryou);
-		System.out.println("급여지급일 : " + exShikyuu_bi);
-		System.out.println("갑근세구분 : " + koukinzei_kubun);
 		int rValue = us.updateSanteiShikyuuBi(santei_kaishi, santei_shuuryou, shikyuu_bi, exSantei_kaishi,
 				exSantei_shuuryou, exShikyuu_bi, koukinzei_kubun);
-		System.out.println("====================================================");
 		System.out.println("쿼리로 영향 받은 레코드 수 : " + rValue);
 		// 업데이트 성공 시 응답
 		if (rValue > 0) {

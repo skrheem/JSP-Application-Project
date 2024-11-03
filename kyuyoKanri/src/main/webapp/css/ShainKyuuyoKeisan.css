@@ -1,234 +1,242 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Arial, sans-serif;
 }
 
 .container {
-    width: 90%;
-    margin: auto;
-    padding: 20px;
+	width: 90%;
+	margin: auto;
+	padding: 20px;
 }
 
 .header {
-    text-align: center;
-    padding: 10px;
+	text-align: center;
+	padding: 10px;
 }
 
 .header h1 {
-    font-size: 1.5rem;
-    color: #333;
+	font-size: 1.5rem;
+	color: #333;
 }
 
 .header p {
-    color: #666;
+	color: #666;
 }
 
 .filter-section {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 0;
 }
 
 .filters label {
-    font-weight: bold;
-    margin-right: 5px;
+	font-weight: bold;
+	margin-right: 5px;
 }
 
 .filters select, .filters input {
-    margin-right: 10px;
+	margin-right: 10px;
 }
 
 .btn {
-    background-color: #ff5c5c;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    cursor: pointer;
+	background-color: #ff5c5c;
+	color: white;
+	padding: 8px 12px;
+	border: none;
+	cursor: pointer;
 }
+
 .btn.save {
 	border-radius: 8px;
 	background-color: #3a79c4;
 	font-weight: bold;
 }
+
 .btn.clear {
 	border-radius: 8px;
 	background-color: #a6a6a6;
 	font-weight: bold;
 }
+
 .table-section {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .payroll-table {
-    width: 100%;
-    border-collapse: collapse;
+	width: 100%;
+	border-collapse: collapse;
 }
 
 .payroll-table th, .payroll-table td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: center;
+	border: 1px solid #ccc;
+	padding: 8px;
+	text-align: center;
 }
 
 .summary-section {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #f9f9f9;
+	margin-top: 20px;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	background-color: #f9f9f9;
 }
 
 .summary div {
-    font-size: 1rem;
-    color: #333;
+	font-size: 1rem;
+	color: #333;
 }
 
 .main-horizontal-content {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
 }
 
 .employee-list {
-    flex: 1;
-    margin-right: 20px;
+	flex: 1;
+	margin-right: 20px;
 }
 
 .income-deduction-content {
-    display: flex;
-    flex: 2;
-    justify-content: space-between;
-    flex-direction: row;
-    border: 1px solid #ccc;
-    padding: 20px;
-    border: 1px solid #ccc;
-    width: 400px;
-    gap: 10px;
+	display: flex;
+	flex: 2;
+	justify-content: space-between;
+	flex-direction: row;
+	border: 1px solid #ccc;
+	padding: 20px;
+	border: 1px solid #ccc;
+	width: 400px;
+	gap: 10px;
 }
 
 .income-section, .deduction-section {
-    flex: 1;
-    margin: 0 10px;
+	flex: 1;
+	margin: 0 10px;
 }
 
 .income-section, .deduction-section {
-    flex: 1;
-    margin: 0 5px;
+	flex: 1;
+	margin: 0 5px;
 }
 
 .income-section, .deduction-section {
-    flex: 1;
-    margin: 0 2px; /* Further reducing the margin between the sections */
+	flex: 1;
+	margin: 0 2px; /* Further reducing the margin between the sections */
 }
 
 .income-section, .deduction-section {
-    flex: 1;
+	flex: 1;
 }
 
 .income-section label, .deduction-section label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
 }
 
 .income-section input, .deduction-section input {
-    width: 100%;
-    padding: 4px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+	width: 100%;
+	padding: 4px;
+	margin-bottom: 10px;
+	box-sizing: border-box;
 }
 
 .total {
-    font-weight: bold;
-    margin-top: 10px;
+	font-weight: bold;
+	margin-top: 10px;
 }
 
-.income-section input[type="number"], .deduction-section input[type="number"] {
-    -moz-appearance: textfield;
+.income-section input[type="number"], .deduction-section input[type="number"]
+	{
+	-moz-appearance: textfield;
 }
 
-.income-section input[type="number"]::-webkit-outer-spin-button, 
-.income-section input[type="number"]::-webkit-inner-spin-button, 
-.deduction-section input[type="number"]::-webkit-outer-spin-button, 
-.deduction-section input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+.income-section input[type="number"]::-webkit-outer-spin-button,
+	.income-section input[type="number"]::-webkit-inner-spin-button,
+	.deduction-section input[type="number"]::-webkit-outer-spin-button,
+	.deduction-section input[type="number"]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 /* Calculated toggle button styles */
 .calc-toggle {
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	cursor: pointer;
 }
 
 .calc-toggle span {
-    margin-right: 5px;
-    font-weight: bold;
+	margin-right: 5px;
+	font-weight: bold;
 }
 
 .calc-toggle input[type="checkbox"] {
-    appearance: none;
-    width: 40px;
-    height: 20px;	
-    background-color: #ccc;
-    border-radius: 10px;
-    position: relative;
-    outline: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+	appearance: none;
+	width: 40px;
+	height: 20px;
+	background-color: #ccc;
+	border-radius: 10px;
+	position: relative;
+	outline: none;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
 }
 
 .calc-toggle input[type="checkbox"]:checked {
-    background-color: #4CAF50;
+	background-color: #4CAF50;
 }
 
 .calc-toggle input[type="checkbox"]::before {
-    content: "";
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 16px;
-    height: 16px;
-    background-color: #fff;
-    border-radius: 50%;
-    transition: transform 0.3s ease;
+	content: "";
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 16px;
+	height: 16px;
+	background-color: #fff;
+	border-radius: 50%;
+	transition: transform 0.3s ease;
 }
 
 .calc-toggle input[type="checkbox"]:checked::before {
-    transform: translateX(20px);
+	transform: translateX(20px);
 }
 
 .payroll-table tbody tr:hover {
-    background-color: #E0F7FA; /* 연한 하늘색 */
+	background-color: #E0F7FA; /* 연한 하늘색 */
 }
 
 .keisan-label {
-    display: none;
-    border: 1px solid #ccc;
-    padding: 4px;
-    margin-top: 5px;
-    background-color: #f9f9f9;
+	display: none;
+	border: 1px solid #ccc;
+	padding: 4px;
+	margin-top: 5px;
+	background-color: #f9f9f9;
 }
+
 .net-pay-summary {
 	background-color: #2C587C;
 	text-align: center;
 	font-weight: bold;
 	padding-top: 5px;
-	padding-bottom: 5px;	
+	padding-bottom: 5px;
 }
+
 .net-pay-font {
 	color: white;
 }
+
 .net-pay-value {
 	color: yellow;
 }
+
 .calc-button-box {
 	display: flex;
 	justify-content: space-between;
-	padding-top : 10px;
+	padding-top: 10px;
 	padding-left: 30%;
 	padding-right: 30%;
 }
@@ -243,7 +251,6 @@
 .inactive {
 	background-color: #a6a6a6;
 	color: white;
-	
 }
 
 /* 버튼 스타일 */
@@ -291,107 +298,253 @@
 }
 
 #overlay {
-    display: none; /* 기본적으로 숨김 */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 검은색 반투명 */
-    z-index: 999; /* 팝업보다 낮은 z-index */
+	display: none; /* 기본적으로 숨김 */
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* 검은색 반투명 */
+	z-index: 999; /* 팝업보다 낮은 z-index */
 }
 
 /* 팝업 창 */
 #popup {
-    display: none; /* 기본적으로 숨김 */
-    position: fixed;
-    width: 80%;
-    max-width: 800px;
-    background-color: #fff;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+	display: none; /* 기본적으로 숨김 */
+	position: fixed;
+	width: 80%;
+	max-width: 800px;
+	background-color: #fff;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1000;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* 팝업 헤더 */
 #popup h2 {
-    margin-top: 0;
-    font-size: 1.5em;
-    color: #333;
+	margin-top: 0;
+	font-size: 1.5em;
+	color: #333;
 }
 
 /* 검색 및 버튼 */
 #popup input[type="text"] {
-    width: calc(100% - 80px);
-    padding: 8px;
-    margin-right: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+	width: calc(100% - 80px);
+	padding: 8px;
+	margin-right: 8px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
 }
 
 #popup button {
-    padding: 8px 12px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9em;
+	padding: 8px 12px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.9em;
 }
 
 #popup button:hover {
-    background-color: #0056b3;
+	background-color: #0056b3;
 }
 
 /* 테이블 스타일 */
 #shainTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
 }
 
 #shainTable th, #shainTable td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: left;
-    font-size: 0.9em;
+	padding: 10px;
+	border: 1px solid #ddd;
+	text-align: left;
+	font-size: 0.9em;
 }
 
 #shainTable th {
-    background-color: #f5f5f5;
-    font-weight: bold;
+	background-color: #f5f5f5;
+	font-weight: bold;
 }
 
 #shainTable tr:nth-child(even) {
-    background-color: #f9f9f9;
+	background-color: #f9f9f9;
 }
 
 /* 페이지네이션 */
 .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
 }
 
 .pagination button {
-    padding: 8px 12px;
-    margin: 0 5px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+	padding: 8px 12px;
+	margin: 0 5px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
 }
 
 .pagination button.disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
+	background-color: #ddd;
+	cursor: not-allowed;
 }
 
 .pagination button:hover:not(.disabled) {
-    background-color: #0056b3;
+	background-color: #0056b3;
+}
+
+
+
+/* 공통 팝업 스타일 */
+.popup {
+	width: 400px;
+	background-color: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: none; /* 초기에는 보이지 않도록 설정 */
+	z-index: 1000; /* 오버레이보다 높은 z-index */
+}
+
+.popup h2 {
+	margin: 0 0 20px;
+	font-size: 18px;
+	color: #333;
+}
+
+.popup label {
+	display: block;
+	font-size: 14px;
+	color: #555;
+	margin-bottom: 5px;
+}
+
+.popup input[type="text"],
+.popup select {
+	width: 100%;
+	padding: 8px;
+	margin-bottom: 15px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+.popup .buttons {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
+}
+
+.popup .buttons button {
+	padding: 10px 20px;
+	border: none;
+	border-radius: 4px;
+	color: white;
+	cursor: pointer;
+}
+
+.popup .buttons .add-btn {
+	background-color: #4CAF50;
+}
+
+.popup .buttons .edit-btn {
+	background-color: #FFA500;
+}
+
+.popup .buttons .delete-btn {
+	background-color: #f44336;
+}
+
+.popup .notice {
+	font-size: 12px;
+	color: #888;
+	margin-bottom: 15px;
+}
+
+.popup .notice strong {
+	color: red;
+}
+
+/* 급여지급 사원선택 팝업 스타일 */
+#popup {
+	display: none; /* 초기에는 숨김 */
+	position: fixed;
+	width: 690px;
+	height: 650px;
+	background-color: white;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%); /* 가운데 정렬 */
+	z-index: 1000; /* 오버레이보다 높은 z-index */
+	padding: 20px;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+	border-radius: 8px;
+}
+
+#popup h2 {
+	font-size: 18px;
+	color: #333;
+	margin-bottom: 20px;
+}
+
+#popup input[type="text"] {
+	width: calc(100% - 20px);
+	padding: 8px;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+#popup table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+
+#popup th, #popup td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: center;
+}
+
+#popup button {
+	padding: 10px 20px;
+	margin-right: 10px;
+	border: none;
+	border-radius: 4px;
+	color: white;
+	cursor: pointer;
+}
+
+#popup button:nth-child(1) {
+	background-color: #4CAF50; /* 사원선택 버튼 */
+}
+
+#popup button:nth-child(2) {
+	background-color: #f44336; /* 선택취소 버튼 */
+}
+
+/* 오버레이 스타일 */
+#overlay {
+	display: none; /* 초기에는 숨김 */
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* 반투명 검은색 */
+	z-index: 999;
 }

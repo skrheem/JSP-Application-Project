@@ -22,7 +22,7 @@ public class ShainKihonkyuuDao {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		int kihonkyuu = 0;
-		String query = "SELECT sk.kihonKyuu FROM Shain s JOIN ShainKihonkyuu sk ON s.shain_id = sk.shain_id WHERE sk.shain_id = ?";
+		String query = "select kihonkyuu from shainkihonkyuu where shain_id = ?";
 		try {
 			ps = conn.prepareStatement(query);
 

@@ -1,12 +1,12 @@
 package dao;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import jdbc.JdbcUtil;
 import model.ShainKyuuyoKiroku;
 
 public class ShainKyuuyoKirokuDao {
@@ -35,8 +35,38 @@ public class ShainKyuuyoKirokuDao {
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(ps);
 		}
 			
 		return skkList;
+	}
+	
+	public int insertShainKyuuyoKiroku(Connection conn, Integer shain_id, Integer kyuuyokoumoku_id, int kyuuyokoumoku_kingaku, String kyuuyokoumoku_nengappi, String kyuuyo_jisuu) {
+		PreparedStatement ps = null;
+		String query = "INSERT INTO shainkyuuyoKiroku "
+				+ "(shain_id, kyuuyokoumoku_id, kyuuyokoumoku_kingaku, kyuuyokoumoku_nengappi, kyuuyo_jisuu) "
+				+ "VALUES (?, ?, ?, TO_DATE(?, 'YYYY-MM-DD'), ?)";
+		int rValue = 0;
+		
+		 
+		try {
+			ps = conn.prepareStatement(query);
+
+			ps.setInt(1, shain_id);
+			ps.setInt(2, kyuuyokoumoku_id);
+			ps.setInt(3, kyuuyokoumoku_kingaku);
+			ps.setString(4, kyuuyokoumoku_nengappi);
+			ps.setString(5, kyuuyo_jisuu);
+			
+			rValue = ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(ps);
+		}
+		return rValue;
 	}
 }

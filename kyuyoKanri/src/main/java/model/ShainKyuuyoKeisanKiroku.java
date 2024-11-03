@@ -97,7 +97,7 @@ public class ShainKyuuyoKeisanKiroku {
 
 	public ShainKyuuyoKeisanKiroku(Integer shain_id, String kubun, String namae_kana, String busho_mei,
 			int shikyuuSougaku, int koujoSougaku, int jissai_kyuuyo, String KYUUYOSANTEIKAISHI,
-			String KYUUYOSANTEISHUURYOU, String KYUUYO_SHIKYUUBI, String koukinzei_kubun) {
+			String KYUUYOSANTEISHUURYOU, String KYUUYO_SHIKYUUBI, String koukinzei_kubun, Date kyuuyoGatsu) {
 		super();
 		this.shain_id = shain_id;
 		this.kubun = kubun; // 추가된 필드 (String 타입으로 처리)
@@ -110,5 +110,6 @@ public class ShainKyuuyoKeisanKiroku {
 		this.KYUUYOSANTEISHUURYOU = KYUUYOSANTEISHUURYOU;
 		this.KYUUYO_SHIKYUUBI = KYUUYO_SHIKYUUBI;
 		this.koukinzei_kubun = koukinzei_kubun;
+		this.kyuuyo_gatsu = kyuuyoGatsu;
 	}
 }

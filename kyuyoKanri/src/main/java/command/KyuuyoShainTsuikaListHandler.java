@@ -10,28 +10,31 @@ import org.json.JSONObject;
 
 import model.Shain;
 import mvc.command.CommandHandler;
-import service.getShainTsuikaListService;
+import service.GetShainTsuikaListService;
 
-public class shainTsuikaListHandler implements CommandHandler{
+public class KyuuyoShainTsuikaListHandler implements CommandHandler{
 	
-	private getShainTsuikaListService ts = new getShainTsuikaListService();
+	private GetShainTsuikaListService ts = new GetShainTsuikaListService();
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		System.out.println("요청 확인");
-		ArrayList<Shain> shainList = ts.tsuikaShainList();
+		
+		String koukinzei = req.getParameter("koukinzei");
+		
+		ArrayList<Shain> shainList = ts.tsuikaShainList(koukinzei);
 		
 		JSONArray jsonArray = new JSONArray();
 	    for (Shain s : shainList) {
 	        JSONObject jsonObject = new JSONObject();
 	        
-	        jsonObject.put("kubun", s.getKubun());
 	        jsonObject.put("shain_id", s.getShain_id());
+	        jsonObject.put("kubun", s.getKubun());
 	        jsonObject.put("name", s.getNamae_kana());
 	        jsonObject.put("busho_mei", s.getBusho_mei());
 	        jsonObject.put("yakushoku_mei", s.getYakushoku_mei());
 	        jsonObject.put("jyoutai", s.getJyoutai());
-	        
+	        jsonObject.put("kihonkyuu", s.getKihonkyuu());
+	        jsonObject.put("koukinzei_kubun", s.getKoukinzei());
 	        
 	        jsonArray.put(jsonObject);
 	    }

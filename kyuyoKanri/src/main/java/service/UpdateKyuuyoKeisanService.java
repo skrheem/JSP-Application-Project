@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import dao.ShainKyuuyoKeisanKirokuDao;
 import jdbc.connection.ConnectionProvider;
 
-public class updateKyuuyoKeisanService {
+public class UpdateKyuuyoKeisanService {
 	
 	public int updateSanteiShikyuuBi(String santei_kaishi, String santei_shuuryou, String shikyuu_bi, String exSantei_kaishi, String exSantei_shuuryou, String exShikyuu_bi, String koukinzei_kubun) {
 		ShainKyuuyoKeisanKirokuDao skDao = ShainKyuuyoKeisanKirokuDao.getInstance();
