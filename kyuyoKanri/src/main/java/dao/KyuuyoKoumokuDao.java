@@ -73,12 +73,19 @@ public class KyuuyoKoumokuDao {
 			rs = ps.executeQuery();
 			while(rs.next())
 				kList.add(new KyuuyoKoumoku(rs.getInt(1), rs.getBigDecimal(2)));
+			try {
+				System.out.println(ObjectFormatter.formatList(kList));
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JdbcUtil.close(ps);
 			JdbcUtil.close(rs);
 		}
+		
 		return kList;
 	}
 }

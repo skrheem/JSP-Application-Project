@@ -8,7 +8,7 @@ import jdbc.connection.ConnectionProvider;
 
 public class InsertShainKyuuyoKirokuService {
 	public int insertShainKyuuyoKiroku(Integer shain_id, Integer kyuuyokoumoku_id, int kyuuyokoumoku_kingaku, String kyuuyokoumoku_nengappi, String kyuuyo_jisuu) {
-		
+		System.out.println("서비스");
 		ShainKyuuyoKirokuDao sDao = ShainKyuuyoKirokuDao.getInstance();
 		
 		int rValue = 0;

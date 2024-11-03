@@ -1,4 +1,4 @@
-var selectedShainId = 0;
+var selectedShainIvald = 0;
 //계산방법 토글 상태 변경 시 호출될 함수
 function toggleKeisanMethod() {
 	var isChecked = document.getElementById('calc-method').checked;
@@ -127,7 +127,14 @@ function getNormalKoujoInfo(shainId) {
 }
 // 클릭한 사원의 급여기록(기본급 제외)을 AJAX 요청
 function getKyuuyoKoumokuInfo(shainId) {
-	const url = "getKyuuyoKirokuInfo.do?shain_id=" + shainId + "&kyuuyoNengappi=";
+	const kyuuyoNendo = document.getElementById("kyuuyoNendo").value;
+	const kyuuyoMonth = document.getElementById("kyuuyoGatsu").value;
+	console.log(kyuuyoMonth);
+	if (kyuuyoMonth < 10) {
+		kyuuyoMonth = "0" + kyuuyoMonth;
+	}
+	let kyuuyoNengappi = kyuuyoNendo + "-" + kyuuyoMonth + "-01";
+	const url = "getKyuuyoKirokuInfo.do?shain_id=" + shainId + "&kyuuyoNengappi=" + kyuuyoNengappi;
 	$.ajax({
 		url: url,
 		type: 'GET',
@@ -169,6 +176,7 @@ function renderData(jsonArray, type) {
 
 		if (inputElement) {
 			const value = type === "koujo" ? item.koujoGaku : item.hikazeiGendogaku;
+
 			inputElement.value = (value || 0).toLocaleString();
 		}
 	});
@@ -805,7 +813,7 @@ function saveInfo() {
 	const button = document.getElementById("saveButton");
 	const shain_id = button.getAttribute("data-value");
 	const kyuuyoNendo = document.getElementById("kyuuyoNendo").value;
-	const kyuuyoMonth = document.getElementById("kyuuyoGatsu").value;
+	let kyuuyoMonth = document.getElementById("kyuuyoGatsu").value;
 
 	const jisuu = document.getElementById("kyuuyoJisuu").value;
 	const totalKyuuyoSougakuText = document.getElementById("totalKyuuyoSougaku").textContent;
@@ -831,47 +839,56 @@ function saveInfo() {
 		url: url1,
 		type: 'GET', // GET 메서드를 사용
 		dataType: 'json',
-		success: function() {
-			console.log("저장 성공");
+		success: function(response) {
+			console.log("급여계산기록 데이터 저장 성공:", response);
 			alert("저장이 완료되었습니다.");
 			getShainList();
 		},
-		error: function() {
+		error: function(error) {
+			console.error("급여계산기록 데이터 저장 실패:", error);
 			alert("저장에 실패했습니다.");
 			getShainList();
 		}
 	});
 }
 
-function saveKoumokuKiroku() {
-	const kyuuyoKirokuUrl = "insertShainKyuuyoKiroku.do?shain_id=" + shain_id + "&kyuuyoGatsu=" + kyuuyoGatsu + "&kyuuyoJisuu=" + jisuu + "&kyuuyoSougaku=" + totalKyuuyoSougakuNumber + "&koujoSougaku=" + totalKoujoSougakuNumber + "&jissaiKyuuyo=" + totalJissaiKyuuyoNumber;
-	$.ajax({
-		url: kyuuyoKirokuUrl,
-		type: 'GET', // GET 메서드를 사용
-		dataType: 'json',
-		success: function() {
-			console.log("저장 성공");
-			alert("저장이 완료되었습니다.");
-			getShainList();
-		},
-		error: function() {
-			alert("저장에 실패했습니다.");
-			getShainList();
-		}
-	});
+function saveKoujoKiroku() {
+	const button = document.getElementById("saveButton");
+	const shain_id = button.getAttribute("data-value");
+	const kyuuyoNendo = document.getElementById("kyuuyoNendo").value;
+	let kyuuyoMonth = document.getElementById("kyuuyoGatsu").value;
+	const jisuu = document.getElementById("kyuuyoJisuu").value;
+	console.log(kyuuyoMonth);
+	if (kyuuyoMonth < 10) {
+		kyuuyoMonth = "0" + kyuuyoMonth;
+	}
+	let kyuuyoNengappi = kyuuyoNendo + "-" + kyuuyoMonth + "-01";
+	
+	const data = {};
 
-	const koujoKirokuUrl = "insertShainKoujoKiroku.do?shain_id=" + shain_id + "&kyuuyoGatsu=" + kyuuyoGatsu + "&kyuuyoJisuu=" + jisuu + "&kyuuyoSougaku=" + totalKyuuyoSougakuNumber + "&koujoSougaku=" + totalKoujoSougakuNumber + "&jissaiKyuuyo=" + totalJissaiKyuuyoNumber;
+	document.querySelectorAll("input[id^='koujo-'], input[id^='kihonkoujo-']").forEach(input => {
+		const id = input.id;
+		const number = id.split('-')[1]; // 'koujo-' 또는 'kihonkoujo-' 이후의 숫자 부분 추출
+		const value = input.value.replace(/,/g, '') || "0"; // 천 단위 구분 제거 및 값이 없으면 0으로 처리
+
+		// 데이터 객체에 추가
+		data[`${number}`] = value;
+	});
+	
+	console.log(data);
+
+	const url = "insertShainKoujoKiroku.do?shain_id=" + shain_id + "&kyuuyoNengappi=" + kyuuyoNengappi + "&kyuuyoJisuu=" + jisuu;
 	$.ajax({
-		url: koujoKirokuUrl,
+		url: url,
 		type: 'GET', // GET 메서드를 사용
 		dataType: 'json',
-		success: function() {
-			console.log("저장 성공");
-			alert("저장이 완료되었습니다.");
+		data: data,
+		success: function(response) {
+			console.log("공제기록 데이터 저장 성공:", response);
 			getShainList();
 		},
-		error: function() {
-			alert("저장에 실패했습니다.");
+		error: function(error) {
+			console.error("공제기록 데이터 저장 실패:", error);
 			getShainList();
 		}
 	});
@@ -883,37 +900,50 @@ function saveKyuuyoKiroku() {
 	const button = document.getElementById("saveButton");
 	const shain_id = button.getAttribute("data-value");
 	const kyuuyoNendo = document.getElementById("kyuuyoNendo").value;
-	const kyuuyoMonth = document.getElementById("kyuuyoGatsu").value;
+	let kyuuyoMonth = document.getElementById("kyuuyoGatsu").value;
+	const jisuu = document.getElementById("kyuuyoJisuu").value;
+	console.log(kyuuyoMonth);
 	if (kyuuyoMonth < 10) {
 		kyuuyoMonth = "0" + kyuuyoMonth;
 	}
 	let kyuuyoNengappi = kyuuyoNendo + "-" + kyuuyoMonth + "-01";
-    const data = {};
+	const data = {};
 
-    // 모든 kyuuyo-로 시작하는 입력 요소 선택
-    document.querySelectorAll("input[id^='kyuuyo-']").forEach(input => {
-        const id = input.id;
-        const number = id.split('-')[1]; // 'kyuuyo-' 이후의 숫자 부분 추출
-        const value = input.value.replace(/,/g, '') || "0"; // 천 단위 구분 제거 및 값이 없으면 0으로 처리
+	// 모든 kyuuyo-로 시작하는 입력 요소 선택
+	document.querySelectorAll("input[id^='kyuuyo-']").forEach(input => {
+		const id = input.id;
+		const number = id.split('-')[1]; // 'kyuuyo-' 이후의 숫자 부분 추출
+		const value = input.value.replace(/,/g, '') || "0"; // 천 단위 구분 제거 및 값이 없으면 0으로 처리
 
-        // 데이터 객체에 추가
-        data[`${number}`] = value;
-    });
-	
+		// 데이터 객체에 추가
+		data[`${number}`] = value;
+	});
+
 	console.log(data);
 	const url = "insertShainKyuuyoKiroku.do?shain_id=" + shain_id + "&kyuuyoNengappi=" + kyuuyoNengappi + "&kyuuyoJisuu=" + jisuu;
-    // AJAX 요청 보내기
-    $.ajax({
-        url: url, // 서버의 엔드포인트 URL
-        type: 'GET',
-        dataType: 'json',
-        data: data, // JSON 문자열 대신 객체로 전송
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        success: function(response) {
-            console.log("데이터 전송 성공:", response);
-        },
-        error: function(xhr, status, error) {
-            console.error("데이터 전송 실패:", error);
-        }
-    });
+	// AJAX 요청 보내기
+	$.ajax({
+		url: url, // 서버의 엔드포인트 URL
+		type: 'GET',
+		dataType: 'json',
+		data: data, // JSON 문자열 대신 객체로 전송
+		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+		success: function(response) {
+			console.log("급여기록 데이터 저장 성공:", response);
+		},
+		error: function(error) {
+			console.error("급여기록 데이터 저장 실패:", error);
+		}
+	});
+}
+
+function formatWithCommas(input) {
+	// 입력된 값을 문자열로 가져온 후 기존 쉼표 제거
+	const value = input.value.replace(/,/g, '');
+
+	// 숫자로 변환 후 다시 천 단위 쉼표 추가하여 문자열로 변환
+	const formattedValue = parseFloat(value).toLocaleString();
+
+	// 입력 필드에 포맷팅된 값 설정
+	input.value = formattedValue;
 }

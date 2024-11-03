@@ -20,6 +20,8 @@ public class GetKyuuyoKoumokuKirokuHandler implements CommandHandler{
 		String kyuuyoNengappi = req.getParameter("kyuuyoNengappi");
 		Integer shain_id = Integer.parseInt(req.getParameter("shain_id"));
 		
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + kyuuyoNengappi);
+		
 		// 급여항목의 정보를 저장하는 리스트
 		ArrayList<KyuuyoKoumoku> kyuuyoList = gs.getKyuuyokoumokuKingakuList(shain_id, kyuuyoNengappi);
 		

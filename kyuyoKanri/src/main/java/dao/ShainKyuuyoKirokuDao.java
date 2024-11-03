@@ -45,9 +45,22 @@ public class ShainKyuuyoKirokuDao {
 	
 	public int insertShainKyuuyoKiroku(Connection conn, Integer shain_id, Integer kyuuyokoumoku_id, int kyuuyokoumoku_kingaku, String kyuuyokoumoku_nengappi, String kyuuyo_jisuu) {
 		PreparedStatement ps = null;
-		String query = "INSERT INTO shainkyuuyoKiroku "
-				+ "(shain_id, kyuuyokoumoku_id, kyuuyokoumoku_kingaku, kyuuyokoumoku_nengappi, kyuuyo_jisuu) "
-				+ "VALUES (?, ?, ?, TO_DATE(?, 'YYYY-MM-DD'), ?)";
+		String query = "MERGE INTO shainkyuuyoKiroku target "
+				+ "USING (SELECT ? AS shain_id, "
+				+ "              ? AS kyuuyokoumoku_id, "
+				+ "              ? AS kyuuyokoumoku_kingaku, "
+				+ "              TO_DATE(?, 'YYYY-MM-DD') AS kyuuyokoumoku_nengappi, "
+				+ "              ? AS kyuuyo_jisuu "
+				+ "       FROM dual) source "
+				+ "ON (target.shain_id = source.shain_id "
+				+ "    AND target.kyuuyokoumoku_id = source.kyuuyokoumoku_id "
+				+ "    AND target.kyuuyokoumoku_nengappi = source.kyuuyokoumoku_nengappi "
+				+ "    AND target.kyuuyo_jisuu = source.kyuuyo_jisuu) "
+				+ "WHEN MATCHED THEN"
+				+ "    UPDATE SET target.kyuuyokoumoku_kingaku = source.kyuuyokoumoku_kingaku "
+				+ "WHEN NOT MATCHED THEN "
+				+ "    INSERT (shain_id, kyuuyokoumoku_id, kyuuyokoumoku_kingaku, kyuuyokoumoku_nengappi, kyuuyo_jisuu) "
+				+ "    VALUES (?, ?, ?, TO_DATE(?, 'YYYY-MM-DD'), ?)";
 		int rValue = 0;
 		
 		 
@@ -59,7 +72,11 @@ public class ShainKyuuyoKirokuDao {
 			ps.setInt(3, kyuuyokoumoku_kingaku);
 			ps.setString(4, kyuuyokoumoku_nengappi);
 			ps.setString(5, kyuuyo_jisuu);
-			
+			ps.setInt(6, shain_id);
+			ps.setInt(7, kyuuyokoumoku_id);
+			ps.setInt(8, kyuuyokoumoku_kingaku);
+			ps.setString(9, kyuuyokoumoku_nengappi);
+			ps.setString(10, kyuuyo_jisuu);
 			rValue = ps.executeUpdate();
 			
 		} catch (SQLException e) {

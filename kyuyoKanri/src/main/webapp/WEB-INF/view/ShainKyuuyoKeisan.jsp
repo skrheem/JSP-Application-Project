@@ -187,7 +187,7 @@
 					<span class="net-pay-value" id="totalJissaiKyuuyo">0</span>
 				</div>
 				<div class="calc-button-box">
-					<button class="btn save" id="saveButton" onclick="saveKyuuyoKiroku()" data-value="0">
+					<button class="btn save" id="saveButton" onclick="saveInfo();saveKyuuyoKiroku();saveKoujoKiroku()" data-value="0">
 						<span>저장</span>
 					</button>
 					<button class="btn clear" id="clearAllButton" onclick="reset()">
