@@ -112,4 +112,9 @@ public class ShainKyuuyoKeisanKiroku {
 		this.koukinzei_kubun = koukinzei_kubun;
 		this.kyuuyo_gatsu = kyuuyoGatsu;
 	}
+	
+	public ShainKyuuyoKeisanKiroku(Date kyuuyo_gatsu, String kyuuyo_jisuu) {
+		this.kyuuyo_gatsu = kyuuyo_gatsu;
+		this.kyuuyo_jisuu = kyuuyo_jisuu;
+	}
 }

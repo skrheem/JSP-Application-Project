@@ -217,19 +217,202 @@ function toggleSelectAll() {
 	});
 }
 
+let kintaiMeiData = []; // 전역 변수로 kintai_mei 데이터를 저장
+
+function getKintaiMei() {
+	$.ajax({
+		url: 'getKintaiMei.do', // 핸들러 URL
+		type: 'GET',
+		dataType: 'json',
+		success: function(data) {
+			console.log(data);
+			kintaiMeiData = data; // kintai_mei 데이터를 전역 변수에 저장
+			console.log(kintaiMeiData);
+			const select = document.getElementById("bulk-pay");
+			select.innerHTML = ''; // 기존 옵션을 초기화
+
+			// 기본 옵션 추가
+			const defaultOption = document.createElement("option");
+			defaultOption.textContent = "選択してください。";
+			select.appendChild(defaultOption);
+
+			const noneOption = document.createElement("option");
+			noneOption.textContent = "なし";
+			select.appendChild(noneOption);
+
+			const bulkPayOption = document.createElement("option");
+			bulkPayOption.textContent = "一括支払い";
+			select.appendChild(bulkPayOption);
+
+			// kintai_mei 데이터를 <select> 옵션으로 추가
+			data.forEach(function(item) {
+				const option = document.createElement("option");
+				option.value = item.kintai_mei; // kintai_mei 값을 value로 설정
+				option.textContent = item.kintai_mei; // kintai_mei를 text로 설정
+				select.appendChild(option);
+			});
+		},
+		error: function(xhr, status, error) {
+			console.error("勤怠項目データ 로드 실패:", error);
+			alert("勤怠項目 데이터를 불러오는 데 실패했습니다.");
+		}
+	});
+}
+
 function openKyuuyoPopup() {
 	document.getElementById('overlay').style.display = 'block';
 	document.getElementById('popupKyuuyo').style.display = 'block';
+	getKintaiMei();
+
+	$.ajax({
+		url: 'getKyuuyoKoumokuList.do', // 핸들러 URL
+		type: 'GET',
+		dataType: 'json',
+		success: function(data) {
+			kyuuyoData = data; // 급여항목 데이터를 전역 변수에 저장
+			const select = document.getElementById("kyuuyoCategory");
+			select.innerHTML = '<option>選択してください。</option>'; // 기본 옵션 초기화
+
+			// 급여항목 데이터를 <select> 옵션으로 추가
+			data.forEach(function(item) {
+				const option = document.createElement("option");
+				option.value = item.kyuuyokoumoku_id; // ID 값을 value로 설정
+				option.textContent = item.kyuuyokoumoku_mei; // 이름을 text로 설정
+				select.appendChild(option);
+			});
+
+			// 급여항목 선택 시 해당 항목의 세부 정보를 입력 필드에 표시하는 이벤트 리스너 추가
+			select.addEventListener("change", function() {
+				const selectedId = select.value;
+				const selectedItem = data.find(item => item.kyuuyokoumoku_id == selectedId);
+
+				if (selectedItem) {
+					document.getElementById("kyuuyo-mei").value = selectedItem.kyuuyokoumoku_mei;
+					document.getElementById("taxable").checked = (selectedItem.kazeikubun === "全体課税");
+					document.getElementById("non-taxable").checked = (selectedItem.kazeikubun === "非課税");
+					document.getElementById("non-tax-name").value = selectedItem.kazeikubun;
+					document.getElementById("limit-amount").value = selectedItem.hikazeigendogaku;
+					document.getElementById("kyuuyo-calc-method").value = selectedItem.keisanhouhou;
+					document.getElementById("kyuuyo-unit").value = selectedItem.zenshadani;
+					document.getElementById("bulk-amount").value = selectedItem.ikkatsushiharaigaku;
+
+					// 디버깅: kintaierenkei와 kintai_mei 데이터 출력
+					console.log("selectedItem.kintairenkei:", selectedItem.kintairenkei);
+					console.log("kintaiMeiData:", kintaiMeiData);
+
+					// kintaierenkei와 kintai_mei가 일치하는지 확인하여 설정
+					const matchingKintai = kintaiMeiData.find(k =>
+						k.kintai_mei && selectedItem.kintairenkei && k.kintai_mei.trim().localeCompare(selectedItem.kintairenkei.trim()) === 0
+					);
+
+					if (matchingKintai) {
+						console.log("매칭된 kintai_mei:", matchingKintai.kintai_mei);
+						document.getElementById("bulk-pay").value = matchingKintai.kintai_mei;
+					} else {
+						console.log("일치하는 kintai_mei 없음");
+						document.getElementById("bulk-pay").value = "なし"; // 일치하는 값이 없으면 기본값으로 설정
+					}
+				}
+			});
+		},
+		error: function(xhr, status, error) {
+			console.error("급여항목 데이터 로드 실패:", error);
+			alert("급여항목 데이터를 불러오는 데 실패했습니다.");
+		}
+	});
 }
+
+let koujoData = []; // 공제항목 데이터를 저장할 전역 변수
 
 function openKoujoPopup() {
 	document.getElementById('overlay').style.display = 'block';
 	document.getElementById('popupKoujo').style.display = 'block';
+
+	$.ajax({
+		url: 'getKoujoKoumokuList.do', // 핸들러 URL
+		type: 'GET',
+		dataType: 'json',
+		success: function(data) {
+			koujoData = data; // 공제항목 데이터를 전역 변수에 저장
+
+			const select = document.getElementById("koujoCategory");
+			select.innerHTML = '<option>選択してください。</option>'; // 기본 옵션 초기화
+
+			// 공제항목 데이터를 <select> 옵션으로 추가
+			data.forEach(function(item) {
+				const option = document.createElement("option");
+				option.value = item.koujokoumoku_id; // ID 값을 value로 설정
+				option.textContent = item.koujokoumoku_mei; // 이름을 text로 설정
+				select.appendChild(option);
+			});
+		},
+		error: function(xhr, status, error) {
+			console.error("공제항목 데이터 로드 실패:", error);
+			alert("공제항목 데이터를 불러오는 데 실패했습니다.");
+		}
+	});
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+	const categorySelect = document.getElementById("koujoCategory");
+
+	if (categorySelect) {
+		categorySelect.addEventListener("change", function() {
+			const selectedId = this.value;
+
+			// 선택된 ID에 맞는 데이터를 검색
+			const selectedKoujo = koujoData.find(item => item.koujokoumoku_id == selectedId);
+
+			if (selectedKoujo) {
+				document.getElementById("koujo-mei").value = selectedKoujo.koujokoumoku_mei || '';
+				document.getElementById("koujo-calc-method").value = selectedKoujo.keisanhouhou || '';
+				document.getElementById("koujo-note").value = selectedKoujo.bikou || '';
+				document.getElementById("koujo-id").value = selectedKoujo.koujokoumoku_id || '';
+				const unitSelect = document.getElementById("koujo-unit");
+				let matchFound = false;
+				for (let option of unitSelect.options) {
+					if (option.value === selectedKoujo.zenshadani) {
+						option.selected = true;
+						matchFound = true;
+						break;
+					}
+				}
+
+				// 일치하는 결산단위가 없을 경우 "없음" 옵션을 선택
+				if (!matchFound) {
+					unitSelect.value = "없음";
+				}
+
+				unitSelect.innerHTML = `<option>選択してください。</option>`;
+				const option = document.createElement("option");
+				option.value = selectedKoujo.zenshadani;
+				option.textContent = selectedKoujo.zenshadani;
+				option.selected = true;
+				unitSelect.appendChild(option);
+			}
+		});
+	}
+});
 
 function closeKPopup() {
 	document.getElementById('overlay').style.display = 'none';
 	document.getElementById('popupKyuuyo').style.display = 'none';
+
+	document.getElementById('koujo-id').value = '';
+	document.getElementById('koujo-mei').value = '';
+	document.getElementById('koujo-calc-method').value = '';
+	document.getElementById('koujo-unit').value = '選択してください。';
+	document.getElementById('koujo-note').value = '';
+
+	document.getElementById("kyuuyo-mei").value = '';
+	document.getElementById("taxable").checked = false;
+	document.getElementById("non-taxable").checked = false;
+	document.getElementById("non-tax-name").value = '';
+	document.getElementById("limit-amount").value = '';
+	document.getElementById("kyuuyo-calc-method").value = '';
+	document.getElementById("kyuuyo-unit").value = '選択してください。';
+	document.getElementById("bulk-amount").value = '';
+
 	document.getElementById('popupKoujo').style.display = 'none';
 }
 
@@ -645,10 +828,10 @@ function calculateAndDisplayTotals() {
 
 // 총합을 표시하는 함수
 function displayTotalAmounts(rowCount, shikyuuSougaku, koujoSougaku, jissaiKyuuyo) {
-	document.getElementById("totalRowCount").textContent = rowCount + " 건";
-	document.getElementById("totalAllShikyuuSougaku").textContent = Math.round(shikyuuSougaku) + " 원";
-	document.getElementById("totalAllKoujoSougaku").textContent = Math.round(koujoSougaku) + " 원";
-	document.getElementById("totalAllJissaiKyuuyo").textContent = Math.round(jissaiKyuuyo) + " 원";
+	document.getElementById("totalRowCount").textContent = rowCount + " 件";
+	document.getElementById("totalAllShikyuuSougaku").textContent = Math.round(shikyuuSougaku) + " 円";
+	document.getElementById("totalAllKoujoSougaku").textContent = Math.round(koujoSougaku) + " 円";
+	document.getElementById("totalAllJissaiKyuuyo").textContent = Math.round(jissaiKyuuyo) + " 円";
 }
 
 // 내용 지우기 버튼
@@ -786,7 +969,7 @@ function updateNetPay() {
 	const netPay = totalKyuuyoSougaku - totalKoujoSougaku;
 
 	// 실지급액 요소에 업데이트
-	document.getElementById("totalJissaiKyuuyo").textContent = netPay.toLocaleString() + " 원";
+	document.getElementById("totalJissaiKyuuyo").textContent = netPay.toLocaleString() + " 円";
 }
 
 // 이벤트 리스너 추가 함수
@@ -863,7 +1046,7 @@ function saveKoujoKiroku() {
 		kyuuyoMonth = "0" + kyuuyoMonth;
 	}
 	let kyuuyoNengappi = kyuuyoNendo + "-" + kyuuyoMonth + "-01";
-	
+
 	const data = {};
 
 	document.querySelectorAll("input[id^='koujo-'], input[id^='kihonkoujo-']").forEach(input => {
@@ -874,7 +1057,7 @@ function saveKoujoKiroku() {
 		// 데이터 객체에 추가
 		data[`${number}`] = value;
 	});
-	
+
 	console.log(data);
 
 	const url = "insertShainKoujoKiroku.do?shain_id=" + shain_id + "&kyuuyoNengappi=" + kyuuyoNengappi + "&kyuuyoJisuu=" + jisuu;
@@ -946,4 +1129,276 @@ function formatWithCommas(input) {
 
 	// 입력 필드에 포맷팅된 값 설정
 	input.value = formattedValue;
+}
+
+function pastKyuuyoKeisan() {
+	const url = "pastKyuuyoKeisanKiroku.do";
+
+	$.ajax({
+		url: url,
+		type: 'GET',
+		dataType: 'json',
+		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+		success: function(response) {
+			console.log("지난 급여 기록 불러오기 성공:", response);
+			renderPastKiroku(response);
+		},
+		error: function(error) {
+			console.error("지난 급여 기록 불러오기 실패:", error);
+		}
+	});
+}
+
+function renderPastKiroku(data) {
+	const select = document.getElementById("yearMonthSelectPast");
+	select.innerHTML = '<option value="">귀속년월 차수 선택</option>'; // 기본 옵션 설정
+
+	data.forEach(item => {
+		const option = document.createElement("option");
+		option.value = `${item.originalKyuuyo_gatsu}-${item.originalKyuuyo_jisuu}`; // ex: "2025-01-02"
+		option.textContent = `${item.kyuuyo_gatsu}`;
+		select.appendChild(option);
+	});
+}
+
+// 팝업 열기
+function openPastPopup() {
+	document.getElementById("overlay").style.display = "block";
+	document.getElementById("popupPast").style.display = "block";
+}
+
+// 팝업 닫기 함수
+function closePastPopup() {
+	document.getElementById("overlay").style.display = "none";
+	document.getElementById("popupPast").style.display = "none";
+}
+
+// 팝업 닫기
+function closeAllPopup(event) {
+	if (event.target.id === "overlay") {
+		closePastPopup();
+		closePopup();
+		closeKPopup()
+	}
+}
+
+function loadPastSalaryInfo() {
+	const select = document.getElementById("yearMonthSelectPast");
+	const selectedValue = select.value;
+	const koukinzei = document.getElementById('incomeDiv').getAttribute("data-value");
+
+	if (selectedValue) {
+		const [kyuuyoNendo, kyuuyoGatsu, day, kyuuyoJisuu] = selectedValue.split("-"); // 값 분리
+		console.log(kyuuyoJisuu);
+		// 円하는 URL 생성
+		const url = `kanri.do?kyuuyoNendo=${kyuuyoNendo}&kyuuyoGatsu=${kyuuyoGatsu}&kyuuyoJisuu=${kyuuyoJisuu}&koukinzei=${koukinzei}`;
+		// 페이지 이동
+		window.location.href = url;
+	} else {
+		alert("귀속년월 차수를 선택해주세요."); // 옵션이 선택되지 않았을 경우 경고 메시지
+	}
+}
+
+// 추가 버튼 클릭 시 input에 있는 정보들을 console.log로 출력하는 함수
+function addKoujo() {
+	if (document.getElementById('koujo-id').value == '') {
+		alert("先ず項目を選択してください。");
+		return;
+	}
+	const koujokoumoku_id = document.getElementById('koujo-id').value;
+	const koujokoumoku_mei = document.getElementById('koujo-mei').value;
+	const keisanHouhou = document.getElementById('koujo-calc-method').value;
+	const zenshadani = document.getElementById('koujo-unit').value;
+	const bikou = document.getElementById('koujo-note').value;
+
+	const url = "insertKoujoKoumoku.do?koujokoumoku_id=" + koujokoumoku_id + "&koujokoumoku_mei=" + koujokoumoku_mei + "&keisanHouhou=" + keisanHouhou + "&zenshadani=" + zenshadani + "&bikou=" + bikou;
+	console.log(url);
+
+	$.ajax({
+		url: url,
+		type: 'GET',
+		dataType: 'json',
+		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+		success: function(response) {
+			console.log("지난 급여 기록 불러오기 성공:", response);
+			renderPastKiroku(response);
+		},
+		error: function(error) {
+			console.error("지난 급여 기록 불러오기 실패:", error);
+		}
+	});
+}
+
+// 수정 버튼 클릭 시 input에 있는 정보들을 console.log로 출력하는 함수
+function editKoujo() {
+	if (document.getElementById('koujo-id').value == '') {
+		alert("先ず項目を選択してください。");
+		return;
+	}
+	const koujokoumoku_id = document.getElementById('koujo-id').value;
+	const koujokoumoku_mei = document.getElementById('koujo-mei').value;
+	const keisanHouhou = document.getElementById('koujo-calc-method').value;
+	const zenshadani = document.getElementById('koujo-unit').value;
+	const bikou = document.getElementById('koujo-note').value;
+
+	const url = "updateKoujoKoumoku.do?koujokoumoku_id=" + koujokoumoku_id + "&koujokoumoku_mei=" + koujokoumoku_mei + "&keisanHouhou=" + keisanHouhou + "&zenshadani=" + zenshadani + "&bikou=" + bikou;
+	console.log(url);
+
+	$.ajax({
+		url: url,
+		type: 'GET',
+		dataType: 'json',
+		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+		success: function(response) {
+			console.log("지난 급여 기록 불러오기 성공:", response);
+			renderPastKiroku(response);
+		},
+		error: function(error) {
+			console.error("지난 급여 기록 불러오기 실패:", error);
+		}
+	});
+}
+
+// 삭제 버튼 클릭 시 input에 있는 정보들을 console.log로 출력하는 함수
+function deleteKoujo() {
+	if (document.getElementById('koujo-id').value == '') {
+		alert("先ず項目を選択してください。");
+		return;
+	}
+	const koujokoumoku_id = document.getElementById('koujo-id').value;
+	const koujokoumoku_mei = document.getElementById('koujo-mei').value;
+
+	const url = "deleteKoujoKoumoku.do?koujokoumoku_id=" + koujokoumoku_id + "&koujokoumoku_mei=" + koujokoumoku_mei;
+	console.log(url);
+
+	$.ajax({
+		url: url,
+		type: 'GET',
+		dataType: 'json',
+		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+		success: function(response) {
+			console.log("지난 급여 기록 불러오기 성공:", response);
+			renderPastKiroku(response);
+		},
+		error: function(error) {
+			console.error("지난 급여 기록 불러오기 실패:", error);
+		}
+	});
+
+}
+
+// 추가 버튼 클릭 시 input에 있는 정보들을 console.log로 출력하는 함수
+function addKyuuyo() {
+	const kyuuyokoumoku_id = document.getElementById("kyuuyoCategory").value;
+	const kyuuyokoumoku_mei = document.getElementById("kyuuyo-mei").value;
+	const kazeikubun = document.querySelector('input[name="tax"]:checked') ? document.querySelector('input[name="tax"]:checked').value : "";
+	const non_tax_name = document.getElementById("non-tax-name").value;
+	const hikazeigendogaku = document.getElementById("limit-amount").value;
+	const keisanhouhou = document.getElementById("kyuuyo-calc-method").value;
+	const zenshadani = document.getElementById("kyuuyo-unit").value;
+	const kintairenkei = document.getElementById("bulk-pay").value;
+	const ikkatsushiharaigaku = document.getElementById("bulk-amount").value;
+
+	const queryString = "kyuuyokoumoku_id=" + kyuuyokoumoku_id +
+		"&kyuuyokoumoku_mei=" + kyuuyokoumoku_mei +
+		"&kazeikubun=" + kazeikubun +
+		"&non_tax_name=" + non_tax_name +
+		"&hikazeigendogaku=" + hikazeigendogaku +
+		"&keisanhouhou=" + keisanhouhou +
+		"&zenshadani=" + zenshadani +
+		"&kintairenkei=" + kintairenkei +
+		"&ikkatsushiharaigaku=" + ikkatsushiharaigaku;
+
+	// 최종 URL
+	const url = "insertKyuuyoKoumoku.do?" + queryString;
+
+	console.log("Request URL:", url);
+
+	$.ajax({
+		url: url,
+		type: 'GET',
+		dataType: 'json',
+		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+		success: function(response) {
+			console.log("給与項目の削除成功:", response);
+			renderPastKiroku(response);
+		},
+		error: function(error) {
+			console.error("給与項目の削除失敗:", error);
+		}
+	});
+
+
+}
+
+// 수정 버튼 클릭 시 input에 있는 정보들을 console.log로 출력하는 함수
+function editKyuuyo() {
+	const kyuuyokoumoku_id = document.getElementById("kyuuyoCategory").value;
+	const kyuuyokoumoku_mei = document.getElementById("kyuuyo-mei").value;
+	const kazeikubun = document.querySelector('input[name="tax"]:checked') ? document.querySelector('input[name="tax"]:checked').value : "";
+	const non_tax_name = document.getElementById("non-tax-name").value;
+	const hikazeigendogaku = document.getElementById("limit-amount").value;
+	const keisanhouhou = document.getElementById("kyuuyo-calc-method").value;
+	const zenshadani = document.getElementById("kyuuyo-unit").value;
+	const kintairenkei = document.getElementById("bulk-pay").value;
+	const ikkatsushiharaigaku = document.getElementById("bulk-amount").value;
+
+	const queryString = "kyuuyokoumoku_id=" + kyuuyokoumoku_id +
+		"&kyuuyokoumoku_mei=" + kyuuyokoumoku_mei +
+		"&kazeikubun=" + kazeikubun +
+		"&non_tax_name=" + non_tax_name +
+		"&hikazeigendogaku=" + hikazeigendogaku +
+		"&keisanhouhou=" + keisanhouhou +
+		"&zenshadani=" + zenshadani +
+		"&kintairenkei=" + kintairenkei +
+		"&ikkatsushiharaigaku=" + ikkatsushiharaigaku;
+
+	// 최종 URL
+	const url = "updateKyuuyoKoumoku.do?" + queryString;
+
+	console.log("Request URL:", url);
+
+	$.ajax({
+		url: url,
+		type: 'GET',
+		dataType: 'json',
+		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+		success: function(response) {
+			console.log("給与項目の削除成功:", response);
+			renderPastKiroku(response);
+		},
+		error: function(error) {
+			console.error("給与項目の削除失敗:", error);
+		}
+	});
+}
+
+// 삭제 버튼 클릭 시 input에 있는 정보들을 console.log로 출력하는 함수
+function deleteKyuuyo() {
+	const kyuuyokoumoku_id = document.getElementById("kyuuyoCategory").value;
+	const kyuuyokoumoku_mei = document.getElementById("kyuuyo-mei").value;
+
+
+	const queryString = "kyuuyokoumoku_id=" + kyuuyokoumoku_id +
+		"&kyuuyokoumoku_mei=" + kyuuyokoumoku_mei;
+
+	// 최종 URL
+	const url = "deleteKyuuyoKoumoku.do?" + queryString;
+
+	console.log("Request URL:", url);
+
+	$.ajax({
+		url: url,
+		type: 'GET',
+		dataType: 'json',
+		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+		success: function(response) {
+			console.log("給与項目の削除成功:", response);
+			renderPastKiroku(response);
+		},
+		error: function(error) {
+			console.error("給与項目の削除失敗:", error);
+		}
+	});
+
 }

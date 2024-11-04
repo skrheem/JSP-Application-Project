@@ -1,12 +1,13 @@
 package dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import jdbc.JdbcUtil;
-import jdbc.connection.ConnectionProvider;
 import model.KyuuyoKoumoku;
 import util.ObjectFormatter;
 
@@ -87,5 +88,75 @@ public class KyuuyoKoumokuDao {
 		}
 		
 		return kList;
+	}
+	
+	public int insertKyuuyoKoumoku(Connection conn, String kyuuyokoumoku_mei, String kazeikubun, BigDecimal hikazeigendogaku, String bikou, String keisanhouhou, String zenshadani, String kintairenkei, String ikkatsushiharai, BigDecimal ikkatsushiharaigaku, String shiyouumu) {
+	    PreparedStatement ps = null;
+	    int rValue = 0;
+	    String query = "INSERT INTO kyuuyokoumoku (kyuuyokoumoku_id, kyuuyokoumoku_mei, kazeikubun, hikazeigendogaku, bikou, keisanhouhou, zenshadani, kintairenkei, ikkatsushiharai, ikkatsushiharaigaku, shiyouumu) "
+	            + "VALUES (kyuuyoKoumoku_sequence.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+	    try {
+	        ps = conn.prepareStatement(query);
+	        ps.setString(1, kyuuyokoumoku_mei);
+	        ps.setString(2, kazeikubun);
+	        ps.setBigDecimal(3, hikazeigendogaku);
+	        ps.setString(4, bikou);
+	        ps.setString(5, keisanhouhou);
+	        ps.setString(6, zenshadani);
+	        ps.setString(7, kintairenkei);
+	        ps.setString(8, ikkatsushiharai);
+	        ps.setBigDecimal(9, ikkatsushiharaigaku);
+	        ps.setString(10, shiyouumu);
+
+	        rValue = ps.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        JdbcUtil.close(ps);
+	    }
+	    return rValue;
+	}
+	
+	public int updateKyuuyoKoumoku(Connection conn, Integer kyuuyokoumoku_id, String kyuuyokoumoku_mei, String keisanhouhou, String zenshadani, String bikou) {
+	    PreparedStatement ps = null;
+	    int rValue = 0;
+	    String query = "UPDATE kyuuyokoumoku "
+	            + "SET kyuuyokoumoku_mei = ?, keisanhouhou = ?, zenshadani = ?, bikou = ? "
+	            + "WHERE kyuuyokoumoku_id = ?";
+
+	    try {
+	        ps = conn.prepareStatement(query);
+	        ps.setString(1, kyuuyokoumoku_mei);
+	        ps.setString(2, keisanhouhou);
+	        ps.setString(3, zenshadani);
+	        ps.setString(4, bikou);
+	        ps.setInt(5, kyuuyokoumoku_id);
+
+	        rValue = ps.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        JdbcUtil.close(ps);
+	    }
+	    return rValue;
+	}
+
+	public int deleteKyuuyoKoumoku(Connection conn, Integer kyuuyokoumoku_id) {
+	    PreparedStatement ps = null;
+	    int rValue = 0;
+	    String query = "DELETE FROM kyuuyokoumoku WHERE kyuuyokoumoku_id = ?";
+
+	    try {
+	        ps = conn.prepareStatement(query);
+	        ps.setInt(1, kyuuyokoumoku_id);
+
+	        rValue = ps.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        JdbcUtil.close(ps);
+	    }
+	    return rValue;
 	}
 }

@@ -1,20 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page import="org.json.JSONArray"%>
 <%@ page import="org.json.JSONObject"%>
 
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>급여입력/관리</title>
+<title>給与入力/管理</title>
 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui/1.12.1/i18n/datepicker-ko.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui/1.12.1/i18n/datepicker-ko.min.js"></script>
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/ShainKyuuyoKeisan.css">
@@ -25,52 +28,58 @@
 <body>
 	<div class="container">
 		<header class="header">
-			<h1>급여입력/관리</h1>
-			<p>월별, 사원별 급여 및 상여금 정보를 입력, 저장, 관리하는 메뉴입니다.</p>
+			<h1>給与入力/管理</h1>
+			<p>月別、社員別の給与およびボーナス情報を入力、保存、管理するメニューです。</p>
 		</header>
-		<!-- Adding filter section below the description -->
 		<section class="filter-section">
 			<div class="filters">
-				<label for="year">귀속연월</label> <select name="kyuuyoNendo" id="kyuuyoNendo"
-					onchange="getShainList()">
-					<option value="" disabled>연도 선택</option>
+				<label for="year">帰属年月</label> <select name="kyuuyoNendo"
+					id="kyuuyoNendo" onchange="getShainList()">
+					<option value="" disabled>年を選択</option>
 					<c:forEach var="year" begin="2005" end="2025">
 						<option value="${year}"
 							<c:if test="${year == param.kyuuyoNendo || (empty param.kyuuyoNendo && year == 2024)}">selected</c:if>>
-							${year}년</option>
+							${year}年</option>
 					</c:forEach>
-				</select> <select name="kyuuyoGatsu" id="kyuuyoGatsu" onchange="getShainList()">
-					<option value="" disabled>월 선택</option>
+				</select> <select name="kyuuyoGatsu" id="kyuuyoGatsu"
+					onchange="getShainList()">
+					<option value="" disabled>月を選択</option>
 					<c:forEach var="month" begin="1" end="12">
 						<c:set var="monthStr" value="${month lt 10 ? '0' + month : month}" />
 						<option value="${monthStr}"
 							<c:if test="${monthStr == param.kyuuyoGatsu || (empty param.kyuuyoGatsu && monthStr == '09')}">selected</c:if>>
-							${monthStr}월</option>
+							${monthStr}月</option>
 					</c:forEach>
-				</select> <label for="kyuuyoJisuu">급여차수</label> <select name="kyuuyoJisuu" id="kyuuyoJisuu"
-					onchange="getShainList()">
-					<option value="" disabled>차수 선택</option>
+				</select> <label for="kyuuyoJisuu">給与回数</label> <select name="kyuuyoJisuu"
+					id="kyuuyoJisuu" onchange="getShainList()">
+					<option value="" disabled>回数を選択</option>
 					<c:forEach var="cycle" begin="1" end="10">
 						<c:set var="cycleStr" value="${cycle lt 10 ? '0' + cycle : cycle}" />
 						<option value="${cycleStr}"
 							<c:if test="${cycleStr == param.kyuuyoJisuu || (empty param.kyuuyoJisuu && cycleStr == '01')}">selected</c:if>>
-							급여-${cycleStr}차</option>
+							給与-${cycleStr}回</option>
 					</c:forEach>
 				</select>
 				<div id="modifyFormContainer">
-					<label for="standard-period">정산기간</label> <input type="text" id="standard-period-start"
-						name="santei_kaishi" placeholder="2024-11-01" autocomplete="off"> <span>~</span> <input
-						type="text" id="standard-period-end" name="santei_shuuryou" placeholder="2024-11-30"
-						autocomplete="off"> <label for="pay-date">급여지급일</label> <input type="text"
-						id="pay-date" name="shikyuu_bi" placeholder="2024-12-05" autocomplete="off"> <input
-						type="text" id="EXstandard-period-start" name="standard-period-start" autocomplete="off"
-						style="display: none"> <input type="text" id="EXstandard-period-end"
-						name="standard-period-end" autocomplete="off" style="display: none"> <input
-						type="text" id="EXpay-date" name="pay-date" autocomplete="off" style="display: none">
-					<button type="button" id="submitButton" class="btn edit" onclick="modify()">수정</button>
+					<label for="standard-period">精算期間</label> <input type="text"
+						id="standard-period-start" name="santei_kaishi"
+						placeholder="2024-11-01" autocomplete="off"> <span>~</span>
+					<input type="text" id="standard-period-end" name="santei_shuuryou"
+						placeholder="2024-11-30" autocomplete="off"> <label
+						for="pay-date">給与支給日</label> <input type="text" id="pay-date"
+						name="shikyuu_bi" placeholder="2024-12-05" autocomplete="off">
+					<input type="text" id="EXstandard-period-start"
+						name="standard-period-start" autocomplete="off"
+						style="display: none"> <input type="text"
+						id="EXstandard-period-end" name="standard-period-end"
+						autocomplete="off" style="display: none"> <input
+						type="text" id="EXpay-date" name="pay-date" autocomplete="off"
+						style="display: none">
+					<button type="button" id="submitButton" class="btn edit"
+						onclick="modify()">修正</button>
 				</div>
 
-				<label for="calc-method">계산방법</label>
+				<label for="calc-method">計算方法</label>
 				<div class="calc-toggle">
 					<span>off</span> <input type="checkbox" id="calc-method">
 				</div>
@@ -78,23 +87,24 @@
 		</section>
 
 		<section class="main-horizontal-content">
-			<div class="table-section employee-list" style="display: flex; flex-direction: column;">
+			<div class="table-section employee-list"
+				style="display: flex; flex-direction: column;">
 				<div style="padding-bottom: 10px">
-					<button onclick="handleMButtonClick()">지난급여 불러오기</button>
-					<button onclick="openPopup();getShainTsuikaList()">신규추가</button>
-					<button id="oneDelete" onclick="deleteOne()" data-value="0">선택삭제</button>
-					<button onclick="deleteAll()">전체삭제</button>
+					<button onclick="openPastPopup();pastKyuuyoKeisan()">過去給与を読み込む</button>
+					<button onclick="openPopup();getShainTsuikaList()">新規追加</button>
+					<button id="oneDelete" onclick="deleteOne()" data-value="0">選択削除</button>
+					<button onclick="deleteAll()">全削除</button>
 				</div>
 
 				<table id="keisanKirokuTable" class="payroll-table">
 					<thead>
 						<tr>
-							<th>구분</th>
-							<th>성명</th>
-							<th>부서</th>
-							<th>지급총액</th>
-							<th>공제총액</th>
-							<th>실지급액</th>
+							<th>区分</th>
+							<th>氏名</th>
+							<th>部署</th>
+							<th>支給総額</th>
+							<th>控除総額</th>
+							<th>実支給額</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -103,36 +113,38 @@
 				</table>
 				<div id="totalSummary">
 					<p>
-						급여 <strong>종합정보</strong>
+						給与 <strong>総合情報</strong>
 					</p>
 					<p>
-						월 합계: <span id="totalRowCount">0</span> 건
+						月合計: <span id="totalRowCount">0</span> 件
 					</p>
 					<p>
-						급여 총액 합계: <span id="totalAllShikyuuSougaku">0</span> 원
+						給与総額合計: <span id="totalAllShikyuuSougaku">0</span> 円
 					</p>
 					<p>
-						공제 총액 합계: <span id="totalAllKoujoSougaku">0</span> 원
+						控除総額合計: <span id="totalAllKoujoSougaku">0</span> 円
 					</p>
 					<p>
-						실지급액 합계: <span id="totalAllJissaiKyuuyo">0</span> 원
+						実支給額合計: <span id="totalAllJissaiKyuuyo">0</span> 円
 					</p>
 				</div>
 			</div>
 			<div class="calcBox">
 				<div class="toggle-buttons" id="incomeDiv" data-value="0">
-					<button id="generalIncome" class="toggle-button active" onclick="kinroList()">일반소득</button>
-					<button id="businessIncome" class="toggle-button inactive" onclick="businessList()">사업소득/기타소득</button>
+					<button id="generalIncome" class="toggle-button active"
+						onclick="kinroList()">一般所得</button>
+					<button id="businessIncome" class="toggle-button inactive"
+						onclick="businessList()">事業所得/雑所得</button>
 				</div>
 				<div class="income-deduction-content">
 					<div class="income-section">
 						<div class="section-header">
-							<h3>지급항목</h3>
+							<h3>支給項目</h3>
 							<button onclick="openKyuuyoPopup()" class="m-btn">M</button>
 						</div>
 						<c:choose>
 							<c:when test="${not empty shainKyuuyoKirokuList}">
-								<!-- shainKoujoKirokuList가 존재하고 비어있지 않은 경우 -->
+								<!-- shainKoujoKirokuListが存在し、空でない場合 -->
 								<c:forEach var="kyuuyoKoumoku" items="${shainKyuuyoKirokuList}">
 									<label>${kyuuyoKoumoku.getKyuuyoKoumoku_mei()}</label>
 									<input type="text" oninput="formatWithCommas(this)" value="0"
@@ -153,14 +165,15 @@
 							</c:otherwise>
 						</c:choose>
 						<div class="total">
-							지급총액: <span id="totalKyuuyoSougaku">0</span> 원
+							支給総額: <span id="totalKyuuyoSougaku">0</span> 円
 						</div>
 					</div>
 					<div class="deduction-section">
 						<div class="section-header">
-							<h3>공제항목</h3>
+							<h3>控除項目</h3>
 							<button onclick="openKoujoPopup()" class="m-btn">M</button>
-							<button onclick="calc(this)" class="auto-calc-btn" id="calcButton" data-value="0">자동계산</button>
+							<button onclick="calc(this)" class="auto-calc-btn"
+								id="calcButton" data-value="0">自動計算</button>
 						</div>
 
 						<c:forEach var="koujoKoumoku" items="${kihonKoujoList}">
@@ -178,107 +191,134 @@
 							<br>
 						</c:forEach>
 						<div class="total">
-							공제총액: <span id="totalKoujoSougaku">0</span> 원
+							控除総額: <span id="totalKoujoSougaku">0</span> 円
 						</div>
 					</div>
 				</div>
 				<div class="net-pay-summary">
-					<span class="net-pay-font">실지급액:</span> 
-					<span class="net-pay-value" id="totalJissaiKyuuyo">0</span>
+					<span class="net-pay-font">実支給額:</span> <span class="net-pay-value"
+						id="totalJissaiKyuuyo">0</span>
 				</div>
 				<div class="calc-button-box">
-					<button class="btn save" id="saveButton" onclick="saveInfo();saveKyuuyoKiroku();saveKoujoKiroku()" data-value="0">
-						<span>저장</span>
+					<button class="btn save" id="saveButton"
+						onclick="saveInfo();saveKyuuyoKiroku();saveKoujoKiroku()"
+						data-value="0">
+						<span>保存</span>
 					</button>
 					<button class="btn clear" id="clearAllButton" onclick="reset()">
-						<span>내용 지우기</span>
+						<span>内容をクリア</span>
 					</button>
 				</div>
 			</div>
 		</section>
 	</div>
 
-	<div id="overlay"></div>
+	<div id="overlay" onclick="closeAllPopup(event)"></div>
 
 	<div id="popup">
-		<h2>급여지급 사원선택</h2>
-		<input type="text" id="searchInput" placeholder="사원검색">
-		<button onclick="toggleSelectAll()">전체선택</button>
+		<h2>給与支給社員選択</h2>
+		<input type="text" id="searchInput" placeholder="社員検索">
+		<button onclick="toggleSelectAll()">全選択</button>
 		<table id="shainTable">
 			<thead>
 				<tr>
-					<th>선택</th>
-					<!-- 체크박스 열 -->
-					<th>구분</th>
-					<th>사원번호</th>
-					<th>성명</th>
-					<th>부서</th>
-					<th>직위</th>
-					<th>상태</th>
+					<th>選択</th>
+					<th>区分</th>
+					<th>社員番号</th>
+					<th>氏名</th>
+					<th>部署</th>
+					<th>職位</th>
+					<th>状態</th>
 				</tr>
 			</thead>
 			<tbody>
-				<!-- 사원 목록이 여기에 표시됩니다 -->
+				<!-- 社員リストがここに表示されます -->
 			</tbody>
 		</table>
-		<button onclick="selectShain()">사원선택</button>
-		<button onclick="closePopup()">선택취소</button>
+		<button onclick="selectShain()">社員選択</button>
+		<button onclick="closePopup()">選択キャンセル</button>
 	</div>
 
-	<!-- 지급항목 팝업 -->
+	<!-- 支給項目ポップアップ -->
 	<div class="popup kyuuyoPopup" id="popupKyuuyo">
-		<h2>지급항목 변경</h2>
-		<label for="category">지급항목 선택</label> <select id="category">
-			<option>선택하세요</option>
-		</select> <label for="item">지급항목</label> <input type="text" id="item" placeholder="지급 항목을 입력해주세요.">
-
-		<label>과세여부</label>
+		<h2>支給項目変更</h2>
+		<label for="category">支給項目選択</label> 
+		<select id="kyuuyoCategory">
+			<option>選択してください。</option>
+		</select> 
+		<label for="item">支給項目</label> 
+		<input type="text" id="kyuuyo-mei" placeholder="支給項目を入力してください。"> 
+		<label>課税有無</label>
 		<div class="radio-group">
-			<input type="radio" id="taxable" name="tax" value="전체과세"> <label for="taxable">전체과세</label>
-			<input type="radio" id="non-taxable" name="tax" value="비과세"> <label for="non-taxable">비과세</label>
+			<input type="radio" id="taxable" name="tax" value="全課税"> 
+			<label for="taxable">全体課税</label> 
+			<input type="radio" id="non-taxable" name="tax" value="非課税"> 
+			<label for="non-taxable">非課税</label>
 		</div>
-
-		<label for="non-tax-name">비과세명</label> <input type="text" id="non-tax-name" placeholder="비과세 항목"
-			disabled> <label for="limit-amount">비과세 한도액</label> <input type="text" id="limit-amount"
-			placeholder="0 원" disabled> <label for="calc-method">계산방법</label> <input type="text"
-			id="calc-method" placeholder="계산방법을 입력해주세요."> <label for="unit">결산단위</label> <select
-			id="unit">
-			<option>선택하세요</option>
-		</select> <label for="bulk-pay">근태연계/일괄지급</label> <select id="bulk-pay">
-			<option>선택하세요</option>
-		</select> <label for="bulk-amount">일괄지급액</label> <input type="text" id="bulk-amount" placeholder="0 원"
-			disabled>
+		<label for="non-tax-name">非課税名</label> 
+		<input type="text" id="non-tax-name" placeholder="非課税項目" > 
+		<label for="limit-amount">非課税限度額</label> 
+		<input type="text" id="limit-amount" placeholder="0 円" > 
+		<label for="calc-method">計算方法</label> 
+		<input type="text" id="kyuuyo-calc-method" placeholder="計算方法を入力してください。"> 
+		<label for="unit">単位</label> 
+		<select id="kyuuyo-unit">
+			<option>選択してください。</option>
+			<option>単位なし</option>
+			<option value="1">1円</option>
+			<option value="10">10円</option>
+			<option value="100">100円</option>
+		</select> 
+		<label for="bulk-pay">勤怠連携/一括支給</label> 
+		<select id="bulk-pay">
+			<option>選択してください。</option>
+			<option>なし</option>
+			<option>一括支払い</option>
+		</select> 
+		<label for="bulk-amount">一括支給額</label> 
+		<input type="text" id="bulk-amount" placeholder="0" >
 
 		<div class="buttons">
-			<button class="add-btn">추가</button>
-			<button class="edit-btn">수정</button>
-			<button class="delete-btn">삭제</button>
-			<button onclick="closeKPopup()">닫기</button>
+			<button class="add-btn" onclick="addKyuuyo()">追加</button>
+			<button class="edit-btn" onclick="editKyuuyo()">修正</button>
+			<button class="delete-btn" onclick="deleteKyuuyo()">削除</button>
 		</div>
 	</div>
 
-	<!-- 공제항목 팝업 -->
+	<!-- 控除項目ポップアップ -->
 	<div class="popup koujoPopup" id="popupKoujo">
-		<h2>공제항목 변경</h2>
-		<div class="notice">
-			* 공제항목별로 수정하실 수 있습니다. (이번달만 적용)<br> * <strong>계속 수정을 원하시면 급여항목설정에서 수정해주세요.</strong>
-		</div>
-
-		<label for="category">공제항목 선택</label> <select id="category">
-			<option>선택하세요</option>
-		</select> <label for="item">공제항목</label> <input type="text" id="item" placeholder="공제항목을 입력해주세요.">
-
-		<label for="calc-method">계산방법</label> <input type="text" id="calc-method"
-			placeholder="계산방법을 입력해주세요."> <label for="unit">결산단위</label> <select id="unit">
-			<option>선택하세요</option>
-		</select> <label for="note">비고</label> <input type="text" id="note" placeholder="비고를 입력해주세요.">
-
+		<h2>控除項目変更</h2>
+		<label for="category">控除項目選択</label> 
+		<select id="koujoCategory">
+			<option>選択してください。</option>
+		</select>
+		<label for="item">控除項目</label> 
+		<input type="text" id="koujo-mei" placeholder="控除項目を入力してください。"> 
+			<label for="calc-method">計算方法</label>
+		<input type="text" id="koujo-calc-method" placeholder="計算方法を入力してください。">
+		<label for="unit">単位</label> 
+		<select id="koujo-unit">
+			<option>選択してください。</option>
+			<option>単位なし</option>
+			<option value="1">1円</option>
+			<option value="10">10円</option>
+			<option value="100">100円</option>
+		</select> <label for="note">備考</label> 
+		<input type="text" id="koujo-note" placeholder="備考を入力してください。">
+		<input type="text" id="koujo-id" style="display: none">
 		<div class="buttons">
-			<button class="add-btn">추가</button>
-			<button class="edit-btn">수정</button>
-			<button class="delete-btn">삭제</button>
-			<button onclick="closeKPopup()">닫기</button>
+			<button class="add-btn" onclick="addKoujo()">追加</button>
+			<button class="edit-btn" onclick="editKoujo()">修正</button>
+			<button class="delete-btn" onclick="deleteKoujo()">削除</button>
 		</div>
+	</div>
+
+	<div id="popupPast">
+		<h2>給与年月選択</h2>
+		<select id="yearMonthSelectPast">
+			<option id=>帰属年月回数選択</option>
+		</select>
+		<button onclick="loadPastSalaryInfo()">給与情報読み込み</button>
 	</div>
 </body>
 </html>

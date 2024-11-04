@@ -4,15 +4,13 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import model.Shain;
 import mvc.command.CommandHandler;
 import service.GetShainTsuikaListService;
 
-public class KyuuyoShainTsuikaListHandler implements CommandHandler{
+public class KyuuyoShainTsuikaListHandler implements CommandHandler {
 	
 	private GetShainTsuikaListService ts = new GetShainTsuikaListService();
 	

@@ -10,8 +10,10 @@ public class KoujoKoumoku {
 	private char shiyouUmu;
 	private String zenshaDani;
 	private String koujoKoumokuKubun;
+	private String kihonKoumoku;
+	private String bikou;
 	public KoujoKoumoku(Integer koujoKoumoku_id, String koujoKoumoku_mei, BigDecimal koujoRitsu, String keisanHouhou,
-			char shiyouUmu, String zenshaDani, String koujoKoumokuKubun) {
+			char shiyouUmu, String zenshaDani, String koujoKoumokuKubun, String kihonKoumoku, String bikou) {
 		super();
 		this.koujoKoumoku_id = koujoKoumoku_id;
 		this.koujoKoumoku_mei = koujoKoumoku_mei;
@@ -20,6 +22,8 @@ public class KoujoKoumoku {
 		this.shiyouUmu = shiyouUmu;
 		this.zenshaDani = zenshaDani;
 		this.koujoKoumokuKubun = koujoKoumokuKubun;
+		this.kihonKoumoku = kihonKoumoku;
+		this.bikou = bikou;
 	}
 	public KoujoKoumoku(Integer koujoKoumoku_id, String koujoKoumoku_mei, String keisanHouhou) {
 		super();
@@ -47,6 +51,12 @@ public class KoujoKoumoku {
 	}
 	public String getKoujoKoumokuKubun() {
 		return koujoKoumokuKubun;
+	}
+	public String getBikou() {
+		return bikou;
+	}
+	public String getKihonKoumoku() {
+		return kihonKoumoku;
 	}
 	
 }

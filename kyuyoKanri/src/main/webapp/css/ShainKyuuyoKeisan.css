@@ -403,8 +403,6 @@
 	background-color: #0056b3;
 }
 
-
-
 /* 공통 팝업 스타일 */
 .popup {
 	width: 400px;
@@ -433,8 +431,7 @@
 	margin-bottom: 5px;
 }
 
-.popup input[type="text"],
-.popup select {
+.popup input[type="text"], .popup select {
 	width: 100%;
 	padding: 8px;
 	margin-bottom: 15px;
@@ -547,4 +544,50 @@
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.5); /* 반투명 검은색 */
 	z-index: 999;
+}
+
+/* 팝업 스타일 */
+#popupPast {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 300px;
+	background-color: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	z-index: 1000;
+	display: none; /* 초기에는 숨김 */
+}
+
+#popupPast h2 {
+	font-size: 18px;
+	color: #333;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+#popupPast select {
+	width: 100%;
+	padding: 8px;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+#popupPast button {
+	width: 100%;
+	padding: 10px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+#popupPast button:hover {
+	background-color: #0056b3;
 }

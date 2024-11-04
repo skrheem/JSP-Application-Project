@@ -14,11 +14,6 @@ import util.ObjectFormatter;
 
 public class ShainKyuuyoKeisanKirokuDao {
 	
-	public static void main(String a[]) {
-		
-		
-	}
-	
 	private static ShainKyuuyoKeisanKirokuDao shainKyuuyoKeisanKirokuDao = new ShainKyuuyoKeisanKirokuDao();
 
 	public static ShainKyuuyoKeisanKirokuDao getInstance() {
@@ -344,5 +339,33 @@ public class ShainKyuuyoKeisanKirokuDao {
 			JdbcUtil.close(ps);
 		}
 		return rValue;
+	}
+	
+	public ArrayList<ShainKyuuyoKeisanKiroku> pastKyuuyoKiroku(Connection conn) {
+		ArrayList<ShainKyuuyoKeisanKiroku> sList = new ArrayList<>();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = "SELECT kyuuyo_gatsu, kyuuyo_jisuu "
+				+ "FROM ( "
+				+ "    SELECT kyuuyo_gatsu, kyuuyo_jisuu "
+				+ "    FROM shainkyuuyokeisankiroku "
+				+ "    GROUP BY kyuuyo_gatsu, kyuuyo_jisuu "
+				+ "    ORDER BY kyuuyo_gatsu DESC "
+				+ ") "
+				+ "WHERE ROWNUM <= 13";
+		try {
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				sList.add(new ShainKyuuyoKeisanKiroku(rs.getDate(1), rs.getString(2)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(ps);
+		}
+		return sList;
 	}
 }

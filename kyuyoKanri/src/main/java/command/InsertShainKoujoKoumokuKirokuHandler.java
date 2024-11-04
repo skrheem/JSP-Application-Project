@@ -16,7 +16,6 @@ public class InsertShainKoujoKoumokuKirokuHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		System.out.println("핸들러!!!!!");
 		Integer shain_id = Integer.parseInt(req.getParameter("shain_id"));
 		String kyuuyoNengappi = req.getParameter("kyuuyoNengappi");
 		String kyuuyoJisuu = req.getParameter("kyuuyoJisuu");
