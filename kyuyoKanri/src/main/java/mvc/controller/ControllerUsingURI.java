@@ -146,6 +146,7 @@ public class ControllerUsingURI extends HttpServlet {
 		if(viewPage!=null) {
 			// RequesetDispatcher 클래스는 HTTP 요청을 다른 서블릿이나 jsp로 포워딩시키는 메서드를 제공하는 클래스이다.
 			// request.getRequestDispatcher(viewPage) : viewPage로 request를 포워딩시키는 RequestDispatcher 인스턴스를 생성
+			System.out.println(viewPage);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			
 			// viewPage에 요청과 응답을 포워딩시킨다.

@@ -5,8 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdbc.connection.ConnectionProvider;
-//import model.Shain;
+import java.util.Map;
 
 public class ObjectFormatter {
     // 사용자 정의 클래스의 프로퍼티 값을 출력하는 클래스
@@ -31,30 +30,37 @@ public class ObjectFormatter {
 	}
 	 */
 	// 객체를 처리
-    public static String formatObject(Object obj) throws IllegalAccessException {
-        StringBuilder sb = new StringBuilder();
-        Field[] fields = obj.getClass().getDeclaredFields();
+	public static String formatObject(Object obj) throws IllegalAccessException {
+	    StringBuilder sb = new StringBuilder();
 
-        sb.append(obj.getClass().getSimpleName()).append("{");
+	    // 원시 타입 래퍼 클래스는 toString으로 값만 출력
+	    if (obj instanceof Double || obj instanceof Integer || obj instanceof Float || 
+	        obj instanceof Long || obj instanceof Short || obj instanceof Byte || 
+	        obj instanceof Boolean || obj instanceof Character) {
+	        return obj.toString();
+	    }
 
-        boolean firstProperty = true;
+	    Field[] fields = obj.getClass().getDeclaredFields();
+	    sb.append(obj.getClass().getSimpleName()).append("{");
 
-        for (Field field : fields) {
-            field.setAccessible(true);  // private 필드도 접근할 수 있도록 설정
-            Object value = field.get(obj);
+	    boolean firstProperty = true;
 
-            if (value != null) {
-                if (!firstProperty) {
-                    sb.append(", ");
-                }
-                sb.append(field.getName()).append("=").append(value.toString());
-                firstProperty = false;
-            }
-        }
+	    for (Field field : fields) {
+	        field.setAccessible(true);
+	        Object value = field.get(obj);
 
-        sb.append("}");
-        return sb.toString();
-    }
+	        if (value != null) {
+	            if (!firstProperty) {
+	                sb.append(", ");
+	            }
+	            sb.append(field.getName()).append("=").append(value.toString());
+	            firstProperty = false;
+	        }
+	    }
+
+	    sb.append("}");
+	    return sb.toString();
+	}
     // 객체를 담은 리스트를 처리
     public static String formatList(List<?> objects) throws IllegalAccessException {
         StringBuilder sb = new StringBuilder();
@@ -68,6 +74,35 @@ public class ObjectFormatter {
             }
         }
     
+        return sb.toString();
+    }
+    // Map 처리
+    public static String formatMap(Map<?, ?> map) throws IllegalAccessException {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Map{");
+
+        boolean firstEntry = true;
+
+        for (Map.Entry<?, ?> entry : map.entrySet()) {
+            if (!firstEntry) {
+                sb.append(", ");
+            }
+
+            sb.append(entry.getKey()).append("=");
+
+            Object value = entry.getValue();
+            if (value instanceof List<?>) {
+                sb.append(formatList((List<?>) value));
+            } else if (value instanceof Map<?, ?>) {
+                sb.append(formatMap((Map<?, ?>) value));
+            } else {
+                sb.append(formatObject(value));
+            }
+
+            firstEntry = false;
+        }
+
+        sb.append("}");
         return sb.toString();
     }
 }

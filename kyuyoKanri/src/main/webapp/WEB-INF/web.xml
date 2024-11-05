@@ -12,15 +12,15 @@
 	<context-param>
 		<param-name>poolConfig</param-name>
 		<param-value>
-              oracledriver=oracle.jdbc.driver.OracleDriver
-              Url=jdbc:oracle:thin:@localhost:1521/xe
-              User=system
-             Pass=1234
-             validationQuery=select 1
-             minIdle=3
-             maxTotal=30
-             poolName=payzone
-        </param-value>
+ 			 	oracledriver=oracle.jdbc.driver.OracleDriver
+  				Url=jdbc:oracle:thin:@localhost:1521/xe
+  				User=system
+    			Pass=1234
+    			validationQuery=select 1
+    			minIdle=3
+    			maxTotal=30
+    			poolName=payzone
+  		</param-value>
 	</context-param>
 
 	<filter>
