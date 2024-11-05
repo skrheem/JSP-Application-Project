@@ -1,15 +1,15 @@
 package model;
 
-import oracle.sql.DATE;
+import java.util.Date;
 
 public class ShoumeishoJouhou {
 	
 	private Integer hakkouBangou;
 	private Integer shain_id;
 	private String kubun;
-	private DATE hakkou_bi;
+	private Date hakkou_bi;
 	private String hakkouYouto;
-	public ShoumeishoJouhou(Integer hakkouBangou, Integer shain_id, String kubun, DATE hakkou_bi, String hakkouYouto) {
+	public ShoumeishoJouhou(Integer hakkouBangou, Integer shain_id, String kubun, Date hakkou_bi, String hakkouYouto) {
 		super();
 		this.hakkouBangou = hakkouBangou;
 		this.shain_id = shain_id;
@@ -35,10 +35,10 @@ public class ShoumeishoJouhou {
 	public void setKubun(String kubun) {
 		this.kubun = kubun;
 	}
-	public DATE getHakkou_bi() {
+	public Date getHakkou_bi() {
 		return hakkou_bi;
 	}
-	public void setHakkou_bi(DATE hakkou_bi) {
+	public void setHakkou_bi(Date hakkou_bi) {
 		this.hakkou_bi = hakkou_bi;
 	}
 	public String getHakkouYouto() {

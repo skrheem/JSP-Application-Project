@@ -33,6 +33,7 @@ public class ControllerUsingURI extends HttpServlet {
 		// 이 파라미터에는 파일의 주소(/WEB-INF/commandHandler.properties)가 담겨있다.
 		String configFile = getInitParameter("configFile");
 		
+		
 		// Properties는 (키 : String, 값 : String) 형태로 데이터를 저장하는 컬렉션 클래스이다.
 		Properties prop = new Properties();
 		
@@ -44,7 +45,7 @@ public class ControllerUsingURI extends HttpServlet {
 		// configFile : /WEB-INF/commandHandler.properties
 		// configFilePath : C:\java_work\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\240919-2&&20240924\WEB-INF\commandHandler.properties
 		String configFilePath = getServletContext().getRealPath(configFile);
-		
+		System.out.println("Config file path: " + configFilePath);
 		// FileReader : 텍스트 파일을 읽을 때 사용하는 클래스
 		// 파일을 한 글자씩 바이트 단위로 읽는다.
 		// configFilePath의 파일을 읽어들이는 FileReader 클래스의 인스턴스를 생성

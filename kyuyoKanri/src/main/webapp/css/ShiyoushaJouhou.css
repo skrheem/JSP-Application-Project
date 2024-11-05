@@ -1,0 +1,105 @@
+/* 기본 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+/* 제목 스타일 */
+h1 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 20px 0 10px;
+}
+
+/* 가로 배치를 위한 row 스타일 */
+.row {
+    display: flex; /* 가로로 배치 */
+    gap: 20px;
+    flex-wrap: wrap; /* 너비가 부족하면 다음 줄로 이동 */
+}
+
+/* form-section 스타일 */
+.form-section {
+    flex: 1;
+    min-width: 45%; /* 각 섹션의 최소 너비 */
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+/* 테이블 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table td {
+    padding: 8px; /* 통일된 여백 */
+    border: 1px solid #ddd;
+    vertical-align: middle; /* 세로 중앙 정렬 */
+}
+
+/* 입력 필드 크기 통일 */
+input[type="text"],
+input[type="date"],
+select,
+button {
+    width: 100%; /* 모든 입력 필드의 너비를 테이블 셀에 맞춤 */
+    padding: 8px; /* 입력 필드 내 여백 */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+div.table-section table th {
+    background-color: #F6FDFF !important;
+	font-weight: bold;
+}
+
+/* 버튼 스타일 통일 */
+button {
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    width: auto; /* 버튼 너비를 자동으로 조정 */
+    display: inline-block; /* 필요한 크기만 차지하도록 설정 */
+}
+
+.button-group {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.button-group button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 0 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: auto; /* 버튼 그룹은 크기를 자동으로 조정 */
+}
+
+.button-group button.cancel {
+    background-color: #f44336;
+}

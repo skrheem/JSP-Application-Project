@@ -1,0 +1,105 @@
+@charset "UTF-8";
+/* 김찬호 金燦鎬 */
+/* 급여항목 설정 給与項目設定 */
+/* 기본 스타일 */
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f4f4f4;
+	font-size: 14px;
+}
+
+.container {
+	max-width: 1200px;
+	margin: auto;
+	padding: 10px;
+	background-color: #ffffff;
+}
+
+h1, h2 {
+	font-size: 18px;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+h2 {
+	text-align: left;
+	font-size: 16px;
+	color: #333;
+}
+
+.flex-container {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+.table-section, .form-section {
+	width: 48%;
+	margin: 0 1%;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 5px;
+	font-size: 13px;
+}
+
+th, td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: center;
+}
+
+div.table-section table th {
+    background-color: #F6FDFF !important;
+}
+
+
+
+
+
+.btn {
+	padding: 4px 8px;
+	margin: 2px;
+	cursor: pointer;
+	border: none;
+	font-size: 12px;
+}
+
+.btn-add {
+	background-color: #2196F3;
+	color: white;
+}
+
+.btn-update {
+	background-color: #2196F3;
+	color: white;
+}
+
+.btn-delete {
+	background-color: #ddd;
+	color: black;
+}
+
+.btn-clear {
+	background-color: #ddd;
+	color: black;
+}
+
+.form-section label {
+	display: block;
+	margin: 8px 0 3px;
+	font-size: 13px;
+}
+
+.form-section input[type="text"], .form-section input[type="number"],
+.form-section select {
+	width: 100%;
+	padding: 6px;
+	margin-bottom: 8px;
+	border: 1px solid #ddd;
+	font-size: 13px;
+}
