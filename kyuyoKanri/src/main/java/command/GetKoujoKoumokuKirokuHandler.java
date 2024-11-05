@@ -3,18 +3,18 @@ package command;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import model.KyuuyoKoumoku;
-import model.ShainTekiyouKoujoKoumoku;
+import keisan.model.KyuuyoKoumoku;
+import keisan.model.ShainTekiyouKoujoKoumoku;
 import mvc.command.CommandHandler;
 import service.GetKoumokuJouhouService;
 
+//임세규 林世圭
+//급여입력/관리 페이지에서 선택한 사원의 공제항목 자동계산 기능
+//給与入力・管理ページで選択した社員の控除項目を自動計算
 public class GetKoujoKoumokuKirokuHandler implements CommandHandler {
 	
 	private GetKoumokuJouhouService gs = new GetKoumokuJouhouService();
@@ -22,7 +22,6 @@ public class GetKoujoKoumokuKirokuHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		// 뷰로부터 파라미터 값 획득
-		String jisuu = req.getParameter("kyuuyoJisuu");
 		Integer shain_id = Integer.parseInt(req.getParameter("shain_id"));
 		// 사원에게 적용되는 "기본"공제항목들 리스트
 		ArrayList<ShainTekiyouKoujoKoumoku> tekiyouList = gs.getShainTekiyouKoujoKoumokuList(shain_id);

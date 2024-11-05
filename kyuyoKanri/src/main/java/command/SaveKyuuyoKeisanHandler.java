@@ -2,10 +2,12 @@ package command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import mvc.command.CommandHandler;
 import service.UpdateKyuuyoKeisanKirokuService;
 
+//임세규 林世圭
+//급여입력/관리 페이지에서 사원의 급여계산기록을 저장하는 클래스
+//給与入力・管理ページで社員の給与計算記録を保存するクラス
 public class SaveKyuuyoKeisanHandler implements CommandHandler{
 
 	private UpdateKyuuyoKeisanKirokuService is = new UpdateKyuuyoKeisanKirokuService();
@@ -21,7 +23,6 @@ public class SaveKyuuyoKeisanHandler implements CommandHandler{
 		
 		int result = is.updateKyuuyoKeisan(shain_id, kyuuyoGatsu, kyuuyoJisuu, kyuuyoSougaku, koujoSougaku, jissaiKyuuyo);
         
-        // 성공 여부에 따른 응답 전송
         res.setContentType("application/json; charset=UTF-8");
         
         if (result > 0) {

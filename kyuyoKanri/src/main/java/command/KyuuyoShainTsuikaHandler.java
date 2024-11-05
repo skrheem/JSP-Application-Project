@@ -8,12 +8,15 @@ import org.json.JSONObject;
 import mvc.command.CommandHandler;
 import service.KyuuyoShainTsuikaService;
 
+//임세규 林世圭
+//급여입력/관리 페이지에서 사원의 새로운 급여계산기록을 추가하는 클래스
+//給与入力・管理ページで社員の新しい給与計算記録を追加するクラス
 public class KyuuyoShainTsuikaHandler implements CommandHandler {
 
     @Override
     public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
     	KyuuyoShainTsuikaService ks = new KyuuyoShainTsuikaService();
-        // 요청에서 JSON 데이터를 읽음
+
         StringBuilder jsonData = new StringBuilder();
         BufferedReader reader = req.getReader();
         String line;
@@ -22,10 +25,8 @@ public class KyuuyoShainTsuikaHandler implements CommandHandler {
             jsonData.append(line);
         }
         
-        // JSON 데이터를 JSONObject로 변환
         JSONObject data = new JSONObject(jsonData.toString());
-        
-        // kyuuyoNendo와 kyuuyoGatsu 값을 추출하여 출력
+
         String kyuuyoNendo = data.getString("kyuuyoNendo");
         String kyuuyoGatsu = data.getString("kyuuyoGatsu");
         String kyuuyoJisuu = data.getString("kyuuyoJisuu");
@@ -41,7 +42,6 @@ public class KyuuyoShainTsuikaHandler implements CommandHandler {
         	ks.shainKeisanKirokuTsuika(kyuuyoBi, kyuuyoJisuu, shikyuu_bi, Integer.parseInt(selectedIds.getString(i)), santeiKaishi, santeiShuuryou);
         }
         
-        // AJAX 요청에 대한 응답 설정
         res.setContentType("application/json; charset=UTF-8");
         res.getWriter().write("{\"status\":\"success\"}");
         

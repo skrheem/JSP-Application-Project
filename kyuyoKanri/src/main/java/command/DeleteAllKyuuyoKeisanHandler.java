@@ -20,14 +20,14 @@ public class DeleteAllKyuuyoKeisanHandler implements CommandHandler{
 		
 		int result = ds.deleteAllKyuuyoKeisanKiroku(kyuuyoGatsu, kyuuyoJisuu);
         
-        // 削除機能の結果を転送
+        // 削除機能の結果を転送 삭제 성공 여부를 반환
         res.setContentType("application/json; charset=UTF-8");
         
         if (result > 0) {
-            // 削除成功
+            // 削除成功 삭제 성공
             res.getWriter().write("{\"status\":\"success\", \"message\":\"削除成功\"}");
         } else {
-            // 削除失敗
+            // 削除失敗 삭제 실패
             res.getWriter().write("{\"status\":\"fail\", \"message\":\"削除失敗\"}");
         }
 		

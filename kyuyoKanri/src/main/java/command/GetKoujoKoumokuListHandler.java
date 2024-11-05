@@ -9,11 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import model.KoujoKoumoku;
+import keisan.model.KoujoKoumoku;
 import mvc.command.CommandHandler;
 import service.GetKoumokuJouhouService;
 import util.ObjectFormatter;
 
+//임세규 林世圭
+//급여입력/관리 페이지에서 출력할 공제항목들의 정보를 가져오는 클래스
+//給与入力・管理ページで出力する控除項目の情報を取得するクラス
 public class GetKoujoKoumokuListHandler implements CommandHandler {
 
 	private GetKoumokuJouhouService koumokuService = new GetKoumokuJouhouService();
@@ -22,7 +25,6 @@ public class GetKoujoKoumokuListHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		ArrayList<KoujoKoumoku> kList = koumokuService.getKoujoKoumokuJouhou();
 
-		// JSON 배열 생성
         JSONArray jsonArray = new JSONArray();
         for (KoujoKoumoku k : kList) {
             JSONObject jsonObject = new JSONObject();
@@ -39,7 +41,6 @@ public class GetKoujoKoumokuListHandler implements CommandHandler {
             jsonArray.put(jsonObject);
         }
 
-        // JSON 응답 설정
         res.setContentType("application/json; charset=UTF-8");
         try {
             res.getWriter().write(jsonArray.toString());

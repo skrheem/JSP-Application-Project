@@ -6,10 +6,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import model.KyuuyoKoumoku;
+
+import keisan.model.KyuuyoKoumoku;
 import mvc.command.CommandHandler;
 import service.GetKoumokuJouhouService;
 
+//임세규 林世圭
+//급여입력/관리 페이지에서 선택한 사원의 급여항목기록을 가져오는 클래스
+//給与入力・管理ページで選択した社員の給与項目記録を取得するクラス
 public class GetKyuuyoKoumokuKirokuHandler implements CommandHandler{
 	
 	private GetKoumokuJouhouService gs = new GetKoumokuJouhouService();

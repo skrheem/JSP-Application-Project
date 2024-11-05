@@ -9,10 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import model.ShainKyuuyoKeisanKiroku;
+import keisan.model.ShainKyuuyoKeisanKiroku;
 import mvc.command.CommandHandler;
 import service.KyuuyoKanriShainListService;
 
+//임세규 林世圭
+//급여입력/관리 페이지에서 출력할 사원별급여계산기록을 가져오는 클래스
+//給与入力・管理ページで出力する社員別給与計算記録を取得するクラス
 public class GetKyuuyoKeisanKirokuHandler implements CommandHandler {
 	
 	private KyuuyoKanriShainListService ks = new KyuuyoKanriShainListService();

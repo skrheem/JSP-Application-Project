@@ -1,15 +1,15 @@
 package command;
 
 import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.json.JSONObject;
-
 import mvc.command.CommandHandler;
 import service.GetKoumokuJouhouService;
 
+//임세규 林世圭
+//급여입력/관리 페이지에서 선택한 사원의 기본급을 출력
+//給与入力・管理ページで選択した社員の基本給を出力
 public class GetKihonkyuuHandler implements CommandHandler {
 
 	private GetKoumokuJouhouService gs = new GetKoumokuJouhouService();
@@ -20,11 +20,9 @@ public class GetKihonkyuuHandler implements CommandHandler {
 		
 		int kihonkyuu = gs.getShainKihonkyuu(shain_id);
 
-		// JSON 객체 생성
 	    JSONObject jsonResponse = new JSONObject();
 	    jsonResponse.put("kihonkyuu", kihonkyuu);
 
-	    // JSON 응답 설정 및 출력
 	    res.setContentType("application/json; charset=UTF-8");
 	    PrintWriter out = res.getWriter();
 	    out.print(jsonResponse.toString());

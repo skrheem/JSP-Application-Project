@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import mvc.command.CommandHandler;
 import service.InsertShainKoujoKirokuService;
 
+//임세규 林世圭
+//급여입력/관리 페이지에서 사원의 공제항목기록을 추가하는 클래스
+//給与入力・管理ページで社員の控除項目記録を追加するクラス
 public class InsertShainKoujoKoumokuKirokuHandler implements CommandHandler {
 	
 	InsertShainKoujoKirokuService is = new InsertShainKoujoKirokuService();
@@ -25,7 +28,7 @@ public class InsertShainKoujoKoumokuKirokuHandler implements CommandHandler {
 		System.out.println(kyuuyoJisuu);
 		
 		int rValue = 0;
-	    // 전송된 데이터를 Map에 저장
+
 	    Map<String, String> koujoData = new HashMap<>();
 	    
 	    Enumeration<String> parameterNames = req.getParameterNames();

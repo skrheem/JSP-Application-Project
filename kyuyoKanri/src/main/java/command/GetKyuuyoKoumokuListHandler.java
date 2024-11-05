@@ -9,11 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import model.KoujoKoumoku;
-import model.KyuuyoKoumoku;
+import keisan.model.KoujoKoumoku;
+import keisan.model.KyuuyoKoumoku;
 import mvc.command.CommandHandler;
 import service.GetKoumokuJouhouService;
 
+//임세규 林世圭
+//급여입력/관리 페이지에서 출력할 급여항목들의 정보를 가져오는 클래스
+//給与入力・管理ページで出力する給与項目の情報を取得するクラス
 public class GetKyuuyoKoumokuListHandler implements CommandHandler {
 
 	private GetKoumokuJouhouService koumokuService = new GetKoumokuJouhouService();
@@ -21,7 +24,7 @@ public class GetKyuuyoKoumokuListHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		ArrayList<KyuuyoKoumoku> kList = koumokuService.getKyuuyoKoumokuJouhou();
-		// JSON 배열 생성
+
 		JSONArray jsonArray = new JSONArray();
 		for (KyuuyoKoumoku k : kList) {
 			JSONObject jsonObject = new JSONObject();
@@ -30,18 +33,15 @@ public class GetKyuuyoKoumokuListHandler implements CommandHandler {
 			jsonObject.put("kyuuyokoumoku_mei", k.getKyuuyoKoumoku_mei());
 			jsonObject.put("kazeikubun", k.getKazeiKubun());
 			jsonObject.put("hikazeigendogaku", k.getHikazeiGendogaku());
-			//jsonObject.put("bikou", k.getBikou());
 			jsonObject.put("keisanhouhou", k.getKeisanHouhou());
 			jsonObject.put("zenshadani", k.getZenshaDani());
 			jsonObject.put("kintairenkei", k.getKintaiRenkei());
 			jsonObject.put("ikkatsushiharai", k.getIkkatsuShiharai());
 			jsonObject.put("ikkatsushiharaigaku", k.getIkkatsuShiharaiGaku());
-			//jsonObject.put("shiyouumu", k.getShiyouUmu());
 
 			jsonArray.put(jsonObject);
 		}
 
-		// JSON 응답 설정
 		res.setContentType("application/json; charset=UTF-8");
 		try {
 			res.getWriter().write(jsonArray.toString());

@@ -2,10 +2,12 @@ package command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import mvc.command.CommandHandler;
 import service.UpdateKyuuyoKeisanService;
 
+//임세규 林世圭
+//급여입력/관리 페이지에서 산정기간과 급여지급일을 수정하는 클래스
+//給与入力・管理ページで算定期間と給与支給日を修正するクラス
 public class ModifySanteiShikyuuBiHandler implements CommandHandler {
 	private static final String FORM_VIEW = "/WEB-INF/view/ShainKyuuyoKeisan.jsp";
 
@@ -40,8 +42,7 @@ public class ModifySanteiShikyuuBiHandler implements CommandHandler {
 
 		int rValue = us.updateSanteiShikyuuBi(santei_kaishi, santei_shuuryou, shikyuu_bi, exSantei_kaishi,
 				exSantei_shuuryou, exShikyuu_bi, koukinzei_kubun);
-		System.out.println("쿼리로 영향 받은 레코드 수 : " + rValue);
-		// 업데이트 성공 시 응답
+
 		if (rValue > 0) {
 			res.setContentType("text/plain");
 			res.getWriter().write("success");
